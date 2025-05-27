@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free QR Code Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2em; }
+    input, button { margin: 0.5em; padding: 0.5em; width: 80%; max-width: 400px; }
+    canvas { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Free QR Code Generator</h1>
+  <input id="qr-input" type="text" placeholder="Enter text or URL" />
+  <button onclick="generateQR()">Generate QR</button>
+  <br />
+  <canvas id="qr-canvas"></canvas>
+  <br />
+  <button onclick="downloadQR()">Download PNG</button>
+
+  <script>
+    function generateQR() {
+      const input = document.getElementById('qr-input').value;
+      const canvas = document.getElementById('qr-canvas');
+      QRCode.toCanvas(canvas, input, function (error) {
+        if (error) console.error(error);
+      });
+    }
+
+    function downloadQR() {
+      const canvas = document.getElementById('qr-canvas');
+      const link = document.createElement('a');
+      link.download = 'qr-code.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+</body>
+</html>
