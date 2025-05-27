@@ -33,6 +33,7 @@
       border-radius: 6px;
       border: 1px solid #ccc;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      box-sizing: border-box;
     }
     button {
       background-color: #007acc;
@@ -51,13 +52,13 @@
       font-size: 0.85em;
       color: #888;
     }
-    /* New button style for the sister site */
+    /* Sister site button with standout orange */
     .sister-site-btn {
       display: inline-block;
-      background: #007acc;
+      background: #ff6600;
       color: white;
       padding: 0.75em 1.5em;
-      margin: 1em auto;
+      margin: 1em auto 2em auto;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
@@ -67,7 +68,7 @@
       transition: background-color 0.3s ease;
     }
     .sister-site-btn:hover {
-      background-color: #005fa3;
+      background-color: #cc5200;
     }
   </style>
 </head>
@@ -83,7 +84,7 @@
   <br />
   <button onclick="downloadQR()">Download PNG</button>
 
-  <!-- New sister site button -->
+  <!-- Sister site button right below the download button -->
   <a href="https://www.free-ean-maker.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
     Try our Free Barcode Generator!
   </a>
