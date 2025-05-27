@@ -9,70 +9,56 @@
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
       padding: 2em;
-      background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+      background: #f4f4f4;
       color: #333;
     }
-    header {
-      background-color: #005f73;
-      color: #fff;
-      padding: 1em;
-      border-radius: 10px;
-      margin-bottom: 1.5em;
+    h1 {
+      font-size: 2em;
+      margin-bottom: 0.2em;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 2em;
+      color: #666;
     }
     input, button {
-      margin: 0.5em;
+      margin: 0.5em auto;
       padding: 0.75em;
-      width: 80%;
+      width: 90%;
       max-width: 400px;
-      border: 1px solid #ccc;
+      font-size: 1em;
       border-radius: 6px;
-      font-size: 1rem;
+      border: 1px solid #ccc;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     button {
-      background-color: #008891;
-      color: #fff;
+      background-color: #007acc;
+      color: white;
       border: none;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #006a75;
+      background-color: #005fa3;
     }
     canvas {
       margin-top: 1em;
-      background-color: #fff;
-      padding: 1em;
-      border: 1px solid #ccc;
-      border-radius: 10px;
     }
     footer {
-      margin-top: 3em;
-      font-size: 0.9em;
-      color: #666;
+      margin-top: 4em;
+      font-size: 0.85em;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Free QR Code Generator</h1>
-    <p>Create and download QR codes instantly for free</p>
-  </header>
-
-  <!-- Ad Unit -->
-  <ins class="adsbygoogle"
-       style="display:block; text-align:center; margin: 1em auto;"
-       data-ad-client="ca-pub-4041775163958551"
-       data-ad-slot="1234567890"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
+  <h1>Free QR Code Generator</h1>
+  <p>Instantly create and download QR codes for links, text, or anything else!</p>
 
   <input id="qr-input" type="text" placeholder="Enter text or URL" />
+  <br />
   <button onclick="generateQR()">Generate QR</button>
   <br />
   <canvas id="qr-canvas"></canvas>
@@ -80,13 +66,14 @@
   <button onclick="downloadQR()">Download PNG</button>
 
   <footer>
-    <p>&copy; 2025 Free QR Code Generator | Built with ❤️ | <a href="mailto:contact@free-qr-maker.com">Contact</a></p>
+    &copy; 2025 Free QR Maker. All rights reserved.
   </footer>
 
   <script>
     function generateQR() {
-      const input = document.getElementById('qr-input').value;
+      const input = document.getElementById('qr-input').value.trim();
       const canvas = document.getElementById('qr-canvas');
+      if (!input) return;
       QRCode.toCanvas(canvas, input, function (error) {
         if (error) console.error(error);
       });
@@ -96,7 +83,7 @@
       const canvas = document.getElementById('qr-canvas');
       const link = document.createElement('a');
       link.download = 'qr-code.png';
-      link.href = canvas.toDataURL();
+      link.href = canvas.toDataURL('image/png');
       link.click();
     }
   </script>
