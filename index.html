@@ -51,6 +51,24 @@
       font-size: 0.85em;
       color: #888;
     }
+    /* New button style for the sister site */
+    .sister-site-btn {
+      display: inline-block;
+      background: #007acc;
+      color: white;
+      padding: 0.75em 1.5em;
+      margin: 1em auto;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      max-width: 400px;
+      width: 90%;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease;
+    }
+    .sister-site-btn:hover {
+      background-color: #005fa3;
+    }
   </style>
 </head>
 <body>
@@ -64,6 +82,11 @@
   <canvas id="qr-canvas"></canvas>
   <br />
   <button onclick="downloadQR()">Download PNG</button>
+
+  <!-- New sister site button -->
+  <a href="https://www.free-ean-maker.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
+    Try our Free Barcode Generator!
+  </a>
 
   <footer>
     &copy; Free QR Maker. Made with ❤️
