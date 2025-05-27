@@ -52,9 +52,10 @@
       font-size: 0.85em;
       color: #888;
     }
-    /* Sister site button with standout orange */
+    /* Sister site button fixed */
     .sister-site-btn {
-      display: inline-block;
+      display: block;
+      clear: both;
       background: #ff6600;
       color: white;
       padding: 0.75em 1.5em;
@@ -66,6 +67,7 @@
       width: 90%;
       box-sizing: border-box;
       transition: background-color 0.3s ease;
+      text-align: center;
     }
     .sister-site-btn:hover {
       background-color: #cc5200;
@@ -84,7 +86,6 @@
   <br />
   <button onclick="downloadQR()">Download PNG</button>
 
-  <!-- Sister site button right below the download button -->
   <a href="https://www.free-ean-maker.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
     Try our Free Barcode Generator!
   </a>
