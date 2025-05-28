@@ -11,7 +11,7 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Generate QR codes online for free. Create and download QR codes as PNG instantly. Simple, fast, and no signup required.">
+  <meta name="description" content="Generate QR codes online for free. Create and download QR codes as PNG or SVG instantly. Simple, fast, and no signup required.">
   <title>Free QR Code Generator</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4041775163958551"
@@ -34,7 +34,7 @@
       margin-bottom: 2em;
       color: #666;
     }
-    input, button, select, label {
+    input, button, select {
       margin: 0.5em auto;
       padding: 0.75em;
       width: 90%;
@@ -82,15 +82,50 @@
     .sister-site-btn:hover {
       background-color: #cc5200;
     }
-    label.checkbox {
-      text-align: left;
-      max-width: 400px;
-      margin: 0 auto;
-      font-size: 0.95em;
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+      margin: 1em auto;
     }
-    label.checkbox input {
-      width: auto;
-      margin-right: 0.5em;
+    .toggle-switch {
+      position: relative;
+      width: 50px;
+      height: 26px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 26px;
+      transition: 0.4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+    .toggle-switch input:checked + .slider {
+      background-color: #007acc;
+    }
+    .toggle-switch input:checked + .slider:before {
+      transform: translateX(24px);
     }
   </style>
 </head>
@@ -101,16 +136,18 @@
   <input id="qr-input" type="text" placeholder="Enter text or URL" />
   <button onclick="generateQR()">Generate QR</button>
 
-  <canvas id="qr-canvas"></canvas>
+  <canvas id="qr-canvas" width="256" height="256"></canvas>
 
-  <label class="checkbox">
-    <input type="checkbox" id="transparent-bg" />
-    Transparent background
-  </label>
+  <div class="toggle-container">
+    <label for="transparent-bg">Transparent BG</label>
+    <label class="toggle-switch">
+      <input type="checkbox" id="transparent-bg">
+      <span class="slider"></span>
+    </label>
+  </div>
 
   <select id="file-format">
     <option value="png">PNG</option>
-    <option value="jpg">JPG</option>
     <option value="svg">SVG</option>
   </select>
 
@@ -126,6 +163,8 @@
   </footer>
 
   <script>
+    const logoSrc = 'https://upload.wikimedia.org/wikipedia/commons/6/6b/QR_icon.svg'; // Replace with your logo if needed
+
     function generateQR() {
       const input = document.getElementById('qr-input').value.trim();
       const canvas = document.getElementById('qr-canvas');
@@ -137,10 +176,26 @@
         color: {
           dark: '#000000',
           light: transparent ? '#0000' : '#ffffff'
-        }
+        },
+        margin: 1,
+        width: 256
       }, function (error) {
-        if (error) console.error(error);
+        if (error) return console.error(error);
+        addLogo(canvas);
       });
+    }
+
+    function addLogo(canvas) {
+      const ctx = canvas.getContext('2d');
+      const logo = new Image();
+      logo.crossOrigin = "anonymous";
+      logo.src = logoSrc;
+      logo.onload = function () {
+        const logoSize = canvas.width * 0.2;
+        const x = (canvas.width - logoSize) / 2;
+        const y = (canvas.height - logoSize) / 2;
+        ctx.drawImage(logo, x, y, logoSize, logoSize);
+      };
     }
 
     function downloadQR() {
@@ -166,22 +221,11 @@
           link.click();
         });
       } else {
-        QRCode.toCanvas(input, {
-          color: {
-            dark: '#000000',
-            light: transparent ? '#0000' : '#ffffff'
-          }
-        }, function (err, canvas) {
-          if (err) return console.error(err);
-          const link = document.createElement('a');
-          link.download = `qr-code.${format}`;
-          if (format === 'jpg') {
-            link.href = canvas.toDataURL('image/jpeg');
-          } else {
-            link.href = canvas.toDataURL('image/png');
-          }
-          link.click();
-        });
+        const canvas = document.getElementById('qr-canvas');
+        const link = document.createElement('a');
+        link.download = 'qr-code.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
       }
     }
   </script>
