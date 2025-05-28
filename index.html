@@ -105,7 +105,7 @@
       background: #ff6600;
       color: white;
       padding: 0.75em 1.5em;
-      margin: 2em auto 1em auto;
+      margin: 1em auto;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
@@ -116,6 +116,18 @@
     }
     .sister-site-btn:hover {
       background-color: #cc5200;
+    }
+    .sister-tools-section {
+      margin: 2em auto;
+    }
+    .sister-tools-section h2 {
+      font-size: 1.8em;
+      color: #333;
+    }
+    .sister-tools-section p {
+      font-size: 1em;
+      max-width: 600px;
+      margin: 1em auto;
     }
     footer {
       margin-top: 3em;
@@ -148,10 +160,19 @@
 
   <button onclick="downloadQR()">Download</button>
 
-  <hr style="margin-top: 3em; border: 0; border-top: 1px solid #ddd;" />
-  <a href="https://www.free-ean-maker.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
-    Try our Free Barcode Generator!
-  </a>
+  <hr style="margin: 2em auto; width: 80%; border: 0; border-top: 1px solid #ddd;" />
+
+  <!-- Sister Sites Section -->
+  <div class="sister-tools-section">
+    <h2>Try Our Other Free Tools</h2>
+    <p>All our tools process your data entirely in your browser, ensuring your files are never stored or uploaded, keeping your privacy completely secure.</p>
+    <a href="https://www.free-image-toolkit.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
+      Free Image Toolkit
+    </a>
+    <a href="https://www.free-ean-maker.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
+      Free Barcode Generator
+    </a>
+  </div>
 
   <footer>
     Free QR Maker. Made with ❤️
