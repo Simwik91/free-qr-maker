@@ -31,7 +31,7 @@
       margin-bottom: 2em;
       color: #666;
     }
-    input[type="text"], button, select, input[type="file"] {
+    input[type="text"], button, select {
       margin: 0.5em auto;
       padding: 0.75em;
       width: 90%;
@@ -129,7 +129,6 @@
   <p>Instantly create and download QR codes for links, text, or anything else!</p>
 
   <input id="qr-input" type="text" placeholder="Enter text or URL" />
-  <input id="logo-input" type="file" accept="image/*" />
   <button onclick="generateQR()">Generate QR</button>
 
   <canvas id="qr-canvas" width="256" height="256"></canvas>
@@ -159,26 +158,15 @@
   </footer>
 
   <script>
-    let uploadedLogo = null;
-
-    document.getElementById('logo-input').addEventListener('change', function (e) {
-      const file = e.target.files[0];
-      if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function (evt) {
-          uploadedLogo = new Image();
-          uploadedLogo.src = evt.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
     function generateQR() {
       const input = document.getElementById('qr-input').value.trim();
       const canvas = document.getElementById('qr-canvas');
       const transparent = document.getElementById('transparent-bg').checked;
 
       if (!input) return;
+
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas for transparency
 
       QRCode.toCanvas(canvas, input, {
         color: {
@@ -188,20 +176,8 @@
         margin: 1,
         width: 256
       }, function (error) {
-        if (error) return console.error(error);
-        if (uploadedLogo) {
-          uploadedLogo.onload = () => drawLogo(canvas, uploadedLogo);
-          if (uploadedLogo.complete) drawLogo(canvas, uploadedLogo);
-        }
+        if (error) console.error(error);
       });
-    }
-
-    function drawLogo(canvas, logoImage) {
-      const ctx = canvas.getContext('2d');
-      const size = canvas.width * 0.2;
-      const x = (canvas.width - size) / 2;
-      const y = (canvas.height - size) / 2;
-      ctx.drawImage(logoImage, x, y, size, size);
     }
 
     function downloadQR() {
@@ -227,11 +203,15 @@
           link.click();
         });
       } else {
+        // PNG
+        generateQR(); // Regenerate to make sure canvas is up to date
         const canvas = document.getElementById('qr-canvas');
-        const link = document.createElement('a');
-        link.download = 'qr-code.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+        canvas.toBlob(function(blob) {
+          const link = document.createElement('a');
+          link.download = 'qr-code.png';
+          link.href = URL.createObjectURL(blob);
+          link.click();
+        }, 'image/png');
       }
     }
   </script>
