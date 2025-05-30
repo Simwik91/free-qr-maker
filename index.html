@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Advanced QR code generator with logo embedding, bulk processing, and QR scanning">
-  <title>Advanced QR Code Generator</title>
-  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREQARERERERERABEREREREREAEREREREREQARERERERERABEREREREREAEREREREREQARERERERERABEREREREREAEREREREREQARERERERERABEREREREREAEREREREREQARERERERERABEREREREREAEREREREREQARERERERERABEREREREREAEREREREREQARERERERERABEREREREREAEREREREREQARERERERERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+  <title>Free QR Code Generator</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LR5XP1GJFC"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -77,8 +77,6 @@
     
     button:hover {
       background-color: #005fa3;
-      transform: translateY(-2px);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     }
     
     canvas {
@@ -116,8 +114,6 @@
     
     .sister-site-btn:hover {
       background-color: #cc5200;
-      transform: translateY(-2px);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     }
     
     .sister-tools-section {
@@ -231,30 +227,6 @@
       border-radius: 8px;
       margin: 10px 0;
       display: none;
-    }
-    
-    .history-item {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      margin: 0.5em auto;
-      cursor: pointer;
-      transition: all 0.3s;
-      max-width: 400px;
-      text-align: left;
-      font-size: 0.9em;
-      background: white;
-    }
-    
-    .history-item:hover {
-      border-color: #007acc;
-      background: rgba(0, 122, 204, 0.05);
-    }
-    
-    .history-date {
-      font-size: 0.8em;
-      color: #888;
-      margin-top: 5px;
     }
     
     .scanner-container {
@@ -420,7 +392,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Advanced QR Code Generator</h1>
+    <h1>Free QR Code Generator</h1>
     <p>Create custom QR codes with logos, custom colors, and bulk processing</p>
     
     <div class="tabs">
@@ -475,11 +447,6 @@
       <div class="success" id="qr-success"></div>
       
       <canvas id="qr-canvas" width="256" height="256" style="display:none;"></canvas>
-      
-      <h2>Generation History</h2>
-      <div class="error" id="history-error">No QR codes generated yet</div>
-      <div id="history-list"></div>
-      <button onclick="clearHistory()">Clear History</button>
     </div>
     
     <!-- Bulk QR Codes Tab -->
@@ -572,8 +539,6 @@ Any text or data"></textarea>
     const qrError = document.getElementById('qr-error');
     const qrSuccess = document.getElementById('qr-success');
     const downloadBtn = document.getElementById('download-btn');
-    const historyList = document.getElementById('history-list');
-    const historyError = document.getElementById('history-error');
     const video = document.getElementById('scanner-video');
     const scanResult = document.getElementById('scan-result');
     const startScanBtn = document.getElementById('start-scan');
@@ -593,13 +558,11 @@ Any text or data"></textarea>
     let currentStream = null;
     let logoImage = null;
     let generatedQR = null;
-    let history = JSON.parse(localStorage.getItem('qrHistory')) || [];
     let bulkQRs = [];
     
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
       updateSizeValue();
-      loadHistory();
       
       // Tab switching
       tabs.forEach(tab => {
@@ -777,9 +740,6 @@ Any text or data"></textarea>
             // Store generated QR data URL
             generatedQR = qrCanvas.toDataURL('image/png');
             
-            // Add to history
-            addToHistory(input);
-            
             // Show success and download button
             qrLoading.style.display = 'none';
             qrSuccess.style.display = 'block';
@@ -807,64 +767,6 @@ Any text or data"></textarea>
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-    }
-    
-    // Add to history
-    function addToHistory(content) {
-      const historyItem = {
-        content: content,
-        timestamp: new Date().toISOString(),
-        date: new Date().toLocaleString()
-      };
-      
-      // Add to beginning of history
-      history.unshift(historyItem);
-      
-      // Limit to 10 items
-      if (history.length > 10) {
-        history.pop();
-      }
-      
-      // Save to localStorage
-      localStorage.setItem('qrHistory', JSON.stringify(history));
-      
-      // Update UI
-      loadHistory();
-    }
-    
-    // Load history
-    function loadHistory() {
-      historyList.innerHTML = '';
-      
-      if (history.length === 0) {
-        historyError.style.display = 'block';
-        return;
-      }
-      
-      historyError.style.display = 'none';
-      
-      history.forEach((item, index) => {
-        const historyItem = document.createElement('div');
-        historyItem.className = 'history-item';
-        historyItem.innerHTML = `
-          <div class="history-content">${item.content}</div>
-          <div class="history-date">${item.date}</div>
-        `;
-        
-        historyItem.addEventListener('click', () => {
-          qrInput.value = item.content;
-          generateQR();
-        });
-        
-        historyList.appendChild(historyItem);
-      });
-    }
-    
-    // Clear history
-    function clearHistory() {
-      history = [];
-      localStorage.removeItem('qrHistory');
-      loadHistory();
     }
     
     // Start scanner
