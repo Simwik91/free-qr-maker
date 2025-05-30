@@ -4,6 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate QR codes online for free. Create and download QR codes as PNG or SVG instantly. Simple, fast, and no signup required.">
+  <meta name="keywords" content="qr code generator, free qr code, create qr code, download qr code, qr code maker">
+  <meta name="author" content="Free QR Maker">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.free-qr-maker.com/">
+  <meta property="og:title" content="Free QR Code Generator">
+  <meta property="og:description" content="Create and download QR codes instantly for free. No signup required.">
+  <meta property="og:image" content="https://www.free-qr-maker.com/preview.jpg">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.free-qr-maker.com/">
+  <meta property="twitter:title" content="Free QR Code Generator">
+  <meta property="twitter:description" content="Create and download QR codes instantly for free. No signup required.">
+  <meta property="twitter:image" content="https://www.free-qr-maker.com/preview.jpg">
+  
   <title>Free QR Code Generator</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LR5XP1GJFC"></script>
@@ -54,6 +71,7 @@
     }
     canvas {
       margin-top: 1em;
+      max-width: 100%;
     }
     .toggle-container {
       display: flex;
@@ -134,31 +152,49 @@
       font-size: 0.85em;
       color: #888;
     }
+    .qr-result {
+      display: none;
+      margin-top: 1em;
+    }
+    .loading {
+      display: none;
+      margin: 1em auto;
+    }
+    .error {
+      color: #d9534f;
+      margin-top: 1em;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <h1>Free QR Code Generator</h1>
   <p>Instantly create and download QR codes for links, text, or anything else!</p>
 
-  <input id="qr-input" type="text" placeholder="Enter text or URL" />
+  <input id="qr-input" type="text" placeholder="Enter text or URL" autofocus />
   <button onclick="generateQR()">Generate QR</button>
 
-  <canvas id="qr-canvas" width="256" height="256"></canvas>
+  <div class="loading" id="loading">Generating QR code...</div>
+  <div class="error" id="error">Please enter some text to generate a QR code</div>
 
-  <div class="toggle-container">
-    <label for="transparent-bg">Transparent BG</label>
-    <label class="toggle-switch">
-      <input type="checkbox" id="transparent-bg">
-      <span class="slider"></span>
-    </label>
+  <div class="qr-result" id="qr-result">
+    <canvas id="qr-canvas" width="256" height="256"></canvas>
+
+    <div class="toggle-container">
+      <label for="transparent-bg">Transparent BG</label>
+      <label class="toggle-switch">
+        <input type="checkbox" id="transparent-bg">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <select id="file-format">
+      <option value="png">PNG</option>
+      <option value="svg">SVG</option>
+    </select>
+
+    <button onclick="downloadQR()">Download</button>
   </div>
-
-  <select id="file-format">
-    <option value="png">PNG</option>
-    <option value="svg">SVG</option>
-  </select>
-
-  <button onclick="downloadQR()">Download</button>
 
   <hr style="margin: 2em auto; width: 80%; border: 0; border-top: 1px solid #ddd;" />
 
@@ -168,6 +204,9 @@
     <p>All our tools process your data entirely in your browser, ensuring your files are never stored or uploaded, keeping your privacy completely secure.</p>
     <a href="https://www.free-image-toolkit.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
       Free Image Toolkit
+    </a>
+    <a href="https://www.free-video-toolkit.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
+      Free Video Toolkit
     </a>
     <a href="https://www.free-ean-maker.com" target="_blank" rel="noopener noreferrer" class="sister-site-btn">
       Free Barcode Generator
@@ -181,24 +220,43 @@
   <script>
     function generateQR() {
       const input = document.getElementById('qr-input').value.trim();
-      const canvas = document.getElementById('qr-canvas');
-      const transparent = document.getElementById('transparent-bg').checked;
-
-      if (!input) return;
-
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas for transparency
-
-      QRCode.toCanvas(canvas, input, {
-        color: {
-          dark: '#000000',
-          light: transparent ? '#0000' : '#ffffff'
-        },
-        margin: 1,
-        width: 256
-      }, function (error) {
-        if (error) console.error(error);
-      });
+      const qrResult = document.getElementById('qr-result');
+      const loading = document.getElementById('loading');
+      const error = document.getElementById('error');
+      
+      // Hide previous results and errors
+      qrResult.style.display = 'none';
+      error.style.display = 'none';
+      
+      if (!input) {
+        error.style.display = 'block';
+        return;
+      }
+      
+      // Show loading indicator
+      loading.style.display = 'block';
+      
+      // Simulate processing time for better UX
+      setTimeout(() => {
+        const canvas = document.getElementById('qr-canvas');
+        const transparent = document.getElementById('transparent-bg').checked;
+        
+        QRCode.toCanvas(canvas, input, {
+          color: {
+            dark: '#000000',
+            light: transparent ? '#0000' : '#ffffff'
+          },
+          margin: 1,
+          width: 256
+        }, function (error) {
+          loading.style.display = 'none';
+          if (error) {
+            console.error(error);
+          } else {
+            qrResult.style.display = 'block';
+          }
+        });
+      }, 500);
     }
 
     function downloadQR() {
@@ -224,8 +282,6 @@
           link.click();
         });
       } else {
-        // PNG
-        generateQR(); // Regenerate to make sure canvas is up to date
         const canvas = document.getElementById('qr-canvas');
         canvas.toBlob(function(blob) {
           const link = document.createElement('a');
@@ -235,6 +291,20 @@
         }, 'image/png');
       }
     }
+    
+    // Auto-generate QR when pressing Enter
+    document.getElementById('qr-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        generateQR();
+      }
+    });
+    
+    // Update QR when toggling transparency
+    document.getElementById('transparent-bg').addEventListener('change', function() {
+      if (document.getElementById('qr-result').style.display === 'block') {
+        generateQR();
+      }
+    });
   </script>
 </body>
 </html>
