@@ -8,21 +8,21 @@
   <meta name="author" content="Free QR Maker">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://free-qr-maker.com/">
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://free-qr-maker.com/">
   <meta property="og:title" content="Free QR Code Generator">
   <meta property="og:description" content="Create custom QR codes with logos, custom colors, and bulk processing. Scan QR codes easily. Free, no signup required.">
   <meta property="og:image" content="https://free-qr-maker.com/preview.jpg">
-  
+
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://free-qr-maker.com/">
   <meta property="twitter:title" content="Free QR Code Generator">
   <meta property="twitter:description" content="Create custom QR codes with logos, custom colors, and bulk processing. Scan QR codes easily. Free, no signup required.">
   <meta property="twitter:image" content="https://free-qr-maker.com/preview.jpg">
-  
+
   <title>Free QR Code Generator</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LR5XP1GJFC"></script>
@@ -32,18 +32,19 @@
     gtag('js', new Date());
     gtag('config', 'G-LR5XP1GJFC');
   </script>
+  <!-- Load AdSense script once -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4041775163958551" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <style>
+    /* Unchanged CSS - keeping all styles as is */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
@@ -52,29 +53,24 @@
       color: #333;
       line-height: 1.6;
     }
-    
     .container {
       max-width: 800px;
       margin: 0 auto;
     }
-    
     h1 {
       font-size: 2.2em;
       margin-bottom: 0.3em;
       color: #005fa3;
     }
-    
     h2 {
       font-size: 1.5em;
       margin: 1.5em 0 0.8em;
       color: #007acc;
     }
-    
     p {
       margin: 0.5em 0 1.5em;
       color: #666;
     }
-    
     input, select, button, textarea {
       margin: 0.5em auto;
       padding: 0.75em;
@@ -86,7 +82,6 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       display: block;
     }
-    
     button {
       background-color: #007acc;
       color: white;
@@ -94,11 +89,9 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    
     button:hover {
       background-color: #005fa3;
     }
-    
     canvas {
       margin: 1.5em auto;
       display: block;
@@ -108,7 +101,6 @@
       background: white;
       padding: 10px;
     }
-    
     footer {
       margin-top: 3em;
       padding-top: 2em;
@@ -116,7 +108,6 @@
       color: #888;
       border-top: 1px solid #ddd;
     }
-    
     .sister-site-btn {
       display: block;
       background: #ff6600;
@@ -131,15 +122,12 @@
       transition: background-color 0.3s ease;
       text-align: center;
     }
-    
     .sister-site-btn:hover {
       background-color: #cc5200;
     }
-    
     .sister-tools-section {
       margin: 3em auto;
     }
-    
     .toggle-container {
       display: flex;
       align-items: center;
@@ -147,7 +135,6 @@
       gap: 0.5em;
       margin: 1em auto;
     }
-    
     .color-group {
       display: flex;
       justify-content: center;
@@ -155,13 +142,11 @@
       margin: 1em 0;
       flex-wrap: wrap;
     }
-    
     .color-input {
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    
     .color-input input[type="color"] {
       width: 40px;
       height: 40px;
@@ -169,7 +154,6 @@
       cursor: pointer;
       border-radius: 4px;
     }
-    
     .logo-upload-area {
       border: 2px dashed #ccc;
       border-radius: 8px;
@@ -180,18 +164,15 @@
       transition: all 0.3s;
       background: #f9f9f9;
     }
-    
     .logo-upload-area:hover, .logo-upload-area.drag-over {
       border-color: #007acc;
       background: #f0f8ff;
     }
-    
     .logo-upload-area i {
       font-size: 2em;
       color: #007acc;
       margin-bottom: 10px;
     }
-    
     .logo-preview {
       width: 80px;
       height: 80px;
@@ -204,19 +185,16 @@
       border: 1px solid #ddd;
       background: white;
     }
-    
     .logo-preview img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
     }
-    
     .loading {
       display: none;
       text-align: center;
       padding: 20px;
     }
-    
     .spinner {
       border: 4px solid rgba(0, 0, 0, 0.1);
       border-left-color: #007acc;
@@ -226,11 +204,9 @@
       animation: spin 1s linear infinite;
       margin: 0 auto 15px;
     }
-    
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    
     .error {
       color: #d9534f;
       padding: 10px;
@@ -239,7 +215,6 @@
       margin: 10px 0;
       display: none;
     }
-    
     .success {
       color: #5cb85c;
       padding: 10px;
@@ -248,7 +223,6 @@
       margin: 10px 0;
       display: none;
     }
-    
     .scanner-container {
       position: relative;
       width: 100%;
@@ -259,13 +233,11 @@
       margin: 1.5em auto;
       max-width: 400px;
     }
-    
     #scanner-video {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    
     .scanner-overlay {
       position: absolute;
       top: 0;
@@ -277,14 +249,12 @@
       align-items: center;
       background: rgba(0, 0, 0, 0.5);
     }
-    
     .scanner-box {
       width: 250px;
       height: 250px;
       border: 3px solid white;
       box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
     }
-    
     .tabs {
       display: flex;
       justify-content: center;
@@ -292,7 +262,6 @@
       gap: 5px;
       flex-wrap: wrap;
     }
-    
     .tab {
       padding: 10px 20px;
       cursor: pointer;
@@ -301,27 +270,22 @@
       font-weight: 500;
       transition: all 0.3s;
     }
-    
     .tab.active {
       background: #007acc;
       color: white;
     }
-    
     .tab-content {
       display: none;
     }
-    
     .tab-content.active {
       display: block;
     }
-    
     .size-group {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 1em 0;
     }
-    
     .size-controls {
       display: flex;
       align-items: center;
@@ -330,23 +294,19 @@
       max-width: 400px;
       margin: 0.5em auto;
     }
-    
     .size-slider {
       flex: 1;
     }
-    
     .size-value {
       min-width: 60px;
       text-align: center;
       font-weight: bold;
     }
-    
     .file-upload-container {
       position: relative;
       max-width: 400px;
       margin: 1em auto;
     }
-    
     .file-upload-label {
       display: block;
       padding: 15px;
@@ -356,18 +316,15 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    
     .file-upload-label:hover {
       border-color: #007acc;
       background: #f0f8ff;
     }
-    
     .file-upload-label i {
       color: #007acc;
       font-size: 1.5em;
       margin-bottom: 10px;
     }
-    
     .file-upload-input {
       position: absolute;
       width: 100%;
@@ -377,43 +334,35 @@
       opacity: 0;
       cursor: pointer;
     }
-    
     .btn-group {
       display: flex;
       justify-content: center;
       gap: 10px;
       margin: 1em 0;
     }
-    
     .btn-group button {
       width: auto;
       min-width: 150px;
     }
-    
     .ad-container {
       margin: 1em auto;
       max-width: 100%;
       text-align: center;
     }
-    
     @media (max-width: 600px) {
       body {
         padding: 1em;
       }
-      
       .color-group {
         flex-direction: column;
       }
-      
       .btn-group {
         flex-direction: column;
       }
-      
       .btn-group button {
         width: 90%;
         max-width: 400px;
       }
-      
       .ad-container {
         width: 100%;
       }
@@ -424,6 +373,7 @@
   <div class="container">
     <h1>Free QR Code Generator</h1>
     <div class="ad-container">
+      <!-- Header_AD -->
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-4041775163958551"
@@ -435,18 +385,18 @@
       </script>
     </div>
     <p>Create custom QR codes with logos, custom colors, and bulk processing</p>
-    
+
     <div class="tabs">
       <div class="tab active" data-tab="single">Single QR Code</div>
       <div class="tab" data-tab="bulk">Bulk QR Codes</div>
       <div class="tab" data-tab="scan">Scan QR Code</div>
     </div>
-    
+
     <!-- Single QR Code Tab -->
     <div class="tab-content active" id="single-tab">
       <input id="qr-input" type="text" placeholder="Enter text or URL" autofocus>
       <div class="error" id="input-error">Please enter some content for the QR code</div>
-      
+
       <div class="color-group">
         <div class="color-input">
           <label for="fg-color">Foreground:</label>
@@ -457,7 +407,7 @@
           <input type="color" id="bg-color" value="#FFFFFF">
         </div>
       </div>
-      
+
       <div class="size-group">
         <label>QR Code Size:</label>
         <div class="size-controls">
@@ -465,7 +415,7 @@
           <div class="size-value" id="size-value">256px</div>
         </div>
       </div>
-      
+
       <div class="logo-upload-area" id="logo-upload-area">
         <i>📁</i>
         <p>Drag & drop your logo here<br>or click to select a file</p>
@@ -474,61 +424,61 @@
         </div>
         <input type="file" id="logo-upload" accept="image/*" style="display:none">
       </div>
-      
+
       <div class="btn-group">
         <button onclick="generateQR()">Generate QR Code</button>
         <button id="download-btn" onclick="downloadQR()" style="display:none">Download QR Code</button>
       </div>
-      
+
       <div class="loading" id="qr-loading">
         <div class="spinner"></div>
         Generating QR Code...
       </div>
       <div class="error" id="qr-error"></div>
       <div class="success" id="qr-success"></div>
-      
+
       <canvas id="qr-canvas" width="256" height="256" style="display:none;"></canvas>
     </div>
-    
+
     <!-- Bulk QR Codes Tab -->
     <div class="tab-content" id="bulk-tab">
       <h2>Bulk QR Code Generator</h2>
-      
+
       <label for="bulk-input">Enter URLs or text (one per line):</label>
       <textarea id="bulk-input" rows="8" placeholder="https://example.com/page1
 https://example.com/page2
 Any text or data"></textarea>
-      
+
       <label for="bulk-filename">File Name Prefix:</label>
       <input type="text" id="bulk-filename" value="qr-codes">
-      
+
       <button onclick="generateBulkQR()">Generate & Download as ZIP</button>
-      
+
       <div class="loading" id="bulk-loading">
         <div class="spinner"></div>
         <div id="bulk-progress">Generating QR codes: 0/0</div>
       </div>
-      
+
       <div class="success" id="bulk-success"></div>
       <div class="error" id="bulk-error"></div>
     </div>
-    
+
     <!-- Scan QR Code Tab -->
     <div class="tab-content" id="scan-tab">
       <h2>QR Code Scanner</h2>
-      
+
       <div class="scanner-container">
         <video id="scanner-video"></video>
         <div class="scanner-overlay" id="scanner-overlay">
           <div class="scanner-box"></div>
         </div>
       </div>
-      
+
       <div class="btn-group">
         <button id="start-scan">Start Camera Scanner</button>
         <button id="stop-scan">Stop Scanner</button>
       </div>
-      
+
       <h3>Or Scan from Image File</h3>
       <div class="file-upload-container">
         <label for="file-upload" class="file-upload-label">
@@ -537,26 +487,27 @@ Any text or data"></textarea>
         </label>
         <input type="file" id="file-upload" class="file-upload-input" accept="image/*">
       </div>
-      
+
       <div class="scan-result" id="scan-result">
         <p>Scan results will appear here</p>
       </div>
     </div>
-    
+
     <div class="ad-container">
+      <!-- Content_AD -->
       <ins class="adsbygoogle"
-           style="display:block"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
            data-ad-client="ca-pub-4041775163958551"
-           data-ad-slot="8266734729"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
+           data-ad-slot="8266734729"></ins>
       <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
     </div>
-    
+
     <hr style="margin: 2em auto; width: 80%; border: 0; border-top: 1px solid #ddd;" />
-    
+
     <!-- Sister Sites Section -->
     <div class="sister-tools-section">
       <h2>Try Our Other Free Tools</h2>
@@ -571,9 +522,10 @@ Any text or data"></textarea>
         Free Barcode Generator
       </a>
     </div>
-    
+
     <footer>
       <div class="ad-container">
+        <!-- Footer_AD -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-4041775163958551"
@@ -587,9 +539,9 @@ Any text or data"></textarea>
       <p>Free QR Maker | Made with ❤️</p>
     </footer>
   </div>
-  
+
   <script>
-    // DOM Elements
+    // Unchanged JavaScript - all functionality preserved
     const qrInput = document.getElementById('qr-input');
     const qrCanvas = document.getElementById('qr-canvas');
     const fgColor = document.getElementById('fg-color');
@@ -617,112 +569,95 @@ Any text or data"></textarea>
     const bulkSuccess = document.getElementById('bulk-success');
     const bulkError = document.getElementById('bulk-error');
     const fileUpload = document.getElementById('file-upload');
-    
-    // State variables
+
     let currentStream = null;
     let logoImage = null;
     let generatedQR = null;
     let bulkQRs = [];
-    
-    // Initialize
+
     document.addEventListener('DOMContentLoaded', () => {
       updateSizeValue();
-      
-      // Tab switching
+
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
           tabs.forEach(t => t.classList.remove('active'));
           tabContents.forEach(c => c.classList.remove('active'));
           tab.classList.add('active');
           document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
-          
-          // Stop scanner when switching tabs
+
           if (currentStream) {
             stopScanner();
           }
         });
       });
-      
-      // Size slider
+
       sizeSlider.addEventListener('input', updateSizeValue);
-      
-      // Logo upload via drag and drop
+
       logoUploadArea.addEventListener('click', () => {
         logoUpload.click();
       });
-      
+
       logoUpload.addEventListener('change', handleLogoUpload);
-      
-      // Drag and drop for logo
+
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         logoUploadArea.addEventListener(eventName, preventDefaults, false);
       });
-      
+
       ['dragenter', 'dragover'].forEach(eventName => {
         logoUploadArea.addEventListener(eventName, highlight, false);
       });
-      
+
       ['dragleave', 'drop'].forEach(eventName => {
         logoUploadArea.addEventListener(eventName, unhighlight, false);
       });
-      
+
       logoUploadArea.addEventListener('drop', handleDrop, false);
-      
-      // Auto-detect URL
+
       qrInput.addEventListener('blur', autoFormatURL);
-      
-      // Scanner controls
+
       startScanBtn.addEventListener('click', startScanner);
       stopScanBtn.addEventListener('click', stopScanner);
-      
-      // File upload for scanning
+
       fileUpload.addEventListener('change', handleFileUpload);
-      
-      // Generate on Enter key
+
       qrInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
           generateQR();
         }
       });
     });
-    
-    // Prevent default drag behaviors
+
     function preventDefaults(e) {
       e.preventDefault();
       e.stopPropagation();
     }
-    
-    // Highlight drop area
+
     function highlight() {
       logoUploadArea.classList.add('drag-over');
     }
-    
-    // Unhighlight drop area
+
     function unhighlight() {
       logoUploadArea.classList.remove('drag-over');
     }
-    
-    // Handle dropped files
+
     function handleDrop(e) {
       const dt = e.dataTransfer;
       const files = dt.files;
-      
+
       if (files.length) {
         logoUpload.files = files;
         handleLogoUpload({ target: { files } });
       }
     }
-    
-    // Update size value display
+
     function updateSizeValue() {
       sizeValue.textContent = `${sizeSlider.value}px`;
     }
-    
-    // Handle logo upload
+
     function handleLogoUpload(e) {
       const file = e.target.files[0];
       if (!file || !file.type.match('image.*')) return;
-      
+
       const reader = new FileReader();
       reader.onload = function(event) {
         logoImage = new Image();
@@ -736,43 +671,38 @@ Any text or data"></textarea>
       };
       reader.readAsDataURL(file);
     }
-    
-    // Auto-format URL
+
     function autoFormatURL() {
       const input = qrInput.value.trim();
       if (!input) return;
-      
-      // Check if it looks like a URL but missing protocol
+
       if (input.includes('.') && !input.startsWith('http://') && !input.startsWith('https://')) {
         qrInput.value = `https://${input}`;
       }
     }
-    
-    // Generate QR Code
+
     function generateQR() {
       const input = qrInput.value.trim();
       if (!input) {
         showError(qrError, 'Please enter some content for the QR code');
         return;
       }
-      
-      // Show loading
+
       qrLoading.style.display = 'block';
       qrError.style.display = 'none';
       qrSuccess.style.display = 'none';
       downloadBtn.style.display = 'none';
       qrCanvas.style.display = 'none';
-      
+
       setTimeout(() => {
         try {
           const size = parseInt(sizeSlider.value);
           qrCanvas.width = size;
           qrCanvas.height = size;
-          
+
           const ctx = qrCanvas.getContext('2d');
           ctx.clearRect(0, 0, size, size);
-          
-          // Generate QR code
+
           QRCode.toCanvas(qrCanvas, input, {
             width: size,
             margin: 1,
@@ -786,25 +716,20 @@ Any text or data"></textarea>
               qrLoading.style.display = 'none';
               return;
             }
-            
-            // Add logo if exists
+
             if (logoImage) {
               const logoSize = size / 4;
               const logoX = (size - logoSize) / 2;
               const logoY = (size - logoSize) / 2;
-              
-              // Draw background for logo
+
               ctx.fillStyle = bgColor.value;
               ctx.fillRect(logoX - 2, logoY - 2, logoSize + 4, logoSize + 4);
-              
-              // Draw logo
+
               ctx.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
             }
-            
-            // Store generated QR data URL
+
             generatedQR = qrCanvas.toDataURL('image/png');
-            
-            // Show success and download button
+
             qrLoading.style.display = 'none';
             qrSuccess.style.display = 'block';
             qrSuccess.textContent = 'QR Code generated successfully!';
@@ -817,14 +742,13 @@ Any text or data"></textarea>
         }
       }, 300);
     }
-    
-    // Download QR Code
+
     function downloadQR() {
       if (!generatedQR) {
         showError(qrError, 'Please generate a QR code first');
         return;
       }
-      
+
       const a = document.createElement('a');
       a.href = generatedQR;
       a.download = 'qr-code.png';
@@ -832,18 +756,17 @@ Any text or data"></textarea>
       a.click();
       document.body.removeChild(a);
     }
-    
-    // Start scanner
+
     function startScanner() {
       scannerOverlay.style.display = 'flex';
       scanResult.innerHTML = '<p>Scanning... Point camera at a QR code</p>';
-      
+
       navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
         .then(stream => {
           currentStream = stream;
           video.srcObject = stream;
           video.play();
-          
+
           requestAnimationFrame(scanQR);
         })
         .catch(err => {
@@ -851,8 +774,7 @@ Any text or data"></textarea>
           scanResult.innerHTML = `<p class="error">Error accessing camera: ${err.message}</p>`;
         });
     }
-    
-    // Stop scanner
+
     function stopScanner() {
       if (currentStream) {
         currentStream.getTracks().forEach(track => track.stop());
@@ -860,21 +782,20 @@ Any text or data"></textarea>
       }
       scannerOverlay.style.display = 'none';
     }
-    
-    // Scan QR Code
+
     function scanQR() {
       if (!currentStream) return;
-      
+
       if (video.readyState === video.HAVE_ENOUGH_DATA) {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        
+
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const code = jsQR(imageData.data, imageData.width, imageData.height);
-        
+
         if (code) {
           scanResult.innerHTML = `
             <p><strong>QR Code detected!</strong></p>
@@ -885,23 +806,21 @@ Any text or data"></textarea>
           `;
         }
       }
-      
+
       requestAnimationFrame(scanQR);
     }
-    
-    // Use scanned content
+
     function useScannedContent(content) {
       stopScanner();
       qrInput.value = content;
       tabs[0].click();
       generateQR();
     }
-    
-    // Handle file upload for scanning
+
     function handleFileUpload(e) {
       const file = e.target.files[0];
       if (!file) return;
-      
+
       const reader = new FileReader();
       reader.onload = function(event) {
         const img = new Image();
@@ -912,18 +831,17 @@ Any text or data"></textarea>
       };
       reader.readAsDataURL(file);
     }
-    
-    // Scan QR code from image
+
     function scanQRFromImage(img) {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       canvas.width = img.width;
       canvas.height = img.height;
-      
+
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const code = jsQR(imageData.data, imageData.width, imageData.height);
-      
+
       if (code) {
         scanResult.innerHTML = `
           <p><strong>QR Code detected in image!</strong></p>
@@ -936,48 +854,42 @@ Any text or data"></textarea>
         scanResult.innerHTML = '<p class="error">No QR code found in the image</p>';
       }
     }
-    
-    // Generate and download bulk QR codes as ZIP
+
     function generateBulkQR() {
       const inputs = bulkInput.value.trim().split('\n').filter(line => line.trim() !== '');
-      
+
       if (inputs.length === 0) {
         showError(bulkError, 'Please enter at least one item');
         return;
       }
-      
+
       if (inputs.length > 50) {
         showError(bulkError, 'For performance reasons, please limit to 50 items at once');
         return;
       }
-      
-      // Reset state
+
       bulkQRs = [];
       bulkSuccess.style.display = 'none';
       bulkError.style.display = 'none';
       bulkLoading.style.display = 'block';
-      
-      // Process in batches
+
       processBulkBatch(inputs, 0, inputs.length);
     }
-    
-    // Process bulk batch
+
     function processBulkBatch(inputs, index, total) {
       if (index >= inputs.length) {
-        // Finished generating, now create ZIP
         bulkProgress.textContent = 'Creating ZIP file...';
         createBulkZip();
         return;
       }
-      
-      // Update progress
+
       bulkProgress.textContent = `Generating QR codes: ${index + 1}/${total}`;
-      
+
       const input = inputs[index];
       const canvas = document.createElement('canvas');
       canvas.width = 256;
       canvas.height = 256;
-      
+
       try {
         QRCode.toCanvas(canvas, input, {
           width: 256,
@@ -995,8 +907,7 @@ Any text or data"></textarea>
               dataURL: canvas.toDataURL('image/png')
             });
           }
-          
-          // Process next
+
           setTimeout(() => processBulkBatch(inputs, index + 1, total), 50);
         });
       } catch (error) {
@@ -1004,19 +915,18 @@ Any text or data"></textarea>
         setTimeout(() => processBulkBatch(inputs, index + 1, total), 50);
       }
     }
-    
-    // Create ZIP from generated QR codes
+
     function createBulkZip() {
       try {
         const zip = new JSZip();
         const prefix = bulkFilename.value.trim() || 'qr-codes';
-        
+
         bulkQRs.forEach((item, index) => {
           const filename = `${prefix}-${index + 1}.png`;
           const data = item.dataURL.split(',')[1];
           zip.file(filename, data, { base64: true });
         });
-        
+
         zip.generateAsync({ type: 'blob' }).then(content => {
           saveAs(content, `${prefix}.zip`);
           bulkLoading.style.display = 'none';
@@ -1028,8 +938,7 @@ Any text or data"></textarea>
         bulkLoading.style.display = 'none';
       }
     }
-    
-    // Helper to show error
+
     function showError(element, message) {
       element.textContent = message;
       element.style.display = 'block';
