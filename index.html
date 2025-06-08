@@ -506,6 +506,11 @@
       box-shadow: var(--box-shadow);
     }
     
+    /* New conditional ad style */
+    .ad-container.conditional-ad {
+      display: none;
+    }
+    
     .ad-label {
       font-size: 0.8rem;
       color: var(--gray);
@@ -723,15 +728,6 @@
       <p class="tagline">100% free with no sign-up required.</p>
     </header>
 
-    <!-- Ad Container -->
-    <div class="ad-container">
-      <div class="ad-label">Advertisement</div>
-      <div class="ad-placeholder">
-        <i class="fas fa-ad"></i>
-        <span>Ad Space (728x90)</span>
-      </div>
-    </div>
-
     <!-- Features Section -->
     <div class="features">
       <div class="feature">
@@ -886,8 +882,8 @@ Any text or data"></textarea>
       </div>
     </div>
 
-    <!-- Ad Container -->
-    <div class="ad-container">
+    <!-- Conditional Ad Container 1 -->
+    <div class="ad-container conditional-ad" id="ad-after-main">
       <div class="ad-label">Advertisement</div>
       <div class="ad-placeholder">
         <i class="fas fa-ad"></i>
@@ -924,8 +920,8 @@ Any text or data"></textarea>
       </div>
     </div>
 
-    <!-- Footer Ad -->
-    <div class="ad-container">
+    <!-- Conditional Ad Container 2 -->
+    <div class="ad-container conditional-ad" id="ad-before-footer">
       <div class="ad-label">Advertisement</div>
       <div class="ad-placeholder">
         <i class="fas fa-ad"></i>
@@ -973,11 +969,13 @@ Any text or data"></textarea>
     let logoImage = null;
     let generatedQR = null;
     let bulkQRs = [];
+    let userGeneratedContent = false; // Track if user has generated content
 
     // Initialize the page
     document.addEventListener('DOMContentLoaded', () => {
       updateSizeValue();
       setupEventListeners();
+      hideAds(); // Hide ads on initial load
     });
 
     // Set up all event listeners
@@ -1030,6 +1028,22 @@ Any text or data"></textarea>
 
       // File upload
       fileUpload.addEventListener('change', handleFileUpload);
+    }
+
+    // Hide ads initially
+    function hideAds() {
+      document.querySelectorAll('.conditional-ad').forEach(ad => {
+        ad.style.display = 'none';
+      });
+    }
+
+    // Show ads conditionally
+    function showAdsConditionally() {
+      if (userGeneratedContent) {
+        document.querySelectorAll('.conditional-ad').forEach(ad => {
+          ad.style.display = 'block';
+        });
+      }
     }
 
     // Prevent default behavior for drag events
@@ -1148,6 +1162,10 @@ Any text or data"></textarea>
             qrSuccess.textContent = 'QR Code generated successfully!';
             downloadBtn.style.display = 'block';
             qrCanvas.style.display = 'block';
+            
+            // Set flag and show ads
+            userGeneratedContent = true;
+            showAdsConditionally();
           });
         } catch (error) {
           showError(qrError, 'Error: ' + error.message);
@@ -1355,6 +1373,10 @@ Any text or data"></textarea>
           bulkLoading.style.display = 'none';
           bulkSuccess.style.display = 'block';
           bulkSuccess.textContent = `Successfully generated and downloaded ${bulkQRs.length} QR codes!`;
+          
+          // Set flag and show ads
+          userGeneratedContent = true;
+          showAdsConditionally();
         });
       } catch (error) {
         showError(bulkError, 'Error creating ZIP file: ' + error.message);
