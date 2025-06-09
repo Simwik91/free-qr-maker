@@ -515,21 +515,7 @@
     }
     
     .feature i {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 20px;
-      background: #f0f4ff;
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin: 0 auto 20px;
-    }
-    
-    .feature h3 {
-      font-size: 1.4rem;
+      font-size Sex: 1.4rem;
       margin-bottom: 15px;
       color: var(--dark);
     }
@@ -611,24 +597,22 @@
     }
     
     .guide-grid {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
       margin-top: 25px;
-      overflow-x: auto;
     }
     
     .guide-item {
-      flex: 0 0 24%;
-      padding: 25px;
+      padding: 30px;
       background: #f8f9ff;
       border-radius: var(--border-radius);
-      min-width: 220px;
+      min-width: 300px;
     }
     
     .guide-item h3 {
-      font-size: 1.3rem;
-      margin-bottom: 15px;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
       color: var(--primary);
       display: flex;
       align-items: center;
@@ -636,7 +620,12 @@
     }
     
     .guide-item h3 i {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+    }
+    
+    .guide-item p {
+      font-size: 1.1rem;
+      line-height: 1.8;
     }
     
     .uses-section {
@@ -726,12 +715,11 @@
       }
       
       .guide-grid {
-        flex-wrap: wrap;
+        grid-template-columns: 1fr;
       }
       
       .guide-item {
-        flex: 0 0 48%;
-        min-width: 200px;
+        min-width: 280px;
       }
       
       .uses-grid {
@@ -756,8 +744,12 @@
         font-size: 1.8rem;
       }
       
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+      
       .guide-item {
-        flex: 0 0 100%;
+        min-width: 100%;
       }
     }
   </style>
@@ -1202,6 +1194,11 @@ Any text or data"></textarea>
       }
     }
 
+    // Sanitize filename to remove invalid characters
+    function sanitizeFilename(str) {
+      return str.replace(/[^a-zA-Z0-9\-_\.]/g, '_').slice(0, 50);
+    }
+
     // Generate QR code
     function generateQR() {
       const input = qrInput.value.trim();
@@ -1250,7 +1247,7 @@ Any text or data"></textarea>
               ctx.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
             }
 
-            generatedQR = qrCanvas.toDataURL('image/png');
+            generatedQR = { data: qrCanvas.toDataURL('image/png'), content: input };
 
             qrLoading.style.display = 'none';
             qrSuccess.style.display = 'block';
@@ -1272,9 +1269,10 @@ Any text or data"></textarea>
         return;
       }
 
+      const filename = sanitizeFilename(generatedQR.content) + '.png';
       const a = document.createElement('a');
-      a.href = generatedQR;
-      a.download = 'qr-code.png';
+      a.href = generatedQR.data;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -1454,7 +1452,7 @@ Any text or data"></textarea>
         const prefix = bulkFilename.value.trim() || 'qr-codes';
 
         bulkQRs.forEach((item, index) => {
-          const filename = `${prefix}-${index + 1}.png`;
+          const filename = `${sanitizeFilename(item.content)}.png`;
           const data = item.dataURL.split(',')[1];
           zip.file(filename, data, { base64: true });
         });
