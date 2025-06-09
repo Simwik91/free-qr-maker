@@ -35,6 +35,12 @@
   </script>
   <!-- Load AdSense script once -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4041775163958551" crossorigin="anonymous"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-4041775163958551",
+      enable_page_level_ads: true
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -496,48 +502,6 @@
       flex: 1;
     }
     
-    .ad-container {
-      margin: 30px auto;
-      max-width: 100%;
-      text-align: center;
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      background: white;
-      padding: 15px;
-      box-shadow: var(--box-shadow);
-    }
-    
-    /* New conditional ad style */
-    .ad-container.conditional-ad {
-      display: none;
-    }
-    
-    .ad-label {
-      font-size: 0.8rem;
-      color: var(--gray);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-    }
-    
-    .ad-placeholder {
-      background: linear-gradient(45deg, #f0f4ff, #e6ebff);
-      height: 250px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-    
-    .ad-placeholder i {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-    }
-    
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -646,6 +610,75 @@
       box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
     }
     
+    /* QR Code Guide Section */
+    .guide-section {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 40px;
+      margin: 40px auto;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 25px;
+    }
+    
+    .guide-item {
+      padding: 25px;
+      background: #f8f9ff;
+      border-radius: var(--border-radius);
+    }
+    
+    .guide-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .guide-item h3 i {
+      font-size: 1.5rem;
+    }
+    
+    .uses-section {
+      background: linear-gradient(135deg, #4361ee, #7209b7);
+      color: white;
+      border-radius: var(--border-radius);
+      padding: 40px;
+      margin: 40px auto;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .uses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 25px;
+    }
+    
+    .use-item {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      padding: 25px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+    
+    .use-item i {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .use-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+    
     footer {
       margin-top: 50px;
       padding-top: 30px;
@@ -693,6 +726,10 @@
         padding: 10px 15px;
         font-size: 0.9rem;
       }
+      
+      .guide-section, .uses-section {
+        padding: 25px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -710,10 +747,6 @@
       
       h1 {
         font-size: 1.8rem;
-      }
-      
-      .ad-placeholder {
-        height: 150px;
       }
     }
   </style>
@@ -883,12 +916,75 @@ Any text or data"></textarea>
       </div>
     </div>
 
-    <!-- Conditional Ad Container 1 -->
-    <div class="ad-container conditional-ad" id="ad-after-main">
-      <div class="ad-label">Advertisement</div>
-      <div class="ad-placeholder">
-        <i class="fas fa-ad"></i>
-        <span>Ad Space (728x90)</span>
+    <!-- QR Code Usage Guide -->
+    <div class="guide-section">
+      <h2><i class="fas fa-book"></i> QR Code Creation Guide</h2>
+      <p>Follow these simple steps to create your perfect QR code:</p>
+      
+      <div class="guide-grid">
+        <div class="guide-item">
+          <h3><i class="fas fa-1"></i> Enter Your Content</h3>
+          <p>Type or paste the URL, text, contact information, or any other data you want to encode. For websites, include "https://" at the beginning.</p>
+        </div>
+        
+        <div class="guide-item">
+          <h3><i class="fas fa-2"></i> Customize Appearance</h3>
+          <p>Choose foreground and background colors that match your brand or design preferences. Select a size that fits your needs.</p>
+        </div>
+        
+        <div class="guide-item">
+          <h3><i class="fas fa-3"></i> Add Your Logo (Optional)</h3>
+          <p>Upload a logo to embed in the center of your QR code. Make sure your logo has a transparent background for best results.</p>
+        </div>
+        
+        <div class="guide-item">
+          <h3><i class="fas fa-4"></i> Generate & Download</h3>
+          <p>Click "Generate QR Code" and download your custom QR code as a PNG file. For multiple QR codes, use the bulk generator.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- QR Code Uses Section -->
+    <div class="uses-section">
+      <h2><i class="fas fa-lightbulb"></i> Practical Uses for QR Codes</h2>
+      <p>QR codes have countless applications across industries. Here are some popular uses:</p>
+      
+      <div class="uses-grid">
+        <div class="use-item">
+          <i class="fas fa-shopping-cart"></i>
+          <h3>Product Labels</h3>
+          <p>Link to product information, manuals, or special offers</p>
+        </div>
+        
+        <div class="use-item">
+          <i class="fas fa-calendar-check"></i>
+          <h3>Event Tickets</h3>
+          <p>Provide secure entry to events with scannable tickets</p>
+        </div>
+        
+        <div class="use-item">
+          <i class="fas fa-building"></i>
+          <h3>Business Cards</h3>
+          <p>Share contact information and social media profiles</p>
+        </div>
+        
+        <div class="use-item">
+          <i class="fas fa-wifi"></i>
+          <h3>Wi-Fi Access</h3>
+          <p>Allow guests to connect to Wi-Fi without sharing passwords</p>
+        </div>
+        
+        <div class="use-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <h3>Location Sharing</h3>
+          <p>Provide directions to your business or event location</p>
+        </div>
+        
+        <div class="use-item">
+          <i class="fas fa-file-pdf"></i>
+          <h3>Document Access</h3>
+          <p>Link to PDF menus, catalogs, or instructional documents</p>
+        </div>
       </div>
     </div>
 
@@ -918,15 +1014,6 @@ Any text or data"></textarea>
           <p>Create custom barcodes for products, inventory, and more</p>
           <a href="https://free-ean-maker.com" class="sister-tool-btn">Try Now</a>
         </div>
-      </div>
-    </div>
-
-    <!-- Conditional Ad Container 2 -->
-    <div class="ad-container conditional-ad" id="ad-before-footer">
-      <div class="ad-label">Advertisement</div>
-      <div class="ad-placeholder">
-        <i class="fas fa-ad"></i>
-        <span>Ad Space (728x90)</span>
       </div>
     </div>
 
@@ -970,13 +1057,11 @@ Any text or data"></textarea>
     let logoImage = null;
     let generatedQR = null;
     let bulkQRs = [];
-    let userGeneratedContent = false; // Track if user has generated content
 
     // Initialize the page
     document.addEventListener('DOMContentLoaded', () => {
       updateSizeValue();
       setupEventListeners();
-      hideAds(); // Hide ads on initial load
     });
 
     // Set up all event listeners
@@ -1029,22 +1114,6 @@ Any text or data"></textarea>
 
       // File upload
       fileUpload.addEventListener('change', handleFileUpload);
-    }
-
-    // Hide ads initially
-    function hideAds() {
-      document.querySelectorAll('.conditional-ad').forEach(ad => {
-        ad.style.display = 'none';
-      });
-    }
-
-    // Show ads conditionally
-    function showAdsConditionally() {
-      if (userGeneratedContent) {
-        document.querySelectorAll('.conditional-ad').forEach(ad => {
-          ad.style.display = 'block';
-        });
-      }
     }
 
     // Prevent default behavior for drag events
@@ -1163,10 +1232,6 @@ Any text or data"></textarea>
             qrSuccess.textContent = 'QR Code generated successfully!';
             downloadBtn.style.display = 'block';
             qrCanvas.style.display = 'block';
-            
-            // Set flag and show ads
-            userGeneratedContent = true;
-            showAdsConditionally();
           });
         } catch (error) {
           showError(qrError, 'Error: ' + error.message);
@@ -1374,10 +1439,6 @@ Any text or data"></textarea>
           bulkLoading.style.display = 'none';
           bulkSuccess.style.display = 'block';
           bulkSuccess.textContent = `Successfully generated and downloaded ${bulkQRs.length} QR codes!`;
-          
-          // Set flag and show ads
-          userGeneratedContent = true;
-          showAdsConditionally();
         });
       } catch (error) {
         showError(bulkError, 'Error creating ZIP file: ' + error.message);
