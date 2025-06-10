@@ -277,6 +277,11 @@
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     }
     
+    .color-input input[type="color"]::-webkit-color-swatch {
+      border: none;
+      border-radius: 8px;
+    }
+    
     .logo-upload-area {
       border: 2px dashed var(--light-gray);
       border-radius: var(--border-radius);
@@ -515,9 +520,9 @@
     }
     
     .feature i {
-      font-size Sex: 1.4rem;
+      font-size: 2.5rem;
       margin-bottom: 15px;
-      color: var(--dark);
+      color: var(--primary);
     }
     
     .sister-tools-section {
@@ -594,6 +599,7 @@
       padding: 40px;
       margin: 40px auto;
       box-shadow: var(--box-shadow);
+      text-align: center;
     }
     
     .guide-grid {
@@ -604,19 +610,21 @@
     }
     
     .guide-item {
-      padding: 30px;
+      padding: 25px;
       background: #f8f9ff;
       border-radius: var(--border-radius);
-      min-width: 300px;
+      text-align: center;
+      font-size: 14px;
     }
     
     .guide-item h3 {
       font-size: 1.5rem;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       color: var(--primary);
       display: flex;
       align-items: center;
       gap: 10px;
+      justify-content: center;
     }
     
     .guide-item h3 i {
@@ -624,8 +632,8 @@
     }
     
     .guide-item p {
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 1rem;
+      color: var(--gray);
     }
     
     .uses-section {
@@ -789,6 +797,30 @@
       </div>
     </div>
 
+    <!-- QR Code Creation Guide -->
+    <div class="guide-section">
+      <h2><i class="fas fa-book"></i> QR Code Creation Guide</h2>
+      <p>Follow these steps to create your perfect QR code:</p>
+      <div class="guide-grid">
+        <div class="guide-item">
+          <h3><i class="fas fa-keyboard"></i> Enter Content</h3>
+          <p>Input your URL, text, or contact details to encode in the QR code.</p>
+        </div>
+        <div class="guide-item">
+          <h3><i class="fas fa-paint-brush"></i> Customize Design</h3>
+          <p>Select colors and size to align with your brand or preferences.</p>
+        </div>
+        <div class="guide-item">
+          <h3><i class="fas fa-upload"></i> Add Logo (Optional)</h3>
+          <p>Upload a logo to place in the center of your QR code.</p>
+        </div>
+        <div class="guide-item">
+          <h3><i class="fas fa-download"></i> Generate & Download</h3>
+          <p>Create your QR code and download it as a PNG file or ZIP for bulk.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Card -->
     <div class="card">
       <div class="tabs">
@@ -808,7 +840,7 @@
         <h2><i class="fas fa-qrcode"></i> Create Your QR Code</h2>
         
         <label for="qr-input">Enter QR Code Content:</label>
-        <input id="qr-input" type="text" placeholder="Enter URL or text..." autofocus>
+        <input type="text" id="qr-input" placeholder="Enter URL or text..." autofocus>
         <div class="error" id="input-error">Please enter some content for the QR code</div>
 
         <div class="color-group">
@@ -851,7 +883,7 @@
 
         <div class="loading" id="qr-loading">
           <div class="spinner"></div>
-          Generating QR Code...
+          Generating QR code...
         </div>
         <div class="error" id="qr-error"></div>
         <div class="success" id="qr-success"></div>
@@ -864,7 +896,7 @@
         <h2><i class="fas fa-layer-group"></i> Bulk QR Code Generation</h2>
         
         <label for="bulk-input">Enter URLs or text (one per line):</label>
-        <textarea id="bulk-input" rows="8" placeholder="https://example.com/page1
+        <textarea id="bulk-input" rows="5" placeholder="https://example.com/page1
 https://example.com/page2
 Any text or data"></textarea>
 
@@ -917,34 +949,6 @@ Any text or data"></textarea>
 
         <div class="scan-result" id="scan-result">
           <p>Scan results will appear here</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- QR Code Creation Guide -->
-    <div class="guide-section">
-      <h2><i class="fas fa-book"></i> QR Code Creation Guide</h2>
-      <p>Follow these simple steps to create your perfect QR code:</p>
-      
-      <div class="guide-grid">
-        <div class="guide-item">
-          <h3><i class="fas fa-1"></i> Enter Your Content</h3>
-          <p>Type or paste the URL, text, contact information, or any other data you want to encode.</p>
-        </div>
-        
-        <div class="guide-item">
-          <h3><i class="fas fa-2"></i> Customize Appearance</h3>
-          <p>Choose foreground and background colors that match your brand or design preferences. Select a size that fits your needs.</p>
-        </div>
-        
-        <div class="guide-item">
-          <h3><i class="fas fa-3"></i> Add Your Logo (Optional)</h3>
-          <p>Upload a logo to embed in the center of your QR code. Make sure your logo has a transparent background for best results.</p>
-        </div>
-        
-        <div class="guide-item">
-          <h3><i class="fas fa-4"></i> Generate & Download</h3>
-          <p>Click "Generate QR Code" and download your custom QR code as a PNG file. For multiple QR codes, use the bulk generator.</p>
         </div>
       </div>
     </div>
@@ -1008,20 +1012,20 @@ Any text or data"></textarea>
     <!-- Sister Sites Section -->
     <div class="sister-tools-section">
       <h2><i class="fas fa-tools"></i> Explore Our Free Tools</h2>
-      <p>All our tools process your data entirely in your browser, ensuring your files are never stored or uploaded, keeping your privacy completely secure.</p>
+      <p>Allows our tools to process your data entirely in your browser, ensuring your files are never stored or uploaded, keeping your privacy completely secure.</p>
       
       <div class="sister-tools-grid">
         <div class="sister-tool">
           <i class="fas fa-image"></i>
           <h3>Free Image Toolkit</h3>
-          <p>Resize, compress, and convert images without losing quality</p>
+          <p>Resize Images, compress images, and convert images without losing quality</p>
           <a href="https://free-image-toolkit.com" class="sister-tool-btn">Try Now</a>
         </div>
         
         <div class="sister-tool">
           <i class="fas fa-video"></i>
           <h3>Free Video Toolkit</h3>
-          <p>Convert, trim, and compress videos in all popular formats</p>
+          <p>Convert videos, trim videos, and compress videos in all popular formats</p>
           <a href="https://free-video-toolkit.com" class="sister-tool-btn">Try Now</a>
         </div>
         
@@ -1119,7 +1123,7 @@ Any text or data"></textarea>
 
       logoUploadArea.addEventListener('drop', handleDrop, false);
 
-      // QR input
+      // QR code input
       qrInput.addEventListener('blur', autoFormatURL);
       qrInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') generateQR();
@@ -1196,7 +1200,7 @@ Any text or data"></textarea>
 
     // Sanitize filename to remove invalid characters
     function sanitizeFilename(str) {
-      return str.replace(/[^a-zA-Z0-9\-_\.]/g, '_').slice(0, 50);
+      return str.replace(/[^a-zA-Z0-9-]+$/g, '_').slice(0, 50);
     }
 
     // Generate QR code
@@ -1281,7 +1285,7 @@ Any text or data"></textarea>
     // Start QR scanner
     function startScanner() {
       scannerOverlay.style.display = 'flex';
-      scanResult.innerHTML = '<p>Scanning... Point camera at a QR code</p>';
+      scanResult.innerHTML = '<p>Scanning... Point camera at QR code</p>';
 
       navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
         .then(stream => {
@@ -1367,7 +1371,7 @@ Any text or data"></textarea>
 
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height);
+      const code = jsQR(imageData.data, imageData.width, canvas.height);
 
       if (code) {
         scanResult.innerHTML = `
@@ -1392,7 +1396,7 @@ Any text or data"></textarea>
       }
 
       if (inputs.length > 50) {
-        showError(bulkError, 'For performance reasons, please limit to 50 items at once');
+        showError(bulkError, 'For performance reasons, please limit to 50 items at a time');
         return;
       }
 
@@ -1429,7 +1433,7 @@ Any text or data"></textarea>
           }
         }, function(error) {
           if (error) {
-            console.error('Error generating QR for: ' + input, error);
+            console.error('Error generating QR code for: ' + input, error);
           } else {
             bulkQRs.push({
               content: input,
@@ -1440,7 +1444,7 @@ Any text or data"></textarea>
           setTimeout(() => processBulkBatch(inputs, index + 1, total), 50);
         });
       } catch (error) {
-        console.error('Error generating QR for: ' + input, error);
+        console.error('Error generating QR code for: ' + input, error);
         setTimeout(() => processBulkBatch(inputs, index + 1, total), 50);
       }
     }
@@ -1449,7 +1453,7 @@ Any text or data"></textarea>
     function createBulkZip() {
       try {
         const zip = new JSZip();
-        const prefix = bulkFilename.value.trim() || 'qr-codes';
+        const prefix = bulkFilename.value.trim() || 'qr-code';
 
         bulkQRs.forEach((item, index) => {
           const filename = `${sanitizeFilename(item.content)}.png`;
