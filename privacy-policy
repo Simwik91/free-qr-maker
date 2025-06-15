@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Free QR Maker</title>
+  <link rel="canonical" href="https://free-qr-maker.com/privacy-policy.html">
+  <meta name="description" content="Privacy policy for Free QR Maker, detailing data collection, cookie usage, and user rights.">
+  <style>
+    body { font-family: 'Poppins', sans-serif; line-height: 1.6; margin: 0; padding: 0; color: #333; }
+    .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+    header { text-align: center; padding: 20px 0; }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; margin-top: 20px; }
+    p, ul { margin-bottom: 15px; }
+    a { color: #14a7d6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer { text-align: center; padding: 20px 0; background: #f8f9fa; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Privacy Policy</h1>
+  </header>
+  <main class="container">
+    <p>Last updated: June 15, 2025</p>
+    <p>Free QR Maker ("we," "us," or "our") operates <a href="https://free-qr-maker.com">https://free-qr-maker.com</a> (the "Site"). This Privacy Policy explains how we collect, use, and protect your information when you visit our Site. Our Site provides tools to generate and scan QR codes for personal and business use.</p>
+    
+    <h2>1. Data Collection</h2>
+    <p>We use Google Analytics to collect anonymized data about your interactions with our Site, such as page views, device information, and usage patterns, to improve our services. Google AdSense may collect data via cookies to serve personalized or non-personalized ads.</p>
+    
+    <h2>2. Cookies</h2>
+    <p>Our Site uses cookies to enhance functionality, analyze usage, and deliver ads. Cookies are small text files stored on your device. You can manage cookie preferences through our cookie consent popup or your browser settings.</p>
+    <ul>
+      <li><strong>Essential Cookies</strong>: Required for Site functionality (e.g., navigation).</li>
+      <li><strong>Analytics Cookies</strong>: Used by Google Analytics to track usage.</li>
+      <li><strong>Advertising Cookies</strong>: Used by Google AdSense for ad personalization.</li>
+    </ul>
+    
+    <h2>3. Cookie Consent</h2>
+    <p>We display a cookie consent popup to inform you about our use of cookies. You can accept all cookies, reject non-essential cookies, or customize preferences via the popup. Your choices are saved for future visits.</p>
+    
+    <h2>4. Third-Party Services</h2>
+    <p>We use the following third-party services, which may process data according to their own privacy policies:</p>
+    <ul>
+      <li><a href="https://policies.google.com/privacy">Google Analytics</a>: For usage analytics.</li>
+      <li><a href="https://policies.google.com/privacy">Google AdSense</a>: For ad delivery.</li>
+    </ul>
+    
+    <h2>5. GDPR and CCPA Rights</h2>
+    <p>If you are in the European Union/European Economic Area (GDPR) or California (CCPA), you have specific rights:</p>
+    <ul>
+      <li><strong>GDPR</strong>: You may opt out of non-essential cookies via our consent popup, access your data, or request deletion by contacting us.</li>
+      <li><strong>CCPA</strong>: California residents may opt out of data sales by selecting "Reject Non-Essential Cookies" in the popup or contacting us. See our <a href="#ccpa">CCPA Notice</a>.</li>
+    </ul>
+    
+    <h2 id="ccpa">6. CCPA Notice</h2>
+    <p>California residents may opt out of the sale of personal information (e.g., via ad targeting) by rejecting non-essential cookies in our consent popup or contacting us at <a href="mailto:kontakt@fixmytech.no">kontakt@fixmytech.no</a>. We do not knowingly sell data of users under 16.</p>
+    
+    <h2>7. Contact Us</h2>
+    <p>For questions about this Privacy Policy or your data, contact us at <a href="mailto:kontakt@fixmytech.no">kontakt@fixmytech.no</a>.</p>
+  </main>
+  <footer>
+    <p><a href="https://free-qr-maker.com">Back to Home</a></p>
+    <p>© 2025 Free QR Maker</p>
+  </footer>
+</body>
+</html>
