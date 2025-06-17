@@ -6,63 +6,392 @@
   <title>Privacy Policy - Free QR Maker</title>
   <link rel="canonical" href="https://free-qr-maker.com/privacy-policy.html">
   <meta name="description" content="Privacy policy for Free QR Maker, detailing data collection, cookie usage, and user rights.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; line-height: 1.6; margin: 0; padding: 0; color: #333; }
-    .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-    header { text-align: center; padding: 20px 0; }
-    h1 { font-size: 2em; }
-    h2 { font-size: 1.5em; margin-top: 20px; }
-    p, ul { margin-bottom: 15px; }
-    a { color: #14a7d6; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    footer { text-align: center; padding: 20px 0; background: #f8f9fa; }
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --accent: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --border-radius: 12px;
+      --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--light) 0%, #f0f4ff 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 0;
+      transition: var(--transition);
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      padding: 40px 0 20px;
+      margin-bottom: 10px;
+    }
+    
+    .logo {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: var(--dark);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .tagline {
+      font-size: 1.3rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto 25px;
+    }
+    
+    .privacy-hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-radius: var(--border-radius);
+      padding: 60px 40px;
+      margin: 40px 0;
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .privacy-hero:before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+    
+    .privacy-hero:after {
+      content: "";
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 250px;
+      height: 250px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+    
+    .privacy-hero h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .privacy-hero p {
+      max-width: 800px;
+      margin: 0 auto 20px;
+      font-size: 1.15rem;
+      position: relative;
+      z-index: 2;
+      line-height: 1.8;
+    }
+    
+    .privacy-content {
+      background: var(--light);
+      border-radius: var(--border-radius);
+      padding: 50px;
+      margin: 50px 0;
+      box-shadow: var(--box-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .privacy-content:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    
+    .privacy-content h2 {
+      font-size: 1.8rem;
+      margin: 30px 0 15px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .privacy-content h2 i {
+      color: var(--secondary);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(67, 97, 238, 0.1);
+      border-radius: 50%;
+    }
+    
+    .privacy-content p {
+      font-size: 1.1rem;
+      color: var(--dark);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    
+    .privacy-content ul {
+      margin: 20px 0;
+      padding-left: 30px;
+    }
+    
+    .privacy-content li {
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+    
+    .privacy-content a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border-bottom: 1px dashed var(--primary);
+    }
+    
+    .privacy-content a:hover {
+      color: var(--secondary);
+      border-bottom: 1px solid var(--secondary);
+    }
+    
+    .update-date {
+      background: #f0f4ff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      display: inline-block;
+      font-weight: 500;
+      color: var(--primary);
+    }
+    
+    .privacy-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      margin: 10px 0;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .back-to-home {
+      display: inline-block;
+      margin: 30px 0;
+      padding: 15px 30px;
+      background: var(--light);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      font-size: 1.1rem;
+    }
+    
+    .back-to-home:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .back-to-home i {
+      margin-right: 8px;
+    }
+    
+    footer {
+      margin-top: 50px;
+      padding-top: 30px;
+      font-size: 0.9rem;
+      color: var(--gray);
+      border-top: 1px solid var(--light-gray);
+      text-align: center;
+    }
+    
+    footer p {
+      margin-bottom: 10px;
+    }
+    
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    footer a:hover {
+      color: var(--secondary);
+      text-decoration: underline;
+    }
+    
+    .creator-credit {
+      margin-top: 15px;
+      font-weight: 500;
+      color: var(--dark);
+      font-size: 1.1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .privacy-content {
+        padding: 30px 20px;
+      }
+      
+      .privacy-hero {
+        padding: 40px 20px;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .privacy-hero h2 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .privacy-hero h2 {
+        font-size: 1.6rem;
+      }
+      
+      .privacy-content h2 {
+        font-size: 1.5rem;
+      }
+      
+      .logo {
+        font-size: 2.8rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Privacy Policy</h1>
-  </header>
-  <main class="container">
-    <p>Last updated: June 15, 2025</p>
-    <p>Free QR Maker ("we," "us," or "our") operates <a href="https://free-qr-maker.com">https://free-qr-maker.com</a> (the "Site"). This Privacy Policy explains how we collect, use, and protect your information when you visit our Site. Our Site provides tools to generate and scan QR codes for personal and business use.</p>
-    
-    <h2>1. Data Collection</h2>
-    <p>We use Google Analytics to collect anonymized data about your interactions with our Site, such as page views, device information, and usage patterns, to improve our services. Google AdSense may collect data via cookies to serve personalized or non-personalized ads.</p>
-    
-    <h2>2. Cookies</h2>
-    <p>Our Site uses cookies to enhance functionality, analyze usage, and deliver ads. Cookies are small text files stored on your device. You can manage cookie preferences through our cookie consent popup or your browser settings.</p>
-    <ul>
-      <li><strong>Essential Cookies</strong>: Required for Site functionality (e.g., navigation).</li>
-      <li><strong>Analytics Cookies</strong>: Used by Google Analytics to track usage.</li>
-      <li><strong>Advertising Cookies</strong>: Used by Google AdSense for ad personalization.</li>
-    </ul>
-    
-    <h2>3. Cookie Consent</h2>
-    <p>We display a cookie consent popup to inform you about our use of cookies. You can accept all cookies, reject non-essential cookies, or customize preferences via the popup. Your choices are saved for future visits.</p>
-    
-    <h2>4. Third-Party Services</h2>
-    <p>We use the following third-party services, which may process data according to their own privacy policies:</p>
-    <ul>
-      <li><a href="https://policies.google.com/privacy">Google Analytics</a>: For usage analytics.</li>
-      <li><a href="https://policies.google.com/privacy">Google AdSense</a>: For ad delivery.</li>
-    </ul>
-    
-    <h2>5. GDPR and CCPA Rights</h2>
-    <p>If you are in the European Union/European Economic Area (GDPR) or California (CCPA), you have specific rights:</p>
-    <ul>
-      <li><strong>GDPR</strong>: You may opt out of non-essential cookies via our consent popup, access your data, or request deletion by contacting us.</li>
-      <li><strong>CCPA</strong>: California residents may opt out of data sales by selecting "Reject Non-Essential Cookies" in the popup or contacting us. See our <a href="#ccpa">CCPA Notice</a>.</li>
-    </ul>
-    
-    <h2 id="ccpa">6. CCPA Notice</h2>
-    <p>California residents may opt out of the sale of personal information (e.g., via ad targeting) by rejecting non-essential cookies in our consent popup or contacting us at <a href="mailto:kontakt@fixmytech.no">kontakt@fixmytech.no</a>. We do not knowingly sell data of users under 16.</p>
-    
-    <h2>7. Contact Us</h2>
-    <p>For questions about this Privacy Policy or your data, contact us at <a href="mailto:kontakt@fixmytech.no">kontakt@fixmytech.no</a>.</p>
-  </main>
-  <footer>
-    <p><a href="https://free-qr-maker.com">Back to Home</a></p>
-    <p>© 2025 Free QR Maker</p>
-  </footer>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-qrcode"></i>
+      </div>
+      <h1>Privacy Policy</h1>
+      <p class="tagline">Your Data Security is Our Priority</p>
+    </header>
+
+    <section class="privacy-hero">
+      <h2><i class="fas fa-shield-alt"></i> Protecting Your Privacy</h2>
+      <p>At FixMyTech.no, we believe in transparency and your right to privacy. This policy explains how we handle your information while using our free QR tools.</p>
+      <p>Your trust is important to us - we never sell your data and minimize what we collect.</p>
+    </section>
+
+    <section class="privacy-content">
+      <div class="update-date">
+        <i class="fas fa-calendar-alt"></i> Last updated: June 15, 2025
+      </div>
+      
+      <p>Free QR Maker ("we," "us," or "our") operates <a href="https://free-qr-maker.com">https://free-qr-maker.com</a> (the "Site"). This Privacy Policy explains how we collect, use, and protect your information when you visit our Site. Our Site provides tools to generate and scan QR codes for personal and business use.</p>
+      
+      <h2><i class="fas fa-database"></i> 1. Data Collection</h2>
+      <p>We use Google Analytics to collect anonymized data about your interactions with our Site, such as page views, device information, and usage patterns, to improve our services. Google AdSense may collect data via cookies to serve personalized or non-personalized ads.</p>
+      <div class="privacy-badge">
+        <i class="fas fa-user-secret"></i> All data is anonymized and aggregated
+      </div>
+      
+      <h2><i class="fas fa-cookie-bite"></i> 2. Cookies</h2>
+      <p>Our Site uses cookies to enhance functionality, analyze usage, and deliver ads. Cookies are small text files stored on your device. You can manage cookie preferences through our cookie consent popup or your browser settings.</p>
+      <ul>
+        <li><strong>Essential Cookies</strong>: Required for Site functionality (e.g., navigation).</li>
+        <li><strong>Analytics Cookies</strong>: Used by Google Analytics to track usage.</li>
+        <li><strong>Advertising Cookies</strong>: Used by Google AdSense for ad personalization.</li>
+      </ul>
+      
+      <h2><i class="fas fa-check-circle"></i> 3. Cookie Consent</h2>
+      <p>We display a cookie consent popup to inform you about our use of cookies. You can accept all cookies, reject non-essential cookies, or customize preferences via the popup. Your choices are saved for future visits.</p>
+      
+      <h2><i class="fas fa-external-link-alt"></i> 4. Third-Party Services</h2>
+      <p>We use the following third-party services, which may process data according to their own privacy policies:</p>
+      <ul>
+        <li><a href="https://policies.google.com/privacy">Google Analytics</a>: For usage analytics.</li>
+        <li><a href="https://policies.google.com/privacy">Google AdSense</a>: For ad delivery.</li>
+      </ul>
+      
+      <h2><i class="fas fa-gavel"></i> 5. GDPR and CCPA Rights</h2>
+      <p>If you are in the European Union/European Economic Area (GDPR) or California (CCPA), you have specific rights:</p>
+      <ul>
+        <li><strong>GDPR</strong>: You may opt out of non-essential cookies via our consent popup, access your data, or request deletion by contacting us.</li>
+        <li><strong>CCPA</strong>: California residents may opt out of data sales by selecting "Reject Non-Essential Cookies" in the popup or contacting us. See our <a href="#ccpa">CCPA Notice</a>.</li>
+      </ul>
+      
+      <h2 id="ccpa"><i class="fas fa-file-contract"></i> 6. CCPA Notice</h2>
+      <p>California residents may opt out of the sale of personal information (e.g., via ad targeting) by rejecting non-essential cookies in our consent popup or contacting us at <a href="mailto:kontakt@fixmytech.no">kontakt@fixmytech.no</a>. We do not knowingly sell data of users under 16.</p>
+      <div class="privacy-badge">
+        <i class="fas fa-shield-virus"></i> CCPA Compliance
+      </div>
+      
+      <h2><i class="fas fa-envelope"></i> 7. Contact Us</h2>
+      <p>For questions about this Privacy Policy or your data, contact us at <a href="mailto:kontakt@fixmytech.no">kontakt@fixmytech.no</a>.</p>
+    </section>
+
+    <div style="text-align: center;">
+      <a href="index.html" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to QR Generator</a>
+    </div>
+
+    <footer>
+      <p>
+        <a href="about.html">About Us</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </p>
+      <p class="creator-credit">© 2025 Free QR Maker | Made by <a href="https://fixmytech.no">FixMyTech.no</a></p>
+    </footer>
+  </div>
 </body>
 </html>
