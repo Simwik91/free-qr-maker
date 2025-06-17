@@ -343,6 +343,29 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to open cookie settings modal
+            function openCookieSettings() {
+                const settingsModal = document.getElementById('cookie-settings');
+                if (settingsModal) {
+                    settingsModal.style.display = 'flex';
+                }
+            }
+
+            // Event listener for footer cookie settings button
+            const footerSettingsBtn = document.getElementById('open-settings-footer');
+            if (footerSettingsBtn) {
+                footerSettingsBtn.addEventListener('click', openCookieSettings);
+            }
+
+            // Event listener for cookie settings button in consent popup (if it exists)
+            const popupSettingsBtn = document.getElementById('open-settings');
+            if (popupSettingsBtn) {
+                popupSettingsBtn.addEventListener('click', openCookieSettings);
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="container">
