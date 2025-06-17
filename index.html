@@ -58,23 +58,24 @@
       color: var(--dark);
       line-height: 1.6;
       min-height: 100vh;
-      padding: 20px;
+      padding: 0;
       transition: var(--transition);
     }
     
     .container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 20px;
     }
     
     header {
       text-align: center;
-      padding: 30px 0 20px;
+      padding: 40px 0 20px;
       margin-bottom: 30px;
     }
     
     .logo {
-      font-size: 2.8rem;
+      font-size: 3.5rem;
       margin-bottom: 15px;
       color: var(--primary);
       display: inline-block;
@@ -88,7 +89,7 @@
     }
     
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 10px;
       font-weight: 700;
       color: var(--dark);
@@ -98,7 +99,7 @@
     }
     
     .tagline {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--gray);
       max-width: 700px;
       margin: 0 auto 25px;
@@ -439,6 +440,47 @@
       color: var(--primary);
     }
     
+    .border-controls {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: 1.5em 0;
+      flex-wrap: wrap;
+    }
+    
+    .border-control {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      max-width: 200px;
+    }
+    
+    .border-control label {
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .border-control input[type="range"] {
+      width: 100%;
+    }
+    
+    .border-control input[type="color"] {
+      width: 60px;
+      height: 60px;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 12px;
+      border: 2px solid var(--light-gray);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .border-control input[type="color"]::-webkit-color-swatch {
+      border: none;
+      border-radius: 8px;
+    }
+    
     .file-upload-container {
       position: relative;
       width: 100%;
@@ -670,6 +712,24 @@
     
     footer p {
       margin-bottom: 10px;
+    }
+    
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    footer a:hover {
+      color: var(--secondary);
+      text-decoration: underline;
+    }
+    
+    .creator-credit {
+      margin-top: 15px;
+      font-weight: 500;
+      color: var(--dark);
+      font-size: 1.1rem;
     }
     
     #cookie-consent {
@@ -948,6 +1008,11 @@
         align-items: center;
       }
       
+      .border-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
       .btn-group {
         flex-direction: column;
       }
@@ -1116,11 +1181,11 @@
         </div>
         <div class="guide-item">
           <h3><i class="fas fa-paint-brush"></i> Customize Design</h3>
-          <p>Select colors and size to align with your brand.</p>
+          <p>Select colors, size, and add a border around your logo to make it stand out.</p>
         </div>
         <div class="guide-item">
           <h3><i class="fas fa-upload"></i> Add Logo (Optional)</h3>
-          <p>Upload a logo to place in the center of your QR code.</p>
+          <p>Upload a logo to place in the center of your QR code with a customizable border.</p>
         </div>
         <div class="guide-item">
           <h3><i class="fas fa-download"></i> Generate & Download</h3>
@@ -1228,6 +1293,21 @@
           <input type="file" id="logo-upload" accept="image/*" style="display:none" aria-label="Upload logo image">
         </div>
 
+        <!-- Logo border controls -->
+        <div class="border-controls">
+          <div class="border-control">
+            <label for="border-size">Border Size:</label>
+            <div class="size-controls">
+              <input type="range" id="border-size" class="size-slider" min="0" max="20" value="5" step="1" aria-label="Adjust logo border size">
+              <div class="size-value" id="border-size-value">5px</div>
+            </div>
+          </div>
+          <div class="border-control">
+            <label for="border-color">Border Color:</label>
+            <input type="color" id="border-color" value="#FFFFFF" aria-label="Select logo border color">
+          </div>
+        </div>
+
         <div class="btn-group">
           <button onclick="generateQR()" aria-label="Generate QR code">
             <i class="fas fa-bolt"></i> Generate QR Code
@@ -1268,6 +1348,52 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
 
         <label for="bulk-filename">File Name Prefix:</label>
         <input type="text" id="bulk-filename" value="qr-codes" aria-label="Enter file name prefix for bulk QR codes">
+
+        <!-- Bulk QR design options -->
+        <h3 style="margin-top: 30px;">Design Options for All Codes</h3>
+        
+        <div class="color-group">
+          <div class="color-input">
+            <label for="bulk-fg-color">Foreground Color</label>
+            <input type="color" id="bulk-fg-color" value="#000000" aria-label="Select foreground color for bulk">
+          </div>
+          <div class="color-input">
+            <label for="bulk-bg-color">Background Color</label>
+            <input type="color" id="bulk-bg-color" value="#FFFFFF" aria-label="Select background color for bulk">
+          </div>
+        </div>
+
+        <div class="size-group">
+          <label for="bulk-size-slider">QR Code Size:</label>
+          <div class="size-controls">
+            <input type="range" id="bulk-size-slider" class="size-slider" min="128" max="1024" value="256" step="32" aria-label="Adjust QR code size for bulk">
+            <div class="size-value" id="bulk-size-value">256px</div>
+          </div>
+        </div>
+
+        <div class="logo-upload-area" id="bulk-logo-upload-area">
+          <label for="bulk-logo-upload" class="visually-hidden">Upload Logo for Bulk</label>
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Drag & drop your logo here<br>or click to select a file</p>
+          <div class="logo-preview" id="bulk-logo-preview">
+            <span>No logo selected</span>
+          </div>
+          <input type="file" id="bulk-logo-upload" accept="image/*" style="display:none" aria-label="Upload logo image for bulk">
+        </div>
+
+        <div class="border-controls">
+          <div class="border-control">
+            <label for="bulk-border-size">Border Size:</label>
+            <div class="size-controls">
+              <input type="range" id="bulk-border-size" class="size-slider" min="0" max="20" value="5" step="1" aria-label="Adjust logo border size for bulk">
+              <div class="size-value" id="bulk-border-size-value">5px</div>
+            </div>
+          </div>
+          <div class="border-control">
+            <label for="bulk-border-color">Border Color:</label>
+            <input type="color" id="bulk-border-color" value="#FFFFFF" aria-label="Select logo border color for bulk">
+          </div>
+        </div>
 
         <div class="btn-group">
           <button onclick="generateBulkQR()" aria-label="Generate and download bulk QR codes as ZIP">
@@ -1402,8 +1528,12 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     </div>
 
     <footer>
-      <p><a href="/privacy-policy.html">Privacy Policy</a> | <a href="#" id="open-settings-footer">Cookie Settings</a></p>
-      <p>© 2025 Free QR Maker | Made with ❤️</p>
+      <p>
+        <a href="about.html">About Us</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </p>
+      <p class="creator-credit">© 2025 Free QR Maker | Made by <a href="https://fixmytech.no">FixMyTech.no</a></p>
     </footer>
   </div>
 
@@ -1467,7 +1597,9 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       const preferences = {
         fgColor: fgColor.value,
         bgColor: bgColor.value,
-        size: sizeSlider.value
+        size: sizeSlider.value,
+        borderSize: borderSize.value,
+        borderColor: borderColor.value
       };
       localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
     }
@@ -1475,11 +1607,14 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     function loadQRPreferences() {
       const preferences = localStorage.getItem(PREFERENCES_KEY);
       if (preferences) {
-        const { fgColor, bgColor, size } = JSON.parse(preferences);
+        const { fgColor, bgColor, size, borderSize, borderColor } = JSON.parse(preferences);
         document.getElementById('fg-color').value = fgColor || '#000000';
         document.getElementById('bg-color').value = bgColor || '#FFFFFF';
         sizeSlider.value = size || '256';
+        borderSize.value = borderSize || '5';
+        borderColor.value = borderColor || '#FFFFFF';
         updateSizeValue();
+        updateBorderSizeValue();
       }
     }
 
@@ -1502,6 +1637,9 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     const bgColor = document.getElementById('bg-color');
     const sizeSlider = document.getElementById('size-slider');
     const sizeValue = document.getElementById('size-value');
+    const borderSize = document.getElementById('border-size');
+    const borderSizeValue = document.getElementById('border-size-value');
+    const borderColor = document.getElementById('border-color');
     const logoUpload = document.getElementById('logo-upload');
     const logoUploadArea = document.getElementById('logo-upload-area');
     const logoPreview = document.getElementById('logo-preview');
@@ -1525,10 +1663,21 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     const bulkSuccess = document.getElementById('bulk-success');
     const bulkError = document.getElementById('bulk-error');
     const fileUpload = document.getElementById('file-upload');
+    const bulkFgColor = document.getElementById('bulk-fg-color');
+    const bulkBgColor = document.getElementById('bulk-bg-color');
+    const bulkSizeSlider = document.getElementById('bulk-size-slider');
+    const bulkSizeValue = document.getElementById('bulk-size-value');
+    const bulkBorderSize = document.getElementById('bulk-border-size');
+    const bulkBorderSizeValue = document.getElementById('bulk-border-size-value');
+    const bulkBorderColor = document.getElementById('bulk-border-color');
+    const bulkLogoUpload = document.getElementById('bulk-logo-upload');
+    const bulkLogoUploadArea = document.getElementById('bulk-logo-upload-area');
+    const bulkLogoPreview = document.getElementById('bulk-logo-preview');
 
     // Global variables
     let currentStream = null;
     let logoImage = null;
+    let bulkLogoImage = null;
     let generatedQR = null;
     let bulkQRs = [];
 
@@ -1537,6 +1686,7 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       checkCookieConsent();
       loadQRPreferences();
       updateSizeValue();
+      updateBorderSizeValue();
       setupEventListeners();
       toggleQRTypeFields();
       
@@ -1561,11 +1711,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       });
       
       document.getElementById('open-settings').addEventListener('click', openCookieSettings);
-      document.getElementById('open-settings-footer').addEventListener('click', function(e) {
-        e.preventDefault();
-        openCookieSettings();
-      });
-      
       document.querySelector('.close-settings').addEventListener('click', closeCookieSettings);
       
       document.getElementById('save-settings').addEventListener('click', function() {
@@ -1625,26 +1770,47 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         updateSizeValue();
         saveQRPreferences();
       });
+      
+      borderSize.addEventListener('input', () => {
+        updateBorderSizeValue();
+        saveQRPreferences();
+      });
+      
+      bulkSizeSlider.addEventListener('input', () => {
+        bulkSizeValue.textContent = `${bulkSizeSlider.value}px`;
+      });
+      
+      bulkBorderSize.addEventListener('input', () => {
+        bulkBorderSizeValue.textContent = `${bulkBorderSize.value}px`;
+      });
 
       fgColor.addEventListener('change', saveQRPreferences);
       bgColor.addEventListener('change', saveQRPreferences);
+      borderColor.addEventListener('change', saveQRPreferences);
 
       logoUploadArea.addEventListener('click', () => logoUpload.click());
       logoUpload.addEventListener('change', handleLogoUpload);
+      
+      bulkLogoUploadArea.addEventListener('click', () => bulkLogoUpload.click());
+      bulkLogoUpload.addEventListener('change', handleBulkLogoUpload);
 
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         logoUploadArea.addEventListener(eventName, preventDefaults, false);
+        bulkLogoUploadArea.addEventListener(eventName, preventDefaults, false);
       });
 
       ['dragenter', 'dragover'].forEach(eventName => {
         logoUploadArea.addEventListener(eventName, highlight, false);
+        bulkLogoUploadArea.addEventListener(eventName, highlight, false);
       });
 
       ['dragleave', 'drop'].forEach(eventName => {
         logoUploadArea.addEventListener(eventName, unhighlight, false);
+        bulkLogoUploadArea.addEventListener(eventName, unhighlight, false);
       });
 
       logoUploadArea.addEventListener('drop', handleDrop, false);
+      bulkLogoUploadArea.addEventListener('drop', handleBulkDrop, false);
 
       qrInput.addEventListener('blur', autoFormatURL);
       qrInput.addEventListener('keypress', function(e) {
@@ -1666,11 +1832,11 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     }
 
     function highlight() {
-      logoUploadArea.classList.add('drag-over');
+      this.classList.add('drag-over');
     }
 
     function unhighlight() {
-      logoUploadArea.classList.remove('drag-over');
+      this.classList.remove('drag-over');
     }
 
     function handleDrop(e) {
@@ -1682,9 +1848,23 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         handleLogoUpload({ target: { files } });
       }
     }
+    
+    function handleBulkDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+
+      if (files.length) {
+        bulkLogoUpload.files = files;
+        handleBulkLogoUpload({ target: { files } });
+      }
+    }
 
     function updateSizeValue() {
       sizeValue.textContent = `${sizeSlider.value}px`;
+    }
+    
+    function updateBorderSizeValue() {
+      borderSizeValue.textContent = `${borderSize.value}px`;
     }
 
     function handleLogoUpload(e) {
@@ -1706,6 +1886,29 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
           logoPreview.appendChild(img);
         };
         logoImage.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    function handleBulkLogoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (!file.type.match('image.*')) {
+        showError(bulkError, 'Please upload a valid image file');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        bulkLogoImage = new Image();
+        bulkLogoImage.onload = function() {
+          bulkLogoPreview.innerHTML = '';
+          const img = document.createElement('img');
+          img.src = event.target.result;
+          img.alt = 'Uploaded logo for bulk';
+          bulkLogoPreview.appendChild(img);
+        };
+        bulkLogoImage.src = event.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -1815,10 +2018,22 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
               const logoSize = size / 4;
               const logoX = (size - logoSize) / 2;
               const logoY = (size - logoSize) / 2;
-
-              ctx.fillStyle = bgColor.value;
-              ctx.fillRect(logoX - 2, logoY - 2, logoSize + 4, logoSize + 4);
-
+              
+              // Draw border if border size > 0
+              const borderSizeVal = parseInt(borderSize.value);
+              const borderColorVal = borderColor.value;
+              
+              if (borderSizeVal > 0) {
+                ctx.fillStyle = borderColorVal;
+                ctx.fillRect(
+                  logoX - borderSizeVal, 
+                  logoY - borderSizeVal, 
+                  logoSize + borderSizeVal * 2, 
+                  logoSize + borderSizeVal * 2
+                );
+              }
+              
+              // Draw logo
               ctx.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
             }
 
@@ -2014,21 +2229,48 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
 
       const input = inputs[index];
       const canvas = document.createElement('canvas');
-      canvas.width = 256;
-      canvas.height = 256;
+      const size = parseInt(bulkSizeSlider.value);
+      canvas.width = size;
+      canvas.height = size;
 
       try {
         QRCode.toCanvas(canvas, input, {
-          width: 256,
+          width: size,
           margin: 1,
           color: {
-            dark: fgColor.value,
-            light: bgColor.value
+            dark: bulkFgColor.value,
+            light: bulkBgColor.value
           }
         }, function(error) {
           if (error) {
             console.error('Error generating QR code for: ' + input, error);
           } else {
+            const ctx = canvas.getContext('2d');
+            
+            // Add logo and border if logo is uploaded
+            if (bulkLogoImage) {
+              const logoSize = size / 4;
+              const logoX = (size - logoSize) / 2;
+              const logoY = (size - logoSize) / 2;
+              
+              // Draw border if border size > 0
+              const borderSizeVal = parseInt(bulkBorderSize.value);
+              const borderColorVal = bulkBorderColor.value;
+              
+              if (borderSizeVal > 0) {
+                ctx.fillStyle = borderColorVal;
+                ctx.fillRect(
+                  logoX - borderSizeVal, 
+                  logoY - borderSizeVal, 
+                  logoSize + borderSizeVal * 2, 
+                  logoSize + borderSizeVal * 2
+                );
+              }
+              
+              // Draw logo
+              ctx.drawImage(bulkLogoImage, logoX, logoY, logoSize, logoSize);
+            }
+            
             bulkQRs.push({
               content: input,
               dataURL: canvas.toDataURL('image/png')
