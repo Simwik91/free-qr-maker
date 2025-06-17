@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free QR code generator with logo embedding, bulk processing, and QR scanning">
-  <meta name="keywords" content="qr code generator, free qr code, create qr code, qr code scanner, bulk qr codes">
+  <meta name="description" content="Free QR code generator with logo embedding, bulk processing, multiple QR types, and QR scanning">
+  <meta name="keywords" content="qr code generator, free qr code, create qr code, qr code scanner, bulk qr codes, vcard, wifi">
   <meta name="author" content="Free QR Maker">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://free-qr-maker.com/">
@@ -13,14 +13,14 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://free-qr-maker.com/">
   <meta property="og:title" content="Free QR Code Generator">
-  <meta property="og:description" content="Create custom QR codes with logos, custom colors, and bulk processing. Scan QR codes easily. Free, no signup required.">
+  <meta property="og:description" content="Create custom QR codes with logos, custom colors, vCard, Wi-Fi, and bulk processing. Scan QR codes easily. Free, no signup required.">
   <meta property="og:image" content="https://free-qr-maker.com/preview.jpg">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://free-qr-maker.com/">
   <meta property="twitter:title" content="Free QR Code Generator">
-  <meta property="twitter:description" content="Create custom QR codes with logos, custom colors, and bulk processing. Scan QR codes easily. Free, no signup required.">
+  <meta property="twitter:description" content="Create custom QR codes with logos, custom colors, vCard, Wi-Fi, and bulk processing. Scan QR codes easily. Free, no signup required.">
   <meta property="twitter:image" content="https://free-qr-maker.com/preview.jpg">
 
   <title>Free QR Code Generator - Create Custom QR Codes Instantly</title>
@@ -54,11 +54,12 @@
     
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+      background: linear-gradient(135deg, var(--light) 0%, #f0f4ff 100%);
       color: var(--dark);
       line-height: 1.6;
       min-height: 100vh;
       padding: 20px;
+      transition: var(--transition);
     }
     
     .container {
@@ -70,7 +71,6 @@
       text-align: center;
       padding: 30px 0 20px;
       margin-bottom: 30px;
-      position: relative;
     }
     
     .logo {
@@ -105,7 +105,7 @@
     }
     
     .card {
-      background: white;
+      background: var(--light);
       border-radius: var(--border-radius);
       box-shadow: var(--box-shadow);
       padding: 30px;
@@ -183,7 +183,7 @@
       font-size: 1rem;
       border-radius: 10px;
       border: 1px solid var(--light-gray);
-      background: white;
+      background: var(--light);
       display: block;
       transition: var(--transition);
       font-family: 'Poppins', sans-serif;
@@ -215,7 +215,7 @@
     }
     
     button.secondary {
-      background: white;
+      background: var(--light);
       color: var(--primary);
       border: 2px solid var(--primary);
     }
@@ -229,7 +229,7 @@
       display: block;
       max-width: 100%;
       border-radius: 12px;
-      background: white;
+      background: var(--light);
       padding: 15px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       border: 1px solid var(--light-gray);
@@ -305,7 +305,7 @@
       overflow: hidden;
       border-radius: 12px;
       border: 1px solid var(--light-gray);
-      background: white;
+      background: var(--light);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
     
@@ -496,7 +496,7 @@
     }
     
     .feature {
-      background: white;
+      background: var(--light);
       border-radius: var(--border-radius);
       padding: 25px;
       text-align: center;
@@ -527,7 +527,7 @@
     }
     
     .sister-tool {
-      background: white;
+      background: var(--light);
       border-radius: var(--border-radius);
       padding: 25px;
       text-align: center;
@@ -582,9 +582,8 @@
       box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
     }
     
-    /* QR Code Guide Section */
     .guide-section {
-      background: white;
+      background: var(--light);
       border-radius: var(--border-radius);
       padding: 40px;
       margin: 40px auto;
@@ -673,7 +672,6 @@
       margin-bottom: 10px;
     }
     
-    /* Cookie Consent Styles */
     #cookie-consent {
       position: fixed;
       bottom: 20px;
@@ -681,7 +679,7 @@
       transform: translateX(-50%);
       width: 95%;
       max-width: 800px;
-      background: white;
+      background: var(--light);
       border-radius: var(--border-radius);
       box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
       padding: 20px;
@@ -767,7 +765,6 @@
       color: var(--dark);
     }
 
-    /* Cookie Settings Modal */
     #cookie-settings {
       position: fixed;
       top: 0;
@@ -782,7 +779,7 @@
     }
 
     .settings-modal {
-      background: white;
+      background: var(--light);
       border-radius: var(--border-radius);
       width: 95%;
       max-width: 600px;
@@ -911,6 +908,15 @@
       background: var(--primary-dark);
     }
     
+    .qr-type-fields {
+      display: none;
+      margin: 1em 0;
+    }
+    
+    .qr-type-fields.active {
+      display: block;
+    }
+    
     @media (max-width: 768px) {
       .cookie-content {
         flex-direction: column;
@@ -1004,7 +1010,6 @@
   </style>
 </head>
 <body>
-  <!-- Cookie Consent Banner -->
   <div id="cookie-consent">
     <div class="cookie-content">
       <div class="cookie-text">
@@ -1020,12 +1025,11 @@
     </div>
   </div>
 
-  <!-- Cookie Settings Modal -->
   <div id="cookie-settings">
     <div class="settings-modal">
       <div class="settings-header">
         <h2><i class="fas fa-cookie-bite"></i> Cookie Settings</h2>
-        <button class="close-settings">&times;</button>
+        <button class="close-settings" aria-label="Close cookie settings">×</button>
       </div>
       <div class="settings-content">
         <p>You can set your preferences for how we and our partners use cookies and similar technologies.</p>
@@ -1034,7 +1038,7 @@
           <div class="cookie-type-header">
             <h3>Essential Cookies</h3>
             <div class="toggle-switch">
-              <input type="checkbox" id="essential-toggle" checked disabled>
+              <input type="checkbox" id="essential-toggle" checked disabled aria-label="Essential cookies toggle (always enabled)">
               <span class="slider"></span>
             </div>
           </div>
@@ -1045,7 +1049,7 @@
           <div class="cookie-type-header">
             <h3>Analytics Cookies</h3>
             <div class="toggle-switch">
-              <input type="checkbox" id="analytics-toggle">
+              <input type="checkbox" id="analytics-toggle" aria-label="Analytics cookies toggle">
               <span class="slider"></span>
             </div>
           </div>
@@ -1056,7 +1060,7 @@
           <div class="cookie-type-header">
             <h3>Advertising Cookies</h3>
             <div class="toggle-switch">
-              <input type="checkbox" id="advertising-toggle">
+              <input type="checkbox" id="advertising-toggle" aria-label="Advertising cookies toggle">
               <span class="slider"></span>
             </div>
           </div>
@@ -1075,11 +1079,10 @@
         <i class="fas fa-qrcode"></i>
       </div>
       <h1>Free QR Code Generator</h1>
-      <p class="tagline">Create custom QR codes with logos, colors, and bulk processing.</p>
+      <p class="tagline">Create custom QR codes with logos, colors, vCard, Wi-Fi, and bulk processing.</p>
       <p class="tagline">100% free with no sign-up required.</p>
     </header>
 
-    <!-- Features Section -->
     <div class="features">
       <div class="feature">
         <i class="fas fa-paint-brush"></i>
@@ -1103,18 +1106,17 @@
       </div>
     </div>
 
-    <!-- QR Code Creation Guide -->
     <div class="guide-section">
       <h2><i class="fas fa-book"></i> QR Code Creation Guide</h2>
       <p>Follow these steps to create your perfect QR code:</p>
       <div class="guide-grid">
         <div class="guide-item">
-          <h3><i class="fas fa-keyboard"></i> Enter Content</h3>
-          <p>Input your URL, text, or contact details to encode in the QR code.</p>
+          <h3><i class="fas fa-keyboard"></i> Select QR Type</h3>
+          <p>Choose the type of QR code (e.g., URL, vCard, Wi-Fi) to encode your data.</p>
         </div>
         <div class="guide-item">
           <h3><i class="fas fa-paint-brush"></i> Customize Design</h3>
-          <p>Select colors and size to align with your brand or preferences.</p>
+          <p>Select colors and size to align with your brand.</p>
         </div>
         <div class="guide-item">
           <h3><i class="fas fa-upload"></i> Add Logo (Optional)</h3>
@@ -1122,48 +1124,96 @@
         </div>
         <div class="guide-item">
           <h3><i class="fas fa-download"></i> Generate & Download</h3>
-          <p>Create your QR code and download it as a PNG file or ZIP for bulk.</p>
+          <p>Create your QR code, test it, and download as a PNG or ZIP for bulk.</p>
         </div>
       </div>
     </div>
 
-    <!-- Main Card -->
     <div class="card">
-      <div class="tabs">
-        <div class="tab active" data-tab="single">
+      <div class="tabs" role="tablist">
+        <div class="tab active" data-tab="single" role="tab" aria-selected="true" tabindex="0">
           <i class="fas fa-qrcode"></i> Single QR Code
         </div>
-        <div class="tab" data-tab="bulk">
+        <div class="tab" data-tab="bulk" role="tab" aria-selected="false" tabindex="0">
           <i class="fas fa-layer-group"></i> Bulk QR Codes
         </div>
-        <div class="tab" data-tab="scan">
+        <div class="tab" data-tab="scan" role="tab" aria-selected="false" tabindex="0">
           <i class="fas fa-camera"></i> Scan QR Code
         </div>
       </div>
 
-      <!-- Single QR Code Tab -->
-      <div class="tab-content active" id="single-tab">
+      <div class="tab-content active" id="single-tab" role="tabpanel">
         <h2><i class="fas fa-qrcode"></i> Create Your QR Code</h2>
         
-        <label for="qr-input">Enter QR Code Content:</label>
-        <input type="text" id="qr-input" placeholder="Enter URL or text..." autofocus>
-        <div class="error" id="input-error">Please enter some content for the QR code</div>
+        <label for="qr-type">QR Code Type:</label>
+        <select id="qr-type" aria-label="Select QR code type">
+          <option value="url">URL/Text</option>
+          <option value="vcard">vCard (Contact)</option>
+          <option value="wifi">Wi-Fi</option>
+          <option value="sms">SMS</option>
+          <option value="email">Email</option>
+        </select>
+
+        <div class="qr-type-fields active" id="url-fields">
+          <label for="qr-input">Enter QR Code Content:</label>
+          <input type="text" id="qr-input" placeholder="Enter URL or text..." autofocus aria-label="Enter URL or text content">
+        </div>
+
+        <div class="qr-type-fields" id="vcard-fields">
+          <label for="vcard-name">Full Name:</label>
+          <input type="text" id="vcard-name" placeholder="John Doe" aria-label="Enter full name">
+          <label for="vcard-phone">Phone Number:</label>
+          <input type="tel" id="vcard-phone" placeholder="+1234567890" aria-label="Enter phone number">
+          <label for="vcard-email">Email:</label>
+          <input type="email" id="vcard-email" placeholder="john@example.com" aria-label="Enter email address">
+        </div>
+
+        <div class="qr-type-fields" id="wifi-fields">
+          <label for="wifi-ssid">Wi-Fi SSID:</label>
+          <input type="text" id="wifi-ssid" placeholder="Network Name" aria-label="Enter Wi-Fi SSID">
+          <label for="wifi-password">Password:</label>
+          <input type="text" id="wifi-password" placeholder="Password" aria-label="Enter Wi-Fi password">
+          <label for="wifi-type">Encryption Type:</label>
+          <select id="wifi-type" aria-label="Select Wi-Fi encryption type">
+            <option value="WPA">WPA/WPA2</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">No Password</option>
+          </select>
+        </div>
+
+        <div class="qr-type-fields" id="sms-fields">
+          <label for="sms-phone">Phone Number:</label>
+          <input type="tel" id="sms-phone" placeholder="+1234567890" aria-label="Enter phone number for SMS">
+          <label for="sms-message">Message:</label>
+          <textarea id="sms-message" placeholder="Enter your message" aria-label="Enter SMS message"></textarea>
+        </div>
+
+        <div class="qr-type-fields" id="email-fields">
+          <label for="email-address">Recipient Email:</label>
+          <input type="email" id="email-address" placeholder="recipient@example.com" aria-label="Enter recipient email">
+          <label for="email-subject">Subject:</label>
+          <input type="text" id="email-subject" placeholder="Subject" aria-label="Enter email subject">
+          <label for="email-body">Body:</label>
+          <textarea id="email-body" placeholder="Enter email body" aria-label="Enter email body"></textarea>
+        </div>
+
+        <div class="error" id="input-error">Please fill in all required fields</div>
 
         <div class="color-group">
           <div class="color-input">
             <label for="fg-color">Foreground Color</label>
-            <input type="color" id="fg-color" value="#000000">
+            <input type="color" id="fg-color" value="#000000" aria-label="Select foreground color">
           </div>
           <div class="color-input">
             <label for="bg-color">Background Color</label>
-            <input type="color" id="bg-color" value="#FFFFFF">
+            <input type="color" id="bg-color" value="#FFFFFF" aria-label="Select background color">
           </div>
         </div>
 
         <div class="size-group">
           <label for="size-slider">QR Code Size:</label>
           <div class="size-controls">
-            <input type="range" id="size-slider" class="size-slider" min="128" max="1024" value="256" step="32">
+            <input type="range" id="size-slider" class="size-slider" min="128" max="1024" value="256" step="32" aria-label="Adjust QR code size">
             <div class="size-value" id="size-value">256px</div>
           </div>
         </div>
@@ -1175,15 +1225,18 @@
           <div class="logo-preview" id="logo-preview">
             <span>No logo selected</span>
           </div>
-          <input type="file" id="logo-upload" accept="image/*" style="display:none">
+          <input type="file" id="logo-upload" accept="image/*" style="display:none" aria-label="Upload logo image">
         </div>
 
         <div class="btn-group">
-          <button onclick="generateQR()">
+          <button onclick="generateQR()" aria-label="Generate QR code">
             <i class="fas fa-bolt"></i> Generate QR Code
           </button>
-          <button id="download-btn" onclick="downloadQR()" style="display:none">
+          <button id="download-btn" onclick="downloadQR()" style="display:none" aria-label="Download QR code">
             <i class="fas fa-download"></i> Download QR Code
+          </button>
+          <button id="test-btn" onclick="testQR()" style="display:none" class="secondary" aria-label="Test QR code">
+            <i class="fas fa-check"></i> Test QR Code
           </button>
         </div>
 
@@ -1194,23 +1247,30 @@
         <div class="error" id="qr-error"></div>
         <div class="success" id="qr-success"></div>
 
-        <canvas id="qr-canvas" width="256" height="256" style="display:none;"></canvas>
+        <canvas id="qr-canvas" width="256" height="256" style="display:none;" aria-label="Generated QR code"></canvas>
       </div>
 
-      <!-- Bulk QR Codes Tab -->
-      <div class="tab-content" id="bulk-tab">
+      <div class="tab-content" id="bulk-tab" role="tabpanel">
         <h2><i class="fas fa-layer-group"></i> Bulk QR Code Generation</h2>
         
         <label for="bulk-input">Enter URLs or text (one per line):</label>
         <textarea id="bulk-input" rows="5" placeholder="https://example.com/page1
 https://example.com/page2
-Any text or data"></textarea>
+Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
+
+        <div class="file-upload-container">
+          <label for="bulk-file-upload" class="file-upload-label">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Upload a CSV file with URLs or text<br>(one per row)</p>
+          </label>
+          <input type="file" id="bulk-file-upload" class="file-upload-input" accept=".csv" aria-label="Upload CSV file for bulk QR codes">
+        </div>
 
         <label for="bulk-filename">File Name Prefix:</label>
-        <input type="text" id="bulk-filename" value="qr-codes">
+        <input type="text" id="bulk-filename" value="qr-codes" aria-label="Enter file name prefix for bulk QR codes">
 
         <div class="btn-group">
-          <button onclick="generateBulkQR()">
+          <button onclick="generateBulkQR()" aria-label="Generate and download bulk QR codes as ZIP">
             <i class="fas fa-file-archive"></i> Generate & Download as ZIP
           </button>
         </div>
@@ -1224,22 +1284,21 @@ Any text or data"></textarea>
         <div class="error" id="bulk-error"></div>
       </div>
 
-      <!-- Scan QR Code Tab -->
-      <div class="tab-content" id="scan-tab">
+      <div class="tab-content" id="scan-tab" role="tabpanel">
         <h2><i class="fas fa-camera"></i> QR Code Scanner</h2>
 
         <div class="scanner-container">
-          <video id="scanner-video"></video>
+          <video id="scanner-video" aria-label="Camera feed for QR code scanning"></video>
           <div class="scanner-overlay" id="scanner-overlay">
             <div class="scanner-box"></div>
           </div>
         </div>
 
         <div class="btn-group">
-          <button id="start-scan">
+          <button id="start-scan" aria-label="Start camera scanner">
             <i class="fas fa-play"></i> Start Camera Scanner
           </button>
-          <button id="stop-scan" class="secondary">
+          <button id="stop-scan" class="secondary" aria-label="Stop camera scanner">
             <i class="fas fa-stop"></i> Stop Scanner
           </button>
         </div>
@@ -1250,16 +1309,15 @@ Any text or data"></textarea>
             <i class="fas fa-cloud-upload-alt"></i>
             <p>Drag & drop a QR code image here<br>or click to select a file</p>
           </label>
-          <input type="file" id="file-upload" class="file-upload-input" accept="image/*">
+          <input type="file" id="file-upload" class="file-upload-input" accept="image/*" aria-label="Upload QR code image for scanning">
         </div>
 
-        <div class="scan-result" id="scan-result">
+        <div class="scan-result" id="scan-result" role="region" aria-live="polite">
           <p>Scan results will appear here</p>
         </div>
       </div>
     </div>
 
-    <!-- QR Code Uses Section -->
     <div class="uses-section">
       <h2><i class="fas fa-lightbulb"></i> Practical Uses for QR Codes</h2>
       <p>QR codes have countless applications across industries. Here are some popular uses:</p>
@@ -1315,7 +1373,6 @@ Any text or data"></textarea>
       </div>
     </div>
 
-    <!-- Sister Sites Section -->
     <div class="sister-tools-section">
       <h2><i class="fas fa-tools"></i> Explore Our Free Tools</h2>
       <p>Allows our tools to process your data entirely in your browser, ensuring your files are never stored or uploaded, keeping your privacy completely secure.</p>
@@ -1353,43 +1410,36 @@ Any text or data"></textarea>
   <script>
     // Cookie Management Functions
     const COOKIE_CONSENT_KEY = 'cookieConsent';
+    const PREFERENCES_KEY = 'qrPreferences';
     
-    // Get current cookie preferences
     function getCookiePreferences() {
       const preferences = localStorage.getItem(COOKIE_CONSENT_KEY);
       return preferences ? JSON.parse(preferences) : null;
     }
     
-    // Save cookie preferences
     function saveCookiePreferences(preferences) {
       localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(preferences));
     }
     
-    // Show cookie consent banner if needed
     function checkCookieConsent() {
       const preferences = getCookiePreferences();
       
       if (!preferences) {
-        // Show the consent banner if no preferences exist
         document.getElementById('cookie-consent').style.display = 'block';
       } else {
-        // Load analytics/ads if user previously consented
         if (preferences.analytics) loadGoogleAnalytics();
         if (preferences.advertising) loadGoogleAdSense();
       }
     }
     
-    // Load Google Analytics
     function loadGoogleAnalytics() {
       if (window.gaLoaded) return;
       
-      // Create gtag script
       const gtagScript = document.createElement('script');
       gtagScript.async = true;
       gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-LR5XP1GJFC';
       document.head.appendChild(gtagScript);
       
-      // Initialize dataLayer and gtag
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -1399,7 +1449,6 @@ Any text or data"></textarea>
       console.log('Google Analytics loaded');
     }
     
-    // Load Google AdSense
     function loadGoogleAdSense() {
       if (window.adsenseLoaded) return;
       
@@ -1412,97 +1461,42 @@ Any text or data"></textarea>
       window.adsenseLoaded = true;
       console.log('Google AdSense loaded');
     }
-    
-    // Initialize cookie consent
-    document.addEventListener('DOMContentLoaded', function() {
-      // Set up cookie consent banner
-      checkCookieConsent();
-      
-      // Event listeners for consent buttons
-      document.getElementById('accept-cookies').addEventListener('click', function() {
-        // Save preferences
-        saveCookiePreferences({
-          essential: true,
-          analytics: true,
-          advertising: true
-        });
-        
-        // Hide banner
-        document.getElementById('cookie-consent').style.display = 'none';
-        
-        // Load analytics and ads
-        loadGoogleAnalytics();
-        loadGoogleAdSense();
-      });
-      
-      document.getElementById('reject-cookies').addEventListener('click', function() {
-        // Save preferences (only essential cookies)
-        saveCookiePreferences({
-          essential: true,
-          analytics: false,
-          advertising: false
-        });
-        
-        // Hide banner
-        document.getElementById('cookie-consent').style.display = 'none';
-      });
-      
-      // Open cookie settings
-      document.getElementById('open-settings').addEventListener('click', openCookieSettings);
-      document.getElementById('open-settings-footer').addEventListener('click', function(e) {
-        e.preventDefault();
-        openCookieSettings();
-      });
-      
-      // Close cookie settings
-      document.querySelector('.close-settings').addEventListener('click', closeCookieSettings);
-      
-      // Save cookie settings
-      document.getElementById('save-settings').addEventListener('click', function() {
-        const preferences = {
-          essential: true,
-          analytics: document.getElementById('analytics-toggle').checked,
-          advertising: document.getElementById('advertising-toggle').checked
-        };
-        
-        saveCookiePreferences(preferences);
-        
-        // Reload analytics/ads based on new preferences
-        if (preferences.analytics) {
-          loadGoogleAnalytics();
-        }
-        
-        if (preferences.advertising) {
-          loadGoogleAdSense();
-        }
-        
-        closeCookieSettings();
-        document.getElementById('cookie-consent').style.display = 'none';
-      });
-    });
-    
-    function openCookieSettings() {
-      const preferences = getCookiePreferences();
-      
-      // Set toggle states based on saved preferences
-      if (preferences) {
-        document.getElementById('analytics-toggle').checked = preferences.analytics;
-        document.getElementById('advertising-toggle').checked = preferences.advertising;
-      } else {
-        // Default to all on for new users
-        document.getElementById('analytics-toggle').checked = true;
-        document.getElementById('advertising-toggle').checked = true;
-      }
-      
-      document.getElementById('cookie-settings').style.display = 'flex';
+
+    // Save and load QR preferences
+    function saveQRPreferences() {
+      const preferences = {
+        fgColor: fgColor.value,
+        bgColor: bgColor.value,
+        size: sizeSlider.value
+      };
+      localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
     }
-    
-    function closeCookieSettings() {
-      document.getElementById('cookie-settings').style.display = 'none';
+
+    function loadQRPreferences() {
+      const preferences = localStorage.getItem(PREFERENCES_KEY);
+      if (preferences) {
+        const { fgColor, bgColor, size } = JSON.parse(preferences);
+        document.getElementById('fg-color').value = fgColor || '#000000';
+        document.getElementById('bg-color').value = bgColor || '#FFFFFF';
+        sizeSlider.value = size || '256';
+        updateSizeValue();
+      }
     }
 
     // DOM Elements
+    const qrType = document.getElementById('qr-type');
     const qrInput = document.getElementById('qr-input');
+    const vcardName = document.getElementById('vcard-name');
+    const vcardPhone = document.getElementById('vcard-phone');
+    const vcardEmail = document.getElementById('vcard-email');
+    const wifiSsid = document.getElementById('wifi-ssid');
+    const wifiPassword = document.getElementById('wifi-password');
+    const wifiType = document.getElementById('wifi-type');
+    const smsPhone = document.getElementById('sms-phone');
+    const smsMessage = document.getElementById('sms-message');
+    const emailAddress = document.getElementById('email-address');
+    const emailSubject = document.getElementById('email-subject');
+    const emailBody = document.getElementById('email-body');
     const qrCanvas = document.getElementById('qr-canvas');
     const fgColor = document.getElementById('fg-color');
     const bgColor = document.getElementById('bg-color');
@@ -1515,6 +1509,7 @@ Any text or data"></textarea>
     const qrError = document.getElementById('qr-error');
     const qrSuccess = document.getElementById('qr-success');
     const downloadBtn = document.getElementById('download-btn');
+    const testBtn = document.getElementById('test-btn');
     const video = document.getElementById('scanner-video');
     const scanResult = document.getElementById('scan-result');
     const startScanBtn = document.getElementById('start-scan');
@@ -1523,6 +1518,7 @@ Any text or data"></textarea>
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
     const bulkInput = document.getElementById('bulk-input');
+    const bulkFileUpload = document.getElementById('bulk-file-upload');
     const bulkFilename = document.getElementById('bulk-filename');
     const bulkLoading = document.getElementById('bulk-loading');
     const bulkProgress = document.getElementById('bulk-progress');
@@ -1538,34 +1534,104 @@ Any text or data"></textarea>
 
     // Initialize the page
     document.addEventListener('DOMContentLoaded', () => {
+      checkCookieConsent();
+      loadQRPreferences();
       updateSizeValue();
       setupEventListeners();
+      toggleQRTypeFields();
+      
+      document.getElementById('accept-cookies').addEventListener('click', function() {
+        saveCookiePreferences({
+          essential: true,
+          analytics: true,
+          advertising: true
+        });
+        document.getElementById('cookie-consent').style.display = 'none';
+        loadGoogleAnalytics();
+        loadGoogleAdSense();
+      });
+      
+      document.getElementById('reject-cookies').addEventListener('click', function() {
+        saveCookiePreferences({
+          essential: true,
+          analytics: false,
+          advertising: false
+        });
+        document.getElementById('cookie-consent').style.display = 'none';
+      });
+      
+      document.getElementById('open-settings').addEventListener('click', openCookieSettings);
+      document.getElementById('open-settings-footer').addEventListener('click', function(e) {
+        e.preventDefault();
+        openCookieSettings();
+      });
+      
+      document.querySelector('.close-settings').addEventListener('click', closeCookieSettings);
+      
+      document.getElementById('save-settings').addEventListener('click', function() {
+        const preferences = {
+          essential: true,
+          analytics: document.getElementById('analytics-toggle').checked,
+          advertising: document.getElementById('advertising-toggle').checked
+        };
+        saveCookiePreferences(preferences);
+        if (preferences.analytics) loadGoogleAnalytics();
+        if (preferences.advertising) loadGoogleAdSense();
+        closeCookieSettings();
+        document.getElementById('cookie-consent').style.display = 'none';
+      });
     });
+
+    function openCookieSettings() {
+      const preferences = getCookiePreferences();
+      if (preferences) {
+        document.getElementById('analytics-toggle').checked = preferences.analytics;
+        document.getElementById('advertising-toggle').checked = preferences.advertising;
+      } else {
+        document.getElementById('analytics-toggle').checked = true;
+        document.getElementById('advertising-toggle').checked = true;
+      }
+      document.getElementById('cookie-settings').style.display = 'flex';
+    }
+    
+    function closeCookieSettings() {
+      document.getElementById('cookie-settings').style.display = 'none';
+    }
 
     // Set up all event listeners
     function setupEventListeners() {
-      // Tab navigation
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
+          tabs.forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
           tabContents.forEach(c => c.classList.remove('active'));
           tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
           document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
           
-          if (currentStream) {
-            stopScanner();
+          if (currentStream) stopScanner();
+        });
+        tab.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            tab.click();
           }
         });
       });
 
-      // Size slider
-      sizeSlider.addEventListener('input', updateSizeValue);
+      sizeSlider.addEventListener('input', () => {
+        updateSizeValue();
+        saveQRPreferences();
+      });
 
-      // Logo upload
+      fgColor.addEventListener('change', saveQRPreferences);
+      bgColor.addEventListener('change', saveQRPreferences);
+
       logoUploadArea.addEventListener('click', () => logoUpload.click());
       logoUpload.addEventListener('change', handleLogoUpload);
 
-      // Drag and drop events
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         logoUploadArea.addEventListener(eventName, preventDefaults, false);
       });
@@ -1580,37 +1646,33 @@ Any text or data"></textarea>
 
       logoUploadArea.addEventListener('drop', handleDrop, false);
 
-      // QR code input
       qrInput.addEventListener('blur', autoFormatURL);
       qrInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') generateQR();
       });
 
-      // Scanner
+      qrType.addEventListener('change', toggleQRTypeFields);
+
       startScanBtn.addEventListener('click', startScanner);
       stopScanBtn.addEventListener('click', stopScanner);
 
-      // File upload
       fileUpload.addEventListener('change', handleFileUpload);
+      bulkFileUpload.addEventListener('change', handleBulkFileUpload);
     }
 
-    // Prevent default behavior for drag events
     function preventDefaults(e) {
       e.preventDefault();
       e.stopPropagation();
     }
 
-    // Highlight the logo upload area on drag
     function highlight() {
       logoUploadArea.classList.add('drag-over');
     }
 
-    // Remove highlight from logo upload area
     function unhighlight() {
       logoUploadArea.classList.remove('drag-over');
     }
 
-    // Handle file drop
     function handleDrop(e) {
       const dt = e.dataTransfer;
       const files = dt.files;
@@ -1621,15 +1683,17 @@ Any text or data"></textarea>
       }
     }
 
-    // Update size value display
     function updateSizeValue() {
       sizeValue.textContent = `${sizeSlider.value}px`;
     }
 
-    // Handle logo upload
     function handleLogoUpload(e) {
       const file = e.target.files[0];
-      if (!file || !file.type.match('image.*')) return;
+      if (!file) return;
+      if (!file.type.match('image.*')) {
+        showError(qrError, 'Please upload a valid image file');
+        return;
+      }
 
       const reader = new FileReader();
       reader.onload = function(event) {
@@ -1638,6 +1702,7 @@ Any text or data"></textarea>
           logoPreview.innerHTML = '';
           const img = document.createElement('img');
           img.src = event.target.result;
+          img.alt = 'Uploaded logo';
           logoPreview.appendChild(img);
         };
         logoImage.src = event.target.result;
@@ -1645,7 +1710,6 @@ Any text or data"></textarea>
       reader.readAsDataURL(file);
     }
 
-    // Auto-format URLs
     function autoFormatURL() {
       const input = qrInput.value.trim();
       if (!input) return;
@@ -1655,23 +1719,73 @@ Any text or data"></textarea>
       }
     }
 
-    // Sanitize filename to remove invalid characters
+    function toggleQRTypeFields() {
+      const type = qrType.value;
+      document.querySelectorAll('.qr-type-fields').forEach(field => field.classList.remove('active'));
+      document.getElementById(`${type}-fields`).classList.add('active');
+    }
+
     function sanitizeFilename(str) {
       return str.replace(/[^a-zA-Z0-9-]+$/g, '_').slice(0, 50);
     }
 
-    // Generate QR code
-    function generateQR() {
-      const input = qrInput.value.trim();
-      if (!input) {
-        showError(qrError, 'Please enter some content for the QR code');
-        return;
+    function generateQRContent() {
+      const type = qrType.value;
+      switch (type) {
+        case 'vcard':
+          const name = vcardName.value.trim();
+          const phone = vcardPhone.value.trim();
+          const email = vcardEmail.value.trim();
+          if (!name || !phone || !email) {
+            showError(qrError, 'Please fill in all vCard fields');
+            return null;
+          }
+          return `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
+        case 'wifi':
+          const ssid = wifiSsid.value.trim();
+          const password = wifiPassword.value.trim();
+          const encryption = wifiType.value;
+          if (!ssid) {
+            showError(qrError, 'Please enter Wi-Fi SSID');
+            return null;
+          }
+          return `WIFI:S:${ssid};T:${encryption};P:${password};;`;
+        case 'sms':
+          const smsNum = smsPhone.value.trim();
+          const message = smsMessage.value.trim();
+          if (!smsNum || !message) {
+            showError(qrError, 'Please fill in all SMS fields');
+            return null;
+          }
+          return `SMSTO:${smsNum}:${message}`;
+        case 'email':
+          const emailAddr = emailAddress.value.trim();
+          const subject = emailSubject.value.trim();
+          const body = emailBody.value.trim();
+          if (!emailAddr) {
+            showError(qrError, 'Please enter recipient email');
+            return null;
+          }
+          return `mailto:${emailAddr}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        default:
+          const input = qrInput.value.trim();
+          if (!input) {
+            showError(qrError, 'Please enter some content for the QR code');
+            return null;
+          }
+          return input;
       }
+    }
+
+    function generateQR() {
+      const input = generateQRContent();
+      if (!input) return;
 
       qrLoading.style.display = 'block';
       qrError.style.display = 'none';
       qrSuccess.style.display = 'none';
       downloadBtn.style.display = 'none';
+      testBtn.style.display = 'none';
       qrCanvas.style.display = 'none';
 
       setTimeout(() => {
@@ -1714,6 +1828,7 @@ Any text or data"></textarea>
             qrSuccess.style.display = 'block';
             qrSuccess.textContent = 'QR Code generated successfully!';
             downloadBtn.style.display = 'block';
+            testBtn.style.display = 'block';
             qrCanvas.style.display = 'block';
           });
         } catch (error) {
@@ -1723,7 +1838,6 @@ Any text or data"></textarea>
       }, 300);
     }
 
-    // Download QR code
     function downloadQR() {
       if (!generatedQR) {
         showError(qrError, 'Please generate a QR code first');
@@ -1739,7 +1853,19 @@ Any text or data"></textarea>
       document.body.removeChild(a);
     }
 
-    // Start QR scanner
+    function testQR() {
+      if (!generatedQR) {
+        showError(qrError, 'Please generate a QR code first');
+        return;
+      }
+
+      const img = new Image();
+      img.onload = function() {
+        scanQRFromImage(img);
+      };
+      img.src = generatedQR.data;
+    }
+
     function startScanner() {
       scannerOverlay.style.display = 'flex';
       scanResult.innerHTML = '<p>Scanning... Point camera at QR code</p>';
@@ -1758,7 +1884,6 @@ Any text or data"></textarea>
         });
     }
 
-    // Stop scanner
     function stopScanner() {
       if (currentStream) {
         currentStream.getTracks().forEach(track => track.stop());
@@ -1767,7 +1892,6 @@ Any text or data"></textarea>
       scannerOverlay.style.display = 'none';
     }
 
-    // Scan QR code from video feed
     function scanQR() {
       if (!currentStream) return;
 
@@ -1795,31 +1919,15 @@ Any text or data"></textarea>
       requestAnimationFrame(scanQR);
     }
 
-    // Use scanned content to generate QR
     function useScannedContent(content) {
       stopScanner();
+      qrType.value = 'url';
+      toggleQRTypeFields();
       qrInput.value = content;
       tabs[0].click();
       generateQR();
     }
 
-    // Handle file upload for scanning
-    function handleFileUpload(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        const img = new Image();
-        img.onload = function() {
-          scanQRFromImage(img);
-        };
-        img.src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // Scan QR code from image
     function scanQRFromImage(img) {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -1843,12 +1951,42 @@ Any text or data"></textarea>
       }
     }
 
-    // Generate bulk QR codes
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          scanQRFromImage(img);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleBulkFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file || !file.name.endsWith('.csv')) {
+        showError(bulkError, 'Please upload a valid CSV file');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const text = event.target.result;
+        const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+        bulkInput.value = lines.join('\n');
+      };
+      reader.readAsText(file);
+    }
+
     function generateBulkQR() {
       const inputs = bulkInput.value.trim().split('\n').filter(line => line.trim() !== '');
 
       if (inputs.length === 0) {
-        showError(bulkError, 'Please enter at least one item');
+        showError(bulkError, 'Please enter at least one item or upload a CSV file');
         return;
       }
 
@@ -1865,7 +2003,6 @@ Any text or data"></textarea>
       processBulkBatch(inputs, 0, inputs.length);
     }
 
-    // Process batch of bulk QR codes
     function processBulkBatch(inputs, index, total) {
       if (index >= inputs.length) {
         bulkProgress.textContent = 'Creating ZIP file...';
@@ -1906,7 +2043,6 @@ Any text or data"></textarea>
       }
     }
 
-    // Create ZIP file from bulk QR codes
     function createBulkZip() {
       try {
         const zip = new JSZip();
@@ -1930,7 +2066,6 @@ Any text or data"></textarea>
       }
     }
 
-    // Show error message
     function showError(element, message) {
       element.textContent = message;
       element.style.display = 'block';
