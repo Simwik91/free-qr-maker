@@ -3,28 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free QR code generator with logo embedding, bulk processing, multiple QR types, and QR scanning">
-  <meta name="keywords" content="qr code generator, free qr code, create qr code, qr code scanner, bulk qr codes, vcard, wifi">
-  <meta name="author" content="Free QR Maker">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://free-qr-maker.com/">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://free-qr-maker.com/">
-  <meta property="og:title" content="Free QR Code Generator">
-  <meta property="og:description" content="Create custom QR codes with logos, custom colors, vCard, Wi-Fi, and bulk processing. Scan QR codes easily. Free, no signup required.">
-  <meta property="og:image" content="https://free-qr-maker.com/preview.jpg">
-  
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://free-qr-maker.com/">
-  <meta property="twitter:title" content="Free QR Code Generator">
-  <meta property="twitter:description" content="Create custom QR codes with logos, custom colors, vCard, Wi-Fi, and bulk processing. Scan QR codes easily. Free, no signup required.">
-  <meta property="twitter:image" content="https://free-qr-maker.com/preview.jpg">
-
-  <title>Free QR Code Generator - Create Custom QR Codes Instantly</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>Fixed Cookie Settings - Free QR Code Generator</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -1725,6 +1704,12 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         if (preferences.advertising) loadGoogleAdSense();
         closeCookieSettings();
         document.getElementById('cookie-consent').style.display = 'none';
+      });
+      
+      // FIX: Add event listener for footer cookie settings link
+      document.getElementById('open-settings-footer').addEventListener('click', function(e) {
+        e.preventDefault();
+        openCookieSettings();
       });
     });
 
