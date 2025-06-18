@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fixed Cookie Settings - Free QR Code Generator</title>
+  <title>Enhanced QR Code Generator - FixMyTech.no</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -110,6 +110,16 @@
     
     h2 i {
       color: var(--primary);
+    }
+    
+    h3 {
+      font-size: 1.4rem;
+      margin: 20px 0 15px;
+      color: var(--dark);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .tabs {
@@ -956,6 +966,85 @@
       display: block;
     }
     
+    .input-type-toggle {
+      display: flex;
+      gap: 15px;
+      margin: 20px 0;
+      justify-content: center;
+    }
+    
+    .input-type-toggle label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 10px 20px;
+      background: var(--light-gray);
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+    
+    .input-type-toggle label.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .input-type-toggle input[type="radio"] {
+      display: none;
+    }
+    
+    .range-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .border-preview {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      border-radius: 12px;
+      background: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid var(--light-gray);
+    }
+    
+    .border-preview .logo-placeholder {
+      width: 70%;
+      height: 70%;
+      background: #4361ee;
+      border-radius: 8px;
+    }
+    
+    .border-preview .border-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0px solid #000;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+    
+    .border-note {
+      font-size: 0.85rem;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 10px;
+      font-style: italic;
+    }
+    
+    .border-active {
+      background: rgba(67, 97, 238, 0.05);
+      border: 2px dashed var(--primary);
+    }
+    
     @media (max-width: 768px) {
       .cookie-content {
         flex-direction: column;
@@ -1024,6 +1113,16 @@
       .uses-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       }
+      
+      .input-type-toggle {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .input-type-toggle label {
+        width: 100%;
+        justify-content: center;
+      }
     }
     
     @media (max-width: 480px) {
@@ -1049,6 +1148,10 @@
       
       .guide-item {
         min-width: 100%;
+      }
+      
+      .range-controls {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1122,9 +1225,9 @@
       <div class="logo">
         <i class="fas fa-qrcode"></i>
       </div>
-      <h1>Free QR Code Generator</h1>
+      <h1>Enhanced QR Code Generator</h1>
       <p class="tagline">Create custom QR codes with logos, colors, vCard, Wi-Fi, and bulk processing.</p>
-      <p class="tagline">100% free with no sign-up required.</p>
+      <p class="tagline">Now with number range generation!</p>
     </header>
 
     <div class="features">
@@ -1136,7 +1239,7 @@
       <div class="feature">
         <i class="fas fa-layer-group"></i>
         <h3>Bulk Generation</h3>
-        <p>Generate multiple QR codes at once and download as a ZIP file</p>
+        <p>Generate multiple QR codes at once including sequential numbers</p>
       </div>
       <div class="feature">
         <i class="fas fa-camera"></i>
@@ -1267,12 +1370,20 @@
           <i class="fas fa-cloud-upload-alt"></i>
           <p>Drag & drop your logo here<br>or click to select a file</p>
           <div class="logo-preview" id="logo-preview">
-            <span>No logo selected</span>
+            <div class="border-preview">
+              <div class="logo-placeholder"></div>
+              <div class="border-indicator" id="border-preview"></div>
+            </div>
           </div>
           <input type="file" id="logo-upload" accept="image/*" style="display:none" aria-label="Upload logo image">
         </div>
+        
+        <div class="border-note" id="border-note">
+          <i class="fas fa-info-circle"></i> Border settings only apply when a logo is uploaded
+        </div>
 
         <!-- Logo border controls -->
+        <h3><i class="fas fa-border-style"></i> Logo Border Settings</h3>
         <div class="border-controls">
           <div class="border-control">
             <label for="border-size">Border Size:</label>
@@ -1312,17 +1423,53 @@
       <div class="tab-content" id="bulk-tab" role="tabpanel">
         <h2><i class="fas fa-layer-group"></i> Bulk QR Code Generation</h2>
         
-        <label for="bulk-input">Enter URLs or text (one per line):</label>
-        <textarea id="bulk-input" rows="5" placeholder="https://example.com/page1
+        <div class="input-type-toggle" id="bulk-input-type">
+          <label class="active">
+            <input type="radio" name="bulk-type" value="list" checked>
+            <i class="fas fa-list"></i> List
+          </label>
+          <label>
+            <input type="radio" name="bulk-type" value="range">
+            <i class="fas fa-sort-numeric-up"></i> Number Range
+          </label>
+        </div>
+        
+        <!-- List Input Fields -->
+        <div id="bulk-list-fields">
+          <label for="bulk-input">Enter URLs or text (one per line):</label>
+          <textarea id="bulk-input" rows="5" placeholder="https://example.com/page1
 https://example.com/page2
 Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
 
-        <div class="file-upload-container">
-          <label for="bulk-file-upload" class="file-upload-label">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <p>Upload a CSV file with URLs or text<br>(one per row)</p>
-          </label>
-          <input type="file" id="bulk-file-upload" class="file-upload-input" accept=".csv" aria-label="Upload CSV file for bulk QR codes">
+          <div class="file-upload-container">
+            <label for="bulk-file-upload" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Upload a CSV file with URLs or text<br>(one per row)</p>
+            </label>
+            <input type="file" id="bulk-file-upload" class="file-upload-input" accept=".csv" aria-label="Upload CSV file for bulk QR codes">
+          </div>
+        </div>
+        
+        <!-- Range Input Fields -->
+        <div id="bulk-range-fields" style="display: none;">
+          <div class="range-controls">
+            <div>
+              <label for="range-start">Start Number:</label>
+              <input type="number" id="range-start" min="1" value="1" placeholder="1">
+            </div>
+            <div>
+              <label for="range-end">End Number:</label>
+              <input type="number" id="range-end" min="1" value="10" placeholder="10">
+            </div>
+            <div>
+              <label for="range-prefix">Prefix (Optional):</label>
+              <input type="text" id="range-prefix" placeholder="QR-">
+            </div>
+            <div>
+              <label for="range-suffix">Suffix (Optional):</label>
+              <input type="text" id="range-suffix" placeholder="-code">
+            </div>
+          </div>
         </div>
 
         <label for="bulk-filename">File Name Prefix:</label>
@@ -1355,9 +1502,16 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
           <i class="fas fa-cloud-upload-alt"></i>
           <p>Drag & drop your logo here<br>or click to select a file</p>
           <div class="logo-preview" id="bulk-logo-preview">
-            <span>No logo selected</span>
+            <div class="border-preview">
+              <div class="logo-placeholder"></div>
+              <div class="border-indicator" id="bulk-border-preview"></div>
+            </div>
           </div>
           <input type="file" id="bulk-logo-upload" accept="image/*" style="display:none" aria-label="Upload logo image for bulk">
+        </div>
+        
+        <div class="border-note" id="bulk-border-note">
+          <i class="fas fa-info-circle"></i> Border settings only apply when a logo is uploaded
         </div>
 
         <div class="border-controls">
@@ -1595,6 +1749,8 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         borderColor.value = borderColor || '#FFFFFF';
         updateSizeValue();
         updateBorderSizeValue();
+        updateBorderPreview();
+        updateBulkBorderPreview();
       }
     }
 
@@ -1653,6 +1809,15 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     const bulkLogoUpload = document.getElementById('bulk-logo-upload');
     const bulkLogoUploadArea = document.getElementById('bulk-logo-upload-area');
     const bulkLogoPreview = document.getElementById('bulk-logo-preview');
+    const bulkInputType = document.getElementById('bulk-input-type');
+    const bulkListFields = document.getElementById('bulk-list-fields');
+    const bulkRangeFields = document.getElementById('bulk-range-fields');
+    const rangeStart = document.getElementById('range-start');
+    const rangeEnd = document.getElementById('range-end');
+    const rangePrefix = document.getElementById('range-prefix');
+    const rangeSuffix = document.getElementById('range-suffix');
+    const borderPreview = document.getElementById('border-preview');
+    const bulkBorderPreview = document.getElementById('bulk-border-preview');
 
     // Global variables
     let currentStream = null;
@@ -1660,6 +1825,7 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     let bulkLogoImage = null;
     let generatedQR = null;
     let bulkQRs = [];
+    let previewTimeout = null;
 
     // Initialize the page
     document.addEventListener('DOMContentLoaded', () => {
@@ -1667,6 +1833,8 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       loadQRPreferences();
       updateSizeValue();
       updateBorderSizeValue();
+      updateBorderPreview();
+      updateBulkBorderPreview();
       setupEventListeners();
       toggleQRTypeFields();
       
@@ -1710,6 +1878,23 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       document.getElementById('open-settings-footer').addEventListener('click', function(e) {
         e.preventDefault();
         openCookieSettings();
+      });
+      
+      // Add event listeners for bulk type toggle
+      document.querySelectorAll('input[name="bulk-type"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'list') {
+            bulkListFields.style.display = 'block';
+            bulkRangeFields.style.display = 'none';
+            document.querySelector('label[for="list-type"]').classList.add('active');
+            document.querySelector('label[for="range-type"]').classList.remove('active');
+          } else {
+            bulkListFields.style.display = 'none';
+            bulkRangeFields.style.display = 'block';
+            document.querySelector('label[for="list-type"]').classList.remove('active');
+            document.querySelector('label[for="range-type"]').classList.add('active');
+          }
+        });
       });
     });
 
@@ -1760,6 +1945,12 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       borderSize.addEventListener('input', () => {
         updateBorderSizeValue();
         saveQRPreferences();
+        updateBorderPreview();
+      });
+      
+      borderColor.addEventListener('input', () => {
+        saveQRPreferences();
+        updateBorderPreview();
       });
       
       bulkSizeSlider.addEventListener('input', () => {
@@ -1768,11 +1959,15 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       
       bulkBorderSize.addEventListener('input', () => {
         bulkBorderSizeValue.textContent = `${bulkBorderSize.value}px`;
+        updateBulkBorderPreview();
+      });
+      
+      bulkBorderColor.addEventListener('input', () => {
+        updateBulkBorderPreview();
       });
 
       fgColor.addEventListener('change', saveQRPreferences);
       bgColor.addEventListener('change', saveQRPreferences);
-      borderColor.addEventListener('change', saveQRPreferences);
 
       logoUploadArea.addEventListener('click', () => logoUpload.click());
       logoUpload.addEventListener('change', handleLogoUpload);
@@ -1810,6 +2005,36 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
 
       fileUpload.addEventListener('change', handleFileUpload);
       bulkFileUpload.addEventListener('change', handleBulkFileUpload);
+    }
+    
+    function updateBorderPreview() {
+      const borderSizeVal = parseInt(borderSize.value);
+      const borderColorVal = borderColor.value;
+      
+      if (borderPreview) {
+        if (borderSizeVal > 0) {
+          borderPreview.style.border = `${borderSizeVal}px solid ${borderColorVal}`;
+          logoUploadArea.classList.add('border-active');
+        } else {
+          borderPreview.style.border = 'none';
+          logoUploadArea.classList.remove('border-active');
+        }
+      }
+    }
+    
+    function updateBulkBorderPreview() {
+      const borderSizeVal = parseInt(bulkBorderSize.value);
+      const borderColorVal = bulkBorderColor.value;
+      
+      if (bulkBorderPreview) {
+        if (borderSizeVal > 0) {
+          bulkBorderPreview.style.border = `${borderSizeVal}px solid ${borderColorVal}`;
+          bulkLogoUploadArea.classList.add('border-active');
+        } else {
+          bulkBorderPreview.style.border = 'none';
+          bulkLogoUploadArea.classList.remove('border-active');
+        }
+      }
     }
 
     function preventDefaults(e) {
@@ -1866,10 +2091,25 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         logoImage = new Image();
         logoImage.onload = function() {
           logoPreview.innerHTML = '';
+          const previewContainer = document.createElement('div');
+          previewContainer.className = 'border-preview';
+          
           const img = document.createElement('img');
           img.src = event.target.result;
           img.alt = 'Uploaded logo';
-          logoPreview.appendChild(img);
+          img.style.maxWidth = '100%';
+          img.style.maxHeight = '100%';
+          img.style.objectFit = 'contain';
+          
+          const borderIndicator = document.createElement('div');
+          borderIndicator.className = 'border-indicator';
+          borderIndicator.id = 'border-preview';
+          
+          previewContainer.appendChild(img);
+          previewContainer.appendChild(borderIndicator);
+          logoPreview.appendChild(previewContainer);
+          
+          updateBorderPreview();
         };
         logoImage.src = event.target.result;
       };
@@ -1889,10 +2129,25 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         bulkLogoImage = new Image();
         bulkLogoImage.onload = function() {
           bulkLogoPreview.innerHTML = '';
+          const previewContainer = document.createElement('div');
+          previewContainer.className = 'border-preview';
+          
           const img = document.createElement('img');
           img.src = event.target.result;
           img.alt = 'Uploaded logo for bulk';
-          bulkLogoPreview.appendChild(img);
+          img.style.maxWidth = '100%';
+          img.style.maxHeight = '100%';
+          img.style.objectFit = 'contain';
+          
+          const borderIndicator = document.createElement('div');
+          borderIndicator.className = 'border-indicator';
+          borderIndicator.id = 'bulk-border-preview';
+          
+          previewContainer.appendChild(img);
+          previewContainer.appendChild(borderIndicator);
+          bulkLogoPreview.appendChild(previewContainer);
+          
+          updateBulkBorderPreview();
         };
         bulkLogoImage.src = event.target.result;
       };
@@ -2184,15 +2439,40 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     }
 
     function generateBulkQR() {
-      const inputs = bulkInput.value.trim().split('\n').filter(line => line.trim() !== '');
+      let inputs = [];
+      const bulkType = document.querySelector('input[name="bulk-type"]:checked').value;
+      
+      if (bulkType === 'list') {
+        inputs = bulkInput.value.trim().split('\n').filter(line => line.trim() !== '');
+      } else {
+        // Range generation
+        const start = parseInt(rangeStart.value);
+        const end = parseInt(rangeEnd.value);
+        const prefix = rangePrefix.value.trim();
+        const suffix = rangeSuffix.value.trim();
+        
+        if (isNaN(start) || isNaN(end) || start > end) {
+          showError(bulkError, 'Please enter valid start and end numbers');
+          return;
+        }
+        
+        if (end - start > 1000) {
+          showError(bulkError, 'Range is too large (max 1000 items)');
+          return;
+        }
+        
+        for (let i = start; i <= end; i++) {
+          inputs.push(`${prefix}${i}${suffix}`);
+        }
+      }
 
       if (inputs.length === 0) {
-        showError(bulkError, 'Please enter at least one item or upload a CSV file');
+        showError(bulkError, 'Please enter at least one item');
         return;
       }
 
-      if (inputs.length > 50) {
-        showError(bulkError, 'For performance reasons, please limit to 50 items at a time');
+      if (inputs.length > 1000) {
+        showError(bulkError, 'For performance reasons, please limit to 1000 items at a time');
         return;
       }
 
