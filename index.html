@@ -106,6 +106,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      justify-content: center; /* Added center alignment */
     }
     
     h2 i {
@@ -120,6 +121,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      justify-content: center; /* Added center alignment */
     }
     
     .tabs {
@@ -548,6 +550,7 @@
     
     .sister-tools-section {
       margin: 40px auto;
+      text-align: center; /* Added center alignment */
     }
     
     .sister-tools-grid {
@@ -663,6 +666,7 @@
       padding: 40px;
       margin: 40px auto;
       box-shadow: var(--box-shadow);
+      text-align: center; /* Added center alignment */
     }
     
     .uses-grid {
@@ -1144,6 +1148,7 @@
       font-size: 1.8rem;
       color: white;
       margin-bottom: 10px;
+      justify-content: flex-start; /* Left align in card */
     }
     
     .fixmytech-card p {
@@ -1151,7 +1156,7 @@
       font-size: 1.1rem;
       opacity: 0.9;
       font-weight: bold;
-      color: white; /* ADDED: Make text white */
+      color: white;
     }
     
     .fixmytech-btn {
@@ -1185,6 +1190,7 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 15px;
+      justify-content: center; /* Added center alignment */
     }
     
     .logo-options-header i {
@@ -1196,6 +1202,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
+      justify-content: center; /* Added center alignment */
     }
     
     .logo-upload-container {
@@ -1397,7 +1404,7 @@
       <div class="logo">
         <i class="fas fa-qrcode"></i>
       </div>
-      <h1>Free QR Code Generator</h1>
+      <h1>Enhanced QR Code Generator</h1>
       <p class="tagline">Create custom QR codes with logos, colors, vCard, Wi-Fi, bulk processing, and number range generation.</p>
     </header>
 
@@ -2090,25 +2097,29 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         document.getElementById('cookie-consent').style.display = 'none';
       });
       
-      // FIX: Add event listener for footer cookie settings link
       document.getElementById('open-settings-footer').addEventListener('click', function(e) {
         e.preventDefault();
         openCookieSettings();
       });
       
-// Add event listeners for bulk type toggle
+      // FIXED: Bulk type toggle with proper label color change
       document.querySelectorAll('input[name="bulk-type"]').forEach(radio => {
         radio.addEventListener('change', function() {
+          // Get all label elements for the bulk type toggle
+          const labels = document.querySelectorAll('#bulk-input-type label');
+          
           if (this.value === 'list') {
             bulkListFields.style.display = 'block';
             bulkRangeFields.style.display = 'none';
-            document.querySelector('label[for="list-type"]').classList.add('active');
-            document.querySelector('label[for="range-type"]').classList.remove('active');
+            // Update active class on labels
+            labels[0].classList.add('active');
+            labels[1].classList.remove('active');
           } else {
             bulkListFields.style.display = 'none';
             bulkRangeFields.style.display = 'block';
-            document.querySelector('label[for="list-type"]').classList.remove('active');
-            document.querySelector('label[for="range-type"]').classList.add('active');
+            // Update active class on labels
+            labels[0].classList.remove('active');
+            labels[1].classList.add('active');
           }
         });
       });
