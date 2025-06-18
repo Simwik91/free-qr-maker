@@ -128,7 +128,7 @@
             position: relative;
             z-index: 2;
             line-height: 1.8;
-            color: white; /* Added to make text white */
+            color: white;
         }
         
         .contact-form {
@@ -141,7 +141,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center content horizontally */
+            align-items: center;
         }
         
         .contact-form:before {
@@ -167,10 +167,10 @@
         
         .form-group {
             margin-bottom: 25px;
-            width: 100%; /* Full width for centering */
+            width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center form elements */
+            align-items: center;
         }
         
         .form-group label {
@@ -179,21 +179,21 @@
             font-weight: 500;
             color: var(--dark);
             width: 100%;
-            max-width: 600px; /* Consistent width */
-            text-align: center; /* Center label text */
+            max-width: 600px;
+            text-align: center;
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
-            max-width: 600px; /* Consistent width */
+            max-width: 600px;
             padding: 15px;
             border: 1px solid var(--light-gray);
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             transition: var(--transition);
-            text-align: center; /* Center input text */
+            text-align: center;
         }
         
         .form-group input:focus,
@@ -211,7 +211,7 @@
         .submit-btn {
             display: block;
             width: 100%;
-            max-width: 600px; /* Consistent width */
+            max-width: 600px;
             padding: 15px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -224,7 +224,7 @@
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
             margin-top: 10px;
-            text-align: center; /* Center button text */
+            text-align: center;
         }
         
         .submit-btn:hover {
@@ -298,7 +298,7 @@
             text-align: center;
             animation: fadeIn 0.5s ease;
             width: 100%;
-            max-width: 600px; /* Consistent width */
+            max-width: 600px;
         }
         
         @keyframes fadeIn {
@@ -710,7 +710,7 @@
         </section>
 
         <div style="text-align: center;">
-            <a href="https://free-qr-maker.com" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to QR Generator</a>
+            <a href="/" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </div>
 
         <footer>
@@ -742,7 +742,40 @@
             
             if (!preferences) {
                 document.getElementById('cookie-consent').style.display = 'block';
+            } else {
+                if (preferences.analytics) loadGoogleAnalytics();
+                if (preferences.advertising) loadGoogleAdSense();
             }
+        }
+        
+        function loadGoogleAnalytics() {
+            if (window.gaLoaded) return;
+            
+            const gtagScript = document.createElement('script');
+            gtagScript.async = true;
+            gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-LR5XP1GJFC';
+            document.head.appendChild(gtagScript);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LR5XP1GJFC');
+            
+            window.gaLoaded = true;
+            console.log('Google Analytics loaded');
+        }
+        
+        function loadGoogleAdSense() {
+            if (window.adsenseLoaded) return;
+            
+            const adsenseScript = document.createElement('script');
+            adsenseScript.async = true;
+            adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4041775163958551';
+            adsenseScript.crossOrigin = 'anonymous';
+            document.head.appendChild(adsenseScript);
+            
+            window.adsenseLoaded = true;
+            console.log('Google AdSense loaded');
         }
         
         function openCookieSettings() {
@@ -773,6 +806,8 @@
                     advertising: true
                 });
                 document.getElementById('cookie-consent').style.display = 'none';
+                loadGoogleAnalytics();
+                loadGoogleAdSense();
             });
             
             document.getElementById('reject-cookies').addEventListener('click', function() {
@@ -795,6 +830,8 @@
                     advertising: document.getElementById('advertising-toggle').checked
                 };
                 saveCookiePreferences(preferences);
+                if (preferences.analytics) loadGoogleAnalytics();
+                if (preferences.advertising) loadGoogleAdSense();
                 closeCookieSettings();
                 document.getElementById('cookie-consent').style.display = 'none';
             });
