@@ -2096,25 +2096,21 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         openCookieSettings();
       });
       
-    // Add event listeners for bulk type toggle - FIXED SECTION
-    document.querySelectorAll('input[name="bulk-type"]').forEach(radio => {
-      radio.addEventListener('change', function() {
-        // Remove active class from both labels
-        document.querySelectorAll('#bulk-input-type label').forEach(label => {
-          label.classList.remove('active');
+// Add event listeners for bulk type toggle
+      document.querySelectorAll('input[name="bulk-type"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'list') {
+            bulkListFields.style.display = 'block';
+            bulkRangeFields.style.display = 'none';
+            document.querySelector('label[for="list-type"]').classList.add('active');
+            document.querySelector('label[for="range-type"]').classList.remove('active');
+          } else {
+            bulkListFields.style.display = 'none';
+            bulkRangeFields.style.display = 'block';
+            document.querySelector('label[for="list-type"]').classList.remove('active');
+            document.querySelector('label[for="range-type"]').classList.add('active');
+          }
         });
-        
-        // Add active class to the parent label of the checked radio
-        this.parentElement.classList.add('active');
-
-        // Then toggle the fields
-        if (this.value === 'list') {
-          bulkListFields.style.display = 'block';
-          bulkRangeFields.style.display = 'none';
-        } else {
-          bulkListFields.style.display = 'none';
-          bulkRangeFields.style.display = 'block';
-        }
       });
     });
 
