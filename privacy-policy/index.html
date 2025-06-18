@@ -315,12 +315,12 @@
     }
 
     .cookie-text a {
+      text-decoration: underline;
       color: var(--primary);
-      text-decoration: none;
     }
 
     .cookie-text a:hover {
-      text-decoration: underline;
+      color: var(--secondary);
     }
 
     .cookie-buttons {
@@ -330,12 +330,12 @@
     }
 
     .cookie-btn {
-      padding: 10px 20px;
+      padding: 10px;
       border-radius: 50px;
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
-      font-size: 0.9rem;
+      font-size: 0.9em;
       border: none;
       min-width: 180px;
     }
@@ -370,7 +370,7 @@
     }
 
     .cookie-settings-btn:hover {
-      color: var(--dark);
+      color: var(--secondary);
     }
 
     #cookie-settings {
@@ -516,13 +516,6 @@
       background: var(--primary-dark);
     }
     
-    /* Ad unit styling */
-    .adsense-container {
-      text-align: center;
-      margin: 20px auto;
-      max-width: 100%;
-    }
-    
     @media (max-width: 768px) {
       .privacy-content {
         padding: 30px 20px;
@@ -552,10 +545,6 @@
       .cookie-btn {
         width: 100%;
       }
-      
-      .adsense-container {
-        margin: 15px auto;
-      }
     }
     
     @media (max-width: 480px) {
@@ -581,10 +570,6 @@
       
       .settings-header h2 {
         font-size: 1.5rem;
-      }
-      
-      .adsense-container {
-        margin: 10px auto;
       }
     }
   </style>
@@ -670,19 +655,6 @@
       <p>Your trust is important to us - we never sell your data and minimize what we collect.</p>
     </section>
 
-    <!-- Ad Unit 1 -->
-    <div class="adsense-container">
-      <ins class="adsbygoogle"
-           style="display:block; margin: 20px auto;"
-           data-ad-client="ca-pub-4041775163958551"
-           data-ad-slot="YOUR_AD_SLOT_ID_1"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-
     <section class="privacy-content">
       <div class="update-date">
         <i class="fas fa-calendar-alt"></i> Last updated: June 15, 2025
@@ -732,20 +704,7 @@
     </section>
 
     <div style="text-align: center;">
-      <a href="https://free-qr-maker.com" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to QR Generator</a>
-    </div>
-
-    <!-- Ad Unit 2 -->
-    <div class="adsense-container">
-      <ins class="adsbygoogle"
-           style="display:block; margin: 20px auto;"
-           data-ad-client="ca-pub-4041775163958551"
-           data-ad-slot="YOUR_AD_SLOT_ID_2"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+      <a href="/" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
     </div>
 
     <footer>
