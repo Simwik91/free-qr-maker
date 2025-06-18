@@ -1151,6 +1151,7 @@
       font-size: 1.1rem;
       opacity: 0.9;
       font-weight: bold;
+      color: white; /* ADDED: Make text white */
     }
     
     .fixmytech-btn {
@@ -1593,9 +1594,7 @@
           <button id="download-btn" onclick="downloadQR()" style="display:none" aria-label="Download QR code">
             <i class="fas fa-download"></i> Download QR Code
           </button>
-          <button id="test-btn" onclick="testQR()" style="display:none" class="secondary" aria-label="Test QR code">
-            <i class="fas fa-check"></i> Test QR Code
-          </button>
+          <!-- REMOVED: Test QR Code button -->
         </div>
 
         <div class="loading" id="qr-loading">
@@ -2002,7 +2001,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     const qrError = document.getElementById('qr-error');
     const qrSuccess = document.getElementById('qr-success');
     const downloadBtn = document.getElementById('download-btn');
-    const testBtn = document.getElementById('test-btn');
     const video = document.getElementById('scanner-video');
     const scanResult = document.getElementById('scan-result');
     const startScanBtn = document.getElementById('start-scan');
@@ -2448,7 +2446,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       qrError.style.display = 'none';
       qrSuccess.style.display = 'none';
       downloadBtn.style.display = 'none';
-      testBtn.style.display = 'none';
       qrCanvas.style.display = 'none';
 
       setTimeout(() => {
@@ -2506,7 +2503,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
             qrSuccess.style.display = 'block';
             qrSuccess.textContent = 'QR Code generated successfully!';
             downloadBtn.style.display = 'block';
-            testBtn.style.display = 'block';
             qrCanvas.style.display = 'block';
           });
         } catch (error) {
@@ -2529,19 +2525,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-    }
-
-    function testQR() {
-      if (!generatedQR) {
-        showError(qrError, 'Please generate a QR code first');
-        return;
-      }
-
-      const img = new Image();
-      img.onload = function() {
-        scanQRFromImage(img);
-      };
-      img.src = generatedQR.data;
     }
 
     function startScanner() {
