@@ -1045,6 +1045,78 @@
       border: 2px dashed var(--primary);
     }
     
+    .transparent-bg-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .transparent-bg-container label {
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    /* FixMyTech card styling */
+    .fixmytech-card {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 25px;
+      padding: 30px;
+      text-align: left;
+      background: linear-gradient(135deg, #4361ee, #7209b7);
+      color: white;
+    }
+    
+    .fixmytech-card i {
+      font-size: 4rem;
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0;
+    }
+    
+    .fixmytech-content {
+      flex: 1;
+    }
+    
+    .fixmytech-card h3 {
+      font-size: 1.8rem;
+      color: white;
+      margin-bottom: 10px;
+    }
+    
+    .fixmytech-card p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .fixmytech-btn {
+      display: inline-block;
+      background: white;
+      color: var(--primary);
+      padding: 12px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .fixmytech-btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
     @media (max-width: 768px) {
       .cookie-content {
         flex-direction: column;
@@ -1122,6 +1194,11 @@
       .input-type-toggle label {
         width: 100%;
         justify-content: center;
+      }
+      
+      .fixmytech-card {
+        flex-direction: column;
+        text-align: center;
       }
     }
     
@@ -1226,8 +1303,7 @@
         <i class="fas fa-qrcode"></i>
       </div>
       <h1>Enhanced QR Code Generator</h1>
-      <p class="tagline">Create custom QR codes with logos, colors, vCard, Wi-Fi, and bulk processing.</p>
-      <p class="tagline">Now with number range generation!</p>
+      <p class="tagline">Create custom QR codes with logos, colors, vCard, Wi-Fi, bulk processing, and number range generation.</p>
     </header>
 
     <div class="features">
@@ -1355,6 +1431,11 @@
             <label for="bg-color">Background Color</label>
             <input type="color" id="bg-color" value="#FFFFFF" aria-label="Select background color">
           </div>
+        </div>
+        
+        <div class="transparent-bg-container">
+          <input type="checkbox" id="transparent-bg" aria-label="Make background transparent">
+          <label for="transparent-bg">Transparent Background</label>
         </div>
 
         <div class="size-group">
@@ -1487,6 +1568,11 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
             <label for="bulk-bg-color">Background Color</label>
             <input type="color" id="bulk-bg-color" value="#FFFFFF" aria-label="Select background color for bulk">
           </div>
+        </div>
+        
+        <div class="transparent-bg-container">
+          <input type="checkbox" id="bulk-transparent-bg" aria-label="Make background transparent for bulk">
+          <label for="bulk-transparent-bg">Transparent Background</label>
         </div>
 
         <div class="size-group">
@@ -1637,6 +1723,15 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       <p>Allows our tools to process your data entirely in your browser, ensuring your files are never stored or uploaded, keeping your privacy completely secure.</p>
       
       <div class="sister-tools-grid">
+        <div class="fixmytech-card sister-tool">
+          <i class="fas fa-tools"></i>
+          <div class="fixmytech-content">
+            <h3>FixMyTech.no</h3>
+            <p>Your all-in-one solution for tech tools and utilities. Manage all your digital tools in one place with our comprehensive platform.</p>
+            <a href="https://fixmytech.no" class="fixmytech-btn">Visit FixMyTech.no</a>
+          </div>
+        </div>
+        
         <div class="sister-tool">
           <i class="fas fa-image"></i>
           <h3>Free Image Toolkit</h3>
@@ -1771,6 +1866,8 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     const qrCanvas = document.getElementById('qr-canvas');
     const fgColor = document.getElementById('fg-color');
     const bgColor = document.getElementById('bg-color');
+    const transparentBg = document.getElementById('transparent-bg');
+    const bulkTransparentBg = document.getElementById('bulk-transparent-bg');
     const sizeSlider = document.getElementById('size-slider');
     const sizeValue = document.getElementById('size-value');
     const borderSize = document.getElementById('border-size');
@@ -2241,12 +2338,15 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
           const ctx = qrCanvas.getContext('2d');
           ctx.clearRect(0, 0, size, size);
 
+          // Handle transparent background
+          const bgColorValue = transparentBg.checked ? '#00000000' : bgColor.value;
+
           QRCode.toCanvas(qrCanvas, input, {
             width: size,
             margin: 1,
             color: {
               dark: fgColor.value,
-              light: bgColor.value
+              light: bgColorValue
             }
           }, function(error) {
             if (error) {
@@ -2500,12 +2600,15 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       canvas.height = size;
 
       try {
+        // Handle transparent background for bulk
+        const bgColorValue = bulkTransparentBg.checked ? '#00000000' : bulkBgColor.value;
+        
         QRCode.toCanvas(canvas, input, {
           width: size,
           margin: 1,
           color: {
             dark: bulkFgColor.value,
-            light: bulkBgColor.value
+            light: bgColorValue
           }
         }, function(error) {
           if (error) {
