@@ -728,7 +728,7 @@
         </section>
 
         <div style="text-align: center;">
-            <a href="https://free-qr-maker.com" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to QR Generator</a>
+            <a href="/" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </div>
 
         <footer>
@@ -760,7 +760,40 @@
             
             if (!preferences) {
                 document.getElementById('cookie-consent').style.display = 'block';
+            } else {
+                if (preferences.analytics) loadGoogleAnalytics();
+                if (preferences.advertising) loadGoogleAdSense();
             }
+        }
+        
+        function loadGoogleAnalytics() {
+            if (window.gaLoaded) return;
+            
+            const gtagScript = document.createElement('script');
+            gtagScript.async = true;
+            gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-LR5XP1GJFC';
+            document.head.appendChild(gtagScript);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LR5XP1GJFC');
+            
+            window.gaLoaded = true;
+            console.log('Google Analytics loaded');
+        }
+        
+        function loadGoogleAdSense() {
+            if (window.adsenseLoaded) return;
+            
+            const adsenseScript = document.createElement('script');
+            adsenseScript.async = true;
+            adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4041775163958551';
+            adsenseScript.crossOrigin = 'anonymous';
+            document.head.appendChild(adsenseScript);
+            
+            window.adsenseLoaded = true;
+            console.log('Google AdSense loaded');
         }
         
         function openCookieSettings() {
@@ -791,6 +824,8 @@
                     advertising: true
                 });
                 document.getElementById('cookie-consent').style.display = 'none';
+                loadGoogleAnalytics();
+                loadGoogleAdSense();
             });
             
             document.getElementById('reject-cookies').addEventListener('click', function() {
@@ -813,6 +848,8 @@
                     advertising: document.getElementById('advertising-toggle').checked
                 };
                 saveCookiePreferences(preferences);
+                if (preferences.analytics) loadGoogleAnalytics();
+                if (preferences.advertising) loadGoogleAdSense();
                 closeCookieSettings();
                 document.getElementById('cookie-consent').style.display = 'none';
             });
