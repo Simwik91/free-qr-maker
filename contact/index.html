@@ -128,6 +128,7 @@
             position: relative;
             z-index: 2;
             line-height: 1.8;
+            color: white; /* Added to make text white */
         }
         
         .contact-form {
@@ -138,6 +139,9 @@
             box-shadow: var(--box-shadow);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
         }
         
         .contact-form:before {
@@ -163,6 +167,10 @@
         
         .form-group {
             margin-bottom: 25px;
+            width: 100%; /* Full width for centering */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center form elements */
         }
         
         .form-group label {
@@ -170,17 +178,22 @@
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--dark);
+            width: 100%;
+            max-width: 600px; /* Consistent width */
+            text-align: center; /* Center label text */
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
+            max-width: 600px; /* Consistent width */
             padding: 15px;
             border: 1px solid var(--light-gray);
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             transition: var(--transition);
+            text-align: center; /* Center input text */
         }
         
         .form-group input:focus,
@@ -198,6 +211,7 @@
         .submit-btn {
             display: block;
             width: 100%;
+            max-width: 600px; /* Consistent width */
             padding: 15px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -210,6 +224,7 @@
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
             margin-top: 10px;
+            text-align: center; /* Center button text */
         }
         
         .submit-btn:hover {
@@ -282,6 +297,8 @@
             margin-top: 20px;
             text-align: center;
             animation: fadeIn 0.5s ease;
+            width: 100%;
+            max-width: 600px; /* Consistent width */
         }
         
         @keyframes fadeIn {
@@ -661,9 +678,7 @@
 
         <section class="contact-hero">
             <h2><i class="fas fa-comments"></i> We're Here to Help</h2>
-            <p>Have questions about our tools?</p> 
-            <p>Just want to share feedback?</p> 
-            <p>Our team is ready to assist you with any inquiries you might have.</p>
+            <p>We love creating free, easy-to-use tools that harness the power of your browser. Your privacy is our priority - your data never leaves your computer!</p>
         </section>
 
         <section class="contact-form">
@@ -695,7 +710,7 @@
         </section>
 
         <div style="text-align: center;">
-            <a href="index.html" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to QR Generator</a>
+            <a href="index" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to QR Generator</a>
         </div>
 
         <footer>
