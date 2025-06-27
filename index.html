@@ -572,6 +572,9 @@
       text-align: center;
       box-shadow: var(--box-shadow);
       transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     
     .sister-tool:hover {
@@ -602,6 +605,7 @@
     .sister-tool p {
       margin-bottom: 20px;
       color: var(--gray);
+      flex-grow: 1;
     }
     
     .sister-tool-btn {
@@ -613,6 +617,8 @@
       text-decoration: none;
       font-weight: 600;
       transition: var(--transition);
+      margin-top: auto;
+      align-self: center;
     }
     
     .sister-tool-btn:hover {
@@ -1968,6 +1974,13 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
             <p>We create free, easy-to-use tools that harness the power of your browser. Your privacy is our priority - your data never leaves your computer!</p>
             <a href="https://everytool.io" class="everytool-btn">Visit EveryTool.io</a>
           </div>
+        </div>
+        
+        <div class="sister-tool">
+          <i class="fas fa-file-pdf"></i>
+          <h3>Free PDF Tools</h3>
+          <p>Merge, split, compress, and convert PDF files with ease</p>
+          <a href="https://everytool.io/pdf-tools" class="sister-tool-btn">Try Now</a>
         </div>
         
         <div class="sister-tool">
