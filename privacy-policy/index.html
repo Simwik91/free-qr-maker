@@ -253,22 +253,38 @@
     
     footer {
       margin-top: auto;
-      padding: 30px 20px;
-      font-size: 1rem;
+      padding-top: 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
       color: var(--gray);
       border-top: 1px solid var(--light-gray);
       text-align: center;
       background: white;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
-    footer p {
-      margin-bottom: 10px;
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      max-width: 100%;
+    }
+    
+    .footer-content span {
+      display: inline-block;
     }
     
     footer a {
       color: var(--primary);
       text-decoration: none;
       transition: var(--transition);
+      white-space: nowrap;
+      font-weight: 600;
     }
     
     footer a:hover {
@@ -277,10 +293,9 @@
     }
     
     .creator-credit {
-      margin-top: 15px;
       font-weight: 500;
       color: var(--dark);
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
     
     /* Cookie consent and settings styles */
@@ -310,12 +325,12 @@
     .cookie-text {
       flex: 1;
       min-width: 200px;
+      font-size: 0.95rem;
       color: var(--dark);
     }
 
     .cookie-text p {
       margin-bottom: 10px;
-      font-size: 0.95rem;
     }
 
     .cookie-text a {
@@ -323,8 +338,10 @@
       color: var(--primary);
     }
 
-    .cookie-text a:hover {
+    .cookie-text a:hover, .cookie-text a:focus {
       color: var(--secondary);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
 
     .cookie-buttons {
@@ -376,8 +393,10 @@
       text-align: left;
     }
 
-    .cookie-settings-btn:hover {
-      color: var(--secondary);
+    .cookie-settings-btn:hover, .cookie-settings-btn:focus {
+      color: var(--dark);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
 
     #cookie-settings {
@@ -392,6 +411,7 @@
       align-items: center;
       z-index: 2000;
       padding: 10px;
+      animation: fadeIn 0.3s ease-out;
     }
 
     .settings-modal {
@@ -403,6 +423,12 @@
       overflow-y: auto;
       padding: 20px;
       position: relative;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .settings-header {
@@ -428,10 +454,14 @@
       color: var(--gray);
       transition: var(--transition);
       padding: 5px;
+      border-radius: 5px;
     }
 
-    .close-settings:hover {
+    .close-settings:hover, .close-settings:focus {
       color: var(--dark);
+      background: rgba(0, 0, 0, 0.05);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
 
     .settings-content {
@@ -507,6 +537,20 @@
       transform: translateX(26px);
     }
 
+    input:focus + .slider {
+      box-shadow: 0 0 0 2px var(--primary-dark);
+    }
+
+    input:disabled + .slider {
+      background-color: var(--light-gray);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    input:disabled + .slider:before {
+      background-color: #ddd;
+    }
+
     .cookie-type p {
       font-size: 0.9rem;
       color: var(--gray);
@@ -533,8 +577,10 @@
       min-width: 160px;
     }
 
-    .save-settings:hover {
+    .save-settings:hover, .save-settings:focus {
       background: var(--primary-dark);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
     
     @media (max-width: 768px) {
@@ -767,11 +813,14 @@
     </div>
 
     <footer>
-      <p>
-        <a href="privacy-policy">Privacy Policy</a> | 
+      <div class="footer-content">
+        <span>© 2025</span>
+        <a href="https://everytool.io">EveryTool.io</a>
+        <span class="separator">|</span>
+        <a href="privacy-policy">Privacy Policy</a>
+        <span class="separator">|</span>
         <a href="#" id="open-settings-footer">Cookie Settings</a>
-      </p>
-      <p class="creator-credit">© 2025 EveryTool.io - Free Online Tools</p>
+      </div>
     </footer>
   </div>
 
