@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free QR Code Generator - FixMyTech.no</title>
+  <title>Free QR Code Generator - EveryTool.io</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -39,12 +39,16 @@
       min-height: 100vh;
       padding: 0;
       transition: var(--transition);
+      display: flex;
+      flex-direction: column;
     }
     
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
+      flex: 1;
+      width: 100%;
     }
     
     header {
@@ -106,7 +110,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      justify-content: center; /* Added center alignment */
+      justify-content: center;
     }
     
     h2 i {
@@ -121,7 +125,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      justify-content: center; /* Added center alignment */
+      justify-content: center;
     }
     
     .tabs {
@@ -550,7 +554,7 @@
     
     .sister-tools-section {
       margin: 40px auto;
-      text-align: center; /* Added center alignment */
+      text-align: center;
     }
     
     .sister-tools-grid {
@@ -666,7 +670,7 @@
       padding: 40px;
       margin: 40px auto;
       box-shadow: var(--box-shadow);
-      text-align: center; /* Added center alignment */
+      text-align: center;
     }
     
     .uses-grid {
@@ -695,12 +699,14 @@
     }
     
     footer {
-      margin-top: 50px;
+      margin-top: auto;
       padding-top: 30px;
       font-size: 0.9rem;
       color: var(--gray);
       border-top: 1px solid var(--light-gray);
       text-align: center;
+      background: white;
+      padding: 30px 20px;
     }
     
     footer p {
@@ -764,8 +770,10 @@
       text-decoration: none;
     }
 
-    .cookie-text a:hover {
+    .cookie-text a:hover, .cookie-text a:focus {
       text-decoration: underline;
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
 
     .cookie-buttons {
@@ -783,6 +791,11 @@
       font-size: 0.9rem;
       border: none;
       min-width: 180px;
+    }
+
+    .cookie-btn:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
 
     .reject-btn {
@@ -814,8 +827,10 @@
       font-size: 0.85rem;
     }
 
-    .cookie-settings-btn:hover {
+    .cookie-settings-btn:hover, .cookie-settings-btn:focus {
       color: var(--dark);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
 
     #cookie-settings {
@@ -829,6 +844,7 @@
       justify-content: center;
       align-items: center;
       z-index: 2000;
+      animation: fadeIn 0.3s ease-out;
     }
 
     .settings-modal {
@@ -840,6 +856,12 @@
       overflow-y: auto;
       padding: 30px;
       position: relative;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .settings-header {
@@ -861,10 +883,15 @@
       cursor: pointer;
       color: var(--gray);
       transition: var(--transition);
+      padding: 5px;
+      border-radius: 5px;
     }
 
-    .close-settings:hover {
+    .close-settings:hover, .close-settings:focus {
       color: var(--dark);
+      background: rgba(0, 0, 0, 0.05);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
 
     .settings-content {
@@ -897,20 +924,26 @@
     }
 
     .toggle-switch input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       opacity: 0;
-      width: 0;
-      height: 0;
+      cursor: pointer;
+      z-index: 1;
     }
 
     .slider {
       position: absolute;
-      cursor: pointer;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
+      background-color: var(--gray);
+      transition: background-color 0.3s ease;
+      -webkit-transition: background-color 0.3s ease;
+      -moz-transition: background-color 0.3s ease;
       border-radius: 24px;
     }
 
@@ -922,16 +955,34 @@
       left: 4px;
       bottom: 4px;
       background-color: white;
-      transition: .4s;
+      transition: transform 0.3s ease;
+      -webkit-transition: transform 0.3s ease;
+      -moz-transition: transform 0.3s ease;
       border-radius: 50%;
     }
 
-    input:checked + .slider {
+    .toggle-switch input:checked + .slider {
       background-color: var(--primary);
     }
 
-    input:checked + .slider:before {
+    .toggle-switch input:checked + .slider:before {
       transform: translateX(26px);
+      -webkit-transform: translateX(26px);
+      -moz-transform: translateX(26px);
+    }
+
+    .toggle-switch input:focus + .slider {
+      box-shadow: 0 0 0 2px var(--primary-dark);
+    }
+
+    .toggle-switch input:disabled + .slider {
+      background-color: var(--light-gray);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .toggle-switch input:disabled + .slider:before {
+      background-color: #ddd;
     }
 
     .cookie-type p {
@@ -957,8 +1008,10 @@
       transition: var(--transition);
     }
 
-    .save-settings:hover {
+    .save-settings:hover, .save-settings:focus {
       background: var(--primary-dark);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
     
     .qr-type-fields {
@@ -1114,8 +1167,7 @@
       transform: translateX(30px);
     }
     
-    /* FixMyTech card styling */
-    .fixmytech-card {
+    .everytool-card {
       grid-column: 1 / -1;
       display: flex;
       flex-direction: row;
@@ -1127,7 +1179,7 @@
       color: white;
     }
     
-    .fixmytech-card i {
+    .everytool-card i {
       font-size: 4rem;
       color: white;
       background: rgba(255, 255, 255, 0.15);
@@ -1140,18 +1192,18 @@
       margin: 0;
     }
     
-    .fixmytech-content {
+    .everytool-content {
       flex: 1;
     }
     
-    .fixmytech-card h3 {
+    .everytool-card h3 {
       font-size: 1.8rem;
       color: white;
       margin-bottom: 10px;
-      justify-content: flex-start; /* Left align in card */
+      justify-content: flex-start;
     }
     
-    .fixmytech-card p {
+    .everytool-card p {
       margin-bottom: 20px;
       font-size: 1.1rem;
       opacity: 0.9;
@@ -1159,7 +1211,7 @@
       color: white;
     }
     
-    .fixmytech-btn {
+    .everytool-btn {
       display: inline-block;
       background: white;
       color: var(--primary);
@@ -1170,13 +1222,12 @@
       transition: var(--transition);
     }
     
-    .fixmytech-btn:hover {
+    .everytool-btn:hover {
       background: rgba(255, 255, 255, 0.9);
       transform: translateY(-3px);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
     
-    /* Logo options section */
     .logo-options-container {
       margin: 1.5em 0;
       border: 1px solid var(--light-gray);
@@ -1190,7 +1241,7 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 15px;
-      justify-content: center; /* Added center alignment */
+      justify-content: center;
     }
     
     .logo-options-header i {
@@ -1202,7 +1253,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      justify-content: center; /* Added center alignment */
+      justify-content: center;
     }
     
     .logo-upload-container {
@@ -1294,13 +1345,17 @@
         justify-content: center;
       }
       
-      .fixmytech-card {
+      .everytool-card {
         flex-direction: column;
         text-align: center;
       }
       
       .logo-options-content {
         flex-direction: column;
+      }
+      
+      footer {
+        padding: 20px 15px;
       }
     }
     
@@ -1336,65 +1391,66 @@
   </style>
 </head>
 <body>
-  <div id="cookie-consent">
-    <div class="cookie-content">
+  <div id="cookie-consent" role="dialog" aria-labelledby="cookie-consent-banner" aria-describedby="cookie-consent-desc">
+    <div class="sr-only" id="cookie-consent-banner">Cookie Consent</div>
+    <div class="cookie-content" id="cookie-consent-desc">
       <div class="cookie-text">
         <p>We use cookies to enhance your experience and analyze site traffic. By clicking "Accept All", you consent to our use of cookies. 
-          <a href="/privacy-policy.html">Learn more</a> in our Privacy Policy.
+          <a href="/privacy-policy.html" aria-label="Learn more about our Privacy Policy">Learn more</a> in our Privacy Policy.
         </p>
-        <button class="cookie-settings-btn" id="open-settings">Cookie Settings</button>
+        <button class="cookie-settings-btn" id="open-settings" aria-label="Open cookie settings">Cookie Settings</button>
       </div>
       <div class="cookie-buttons">
-        <button class="cookie-btn reject-btn" id="reject-cookies">Reject Non-Essential</button>
-        <button class="cookie-btn accept-btn" id="accept-cookies">Accept All</button>
+        <button class="cookie-btn reject-btn" id="reject-cookies" aria-label="Reject non-essential cookies">Reject Non-Essential</button>
+        <button class="cookie-btn accept-btn" id="accept-cookies" aria-label="Accept all cookies">Accept All</button>
       </div>
     </div>
   </div>
 
-  <div id="cookie-settings">
+  <div id="cookie-settings" role="dialog" aria-labelledby="cookie-settings-title" aria-describedby="cookie-settings-desc">
     <div class="settings-modal">
       <div class="settings-header">
-        <h2><i class="fas fa-cookie-bite"></i> Cookie Settings</h2>
+        <h2 id="cookie-settings-title"><i class="fas fa-cookie-bite"></i> Cookie Settings</h2>
         <button class="close-settings" aria-label="Close cookie settings">×</button>
       </div>
       <div class="settings-content">
-        <p>You can set your preferences for how we and our partners use cookies and similar technologies.</p>
+        <p id="cookie-settings-desc">You can set your preferences for how we and our partners use cookies and similar technologies.</p>
         
         <div class="cookie-type">
           <div class="cookie-type-header">
             <h3>Essential Cookies</h3>
-            <div class="toggle-switch">
-              <input type="checkbox" id="essential-toggle" checked disabled aria-label="Essential cookies toggle (always enabled)">
+            <label class="toggle-switch" for="essential-toggle">
+              <input type="checkbox" id="essential-toggle" checked disabled aria-label="Essential cookies (always enabled, cannot be disabled)" aria-describedby="essential-desc">
               <span class="slider"></span>
-            </div>
+            </label>
           </div>
-          <p>These cookies are necessary for the website to function and cannot be switched off.</p>
+          <p id="essential-desc">These cookies are necessary for the website to function and cannot be switched off.</p>
         </div>
         
         <div class="cookie-type">
           <div class="cookie-type-header">
             <h3>Analytics Cookies</h3>
-            <div class="toggle-switch">
-              <input type="checkbox" id="analytics-toggle" aria-label="Analytics cookies toggle">
+            <label class="toggle-switch" for="analytics-toggle">
+              <input type="checkbox" id="analytics-toggle" aria-label="Analytics cookies toggle" aria-describedby="analytics-desc">
               <span class="slider"></span>
-            </div>
+            </label>
           </div>
-          <p>These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site.</p>
+          <p id="analytics-desc">These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site.</p>
         </div>
         
         <div class="cookie-type">
           <div class="cookie-type-header">
             <h3>Advertising Cookies</h3>
-            <div class="toggle-switch">
-              <input type="checkbox" id="advertising-toggle" aria-label="Advertising cookies toggle">
+            <label class="toggle-switch" for="advertising-toggle">
+              <input type="checkbox" id="advertising-toggle" aria-label="Advertising cookies toggle" aria-describedby="advertising-desc">
               <span class="slider"></span>
-            </div>
+            </label>
           </div>
-          <p>These cookies may be set through our site by our advertising partners to build a profile of your interests.</p>
+          <p id="advertising-desc">These cookies may be set through our site by our advertising partners to build a profile of your interests.</p>
         </div>
       </div>
       <div class="settings-buttons">
-        <button class="save-settings" id="save-settings">Save Settings</button>
+        <button class="save-settings" id="save-settings" aria-label="Save cookie settings">Save Settings</button>
       </div>
     </div>
   </div>
@@ -1600,7 +1656,6 @@
           <button id="download-btn" onclick="downloadQR()" style="display:none" aria-label="Download QR code">
             <i class="fas fa-download"></i> Download QR Code
           </button>
-          <!-- REMOVED: Test QR Code button -->
         </div>
 
         <div class="loading" id="qr-loading">
@@ -1850,12 +1905,12 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       <p>All tools process your data entirely in your browser - your files are never uploaded to any server, ensuring complete privacy.</p>
       
       <div class="sister-tools-grid">
-        <div class="fixmytech-card sister-tool">
+        <div class="everytool-card sister-tool">
           <i class="fas fa-tools"></i>
-          <div class="fixmytech-content">
-            <h3>Made by FixMyTech.no</h3>
+          <div class="everytool-content">
+            <h3>Made by EveryTool.io</h3>
             <p>We create free, easy-to-use tools that harness the power of your browser. Your privacy is our priority - your data never leaves your computer!</p>
-            <a href="https://fixmytech.no" class="fixmytech-btn">Visit FixMyTech.no</a>
+            <a href="https://everytool.io" class="everytool-btn">Visit EveryTool.io</a>
           </div>
         </div>
         
@@ -1863,33 +1918,31 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
           <i class="fas fa-image"></i>
           <h3>Free Image Toolkit</h3>
           <p>Resize, compress, and convert images without losing quality</p>
-          <a href="https://free-image-toolkit.com" class="sister-tool-btn">Try Now</a>
+          <a href="https://everytool.io/image-tools" class="sister-tool-btn">Try Now</a>
         </div>
         
         <div class="sister-tool">
-          <i class="fas fa-video"></i>
-          <h3>Free Video Toolkit</h3>
-          <p>Convert, trim, and compress videos in all popular formats</p>
-          <a href="https://free-video-toolkit.com" class="sister-tool-btn">Try Now</a>
+          <i class="fas fa-file-alt"></i>
+          <h3>Free Document Tools</h3>
+          <p>Convert, merge, and compress PDFs and documents</p>
+          <a href="https://everytool.io/document-tools" class="sister-tool-btn">Try Now</a>
         </div>
         
         <div class="sister-tool">
           <i class="fas fa-barcode"></i>
           <h3>Free Barcode Generator</h3>
           <p>Create custom barcodes for products, inventory, and more</p>
-          <a href="https://free-ean-maker.com" class="sister-tool-btn">Try Now</a>
+          <a href="https://everytool.io/barcode-generator" class="sister-tool-btn">Try Now</a>
         </div>
       </div>
     </div>
 
     <footer>
       <p>
-        <a href="about">About Us</a> | 
-        <a href="contact">Contact</a> | 
         <a href="privacy-policy">Privacy Policy</a> | 
         <a href="#" id="open-settings-footer">Cookie Settings</a>
       </p>
-      <p class="creator-credit">© 2025 Free QR Maker | Made by <a href="https://fixmytech.no">FixMyTech.no</a></p>
+      <p class="creator-credit">© 2025 EveryTool.io - Free Online Tools</p>
     </footer>
   </div>
 
@@ -2102,22 +2155,19 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         openCookieSettings();
       });
       
-      // FIXED: Bulk type toggle with proper label color change
+      // Bulk type toggle
       document.querySelectorAll('input[name="bulk-type"]').forEach(radio => {
         radio.addEventListener('change', function() {
-          // Get all label elements for the bulk type toggle
           const labels = document.querySelectorAll('#bulk-input-type label');
           
           if (this.value === 'list') {
             bulkListFields.style.display = 'block';
             bulkRangeFields.style.display = 'none';
-            // Update active class on labels
             labels[0].classList.add('active');
             labels[1].classList.remove('active');
           } else {
             bulkListFields.style.display = 'none';
             bulkRangeFields.style.display = 'block';
-            // Update active class on labels
             labels[0].classList.remove('active');
             labels[1].classList.add('active');
           }
