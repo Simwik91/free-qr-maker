@@ -525,9 +525,10 @@
       border: 0;
     }
     
+    /* UPDATED: Features grid - 2 cards per row */
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       margin: 30px 0;
     }
@@ -673,6 +674,16 @@
       text-align: center;
     }
     
+    /* UPDATED: Ensure text and icons are pure white */
+    .uses-section h2,
+    .uses-section p {
+      color: white !important;
+    }
+    
+    .uses-section h2 i {
+      color: white !important;
+    }
+    
     .uses-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -691,23 +702,25 @@
     .use-item i {
       font-size: 2.5rem;
       margin-bottom: 20px;
-      color: white;
+      color: white !important;
     }
     
     .use-item h3 {
       font-size: 1.3rem;
       margin-bottom: 15px;
-      color: white;
+      color: white !important;
     }
     
     .use-item p {
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 0.9) !important;
     }
     
+    /* UPDATED: Footer with larger/bolder text and removed dash */
     footer {
       margin-top: auto;
       padding-top: 30px;
-      font-size: 0.9rem;
+      font-size: 1.1rem;
+      font-weight: 600;
       color: var(--gray);
       border-top: 1px solid var(--light-gray);
       text-align: center;
@@ -736,6 +749,7 @@
       text-decoration: none;
       transition: var(--transition);
       white-space: nowrap;
+      font-weight: 600;
     }
     
     footer a:hover {
@@ -1284,6 +1298,16 @@
       min-width: 300px;
     }
     
+    @media (max-width: 992px) {
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
     @media (max-width: 768px) {
       .cookie-content {
         flex-direction: column;
@@ -1384,6 +1408,10 @@
       
       .footer-content span.separator {
         display: none;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
       }
     }
     
@@ -1879,49 +1907,49 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       
       <div class="uses-grid">
         <div class="use-item">
-          <i class="fas fa-shopping-cart" style="color: white !important;"></i>
+          <i class="fas fa-shopping-cart"></i>
           <h3>Product Labels</h3>
           <p>Link to product information, manuals, or special offers</p>
         </div>
         
         <div class="use-item">
-          <i class="fas fa-calendar-check" style="color: white !important;"></i>
+          <i class="fas fa-calendar-check"></i>
           <h3>Event Tickets</h3>
           <p>Provide secure entry to events with scannable tickets</p>
         </div>
         
         <div class="use-item">
-          <i class="fas fa-building" style="color: white !important;"></i>
+          <i class="fas fa-building"></i>
           <h3>Business Cards</h3>
           <p>Share contact information and social media profiles</p>
         </div>
         
         <div class="use-item">
-          <i class="fas fa-wifi" style="color: white !important;"></i>
+          <i class="fas fa-wifi"></i>
           <h3>Wi-Fi Access</h3>
           <p>Allow guests to connect to Wi-Fi without sharing passwords</p>
         </div>
         
         <div class="use-item">
-          <i class="fas fa-map-marker-alt" style="color: white !important;"></i>
+          <i class="fas fa-map-marker-alt"></i>
           <h3>Location Sharing</h3>
           <p>Provide directions to your business or event location</p>
         </div>
         
         <div class="use-item">
-          <i class="fas fa-file-pdf" style="color: white !important;"></i>
+          <i class="fas fa-file-pdf"></i>
           <h3>Document Access</h3>
           <p>Link to PDF menus, catalogs, or instructional documents</p>
         </div>
         
         <div class="use-item">
-          <i class="fas fa-credit-card" style="color: white !important;"></i>
+          <i class="fas fa-credit-card"></i>
           <h3>Payment Links</h3>
           <p>Enable quick payments by linking to payment platforms or wallets</p>
         </div>
         
         <div class="use-item">
-          <i class="fas fa-share-alt" style="color: white !important;"></i>
+          <i class="fas fa-share-alt"></i>
           <h3>Social Media Sharing</h3>
           <p>Drive engagement by linking to your social media pages or posts</p>
         </div>
@@ -1969,7 +1997,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       <div class="footer-content">
         <span>© 2025</span>
         <a href="https://everytool.io">EveryTool.io</a>
-        <span class="separator">-</span>
         <span class="separator">|</span>
         <a href="privacy-policy">Privacy Policy</a>
         <span class="separator">|</span>
