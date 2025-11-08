@@ -600,12 +600,19 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
   
 <!-- Buy Me a Coffee Integration -->
 <style>
-  /* Floating Button - Will be styled by BMC widget */
+  /* Floating Button Styles */
   #bmc-floating {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 9999;
+  }
+
+  /* Ensure BMC button is visible */
+  #bmc-floating .bmc-btn {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   /* Popup Styles */
@@ -653,7 +660,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     width: 100%;
   }
 
-  /* Make both buttons the same size */
   .bmc-button-container {
     width: 100%;
     display: flex;
@@ -690,14 +696,13 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     transform: translateY(-1px);
   }
 
-  /* Style the BMC button container */
   #bmc-popup-button {
     display: inline-block;
     width: 100%;
   }
 </style>
 
-<!-- Floating Button Container (will be populated by BMC widget) -->
+<!-- Floating Button Container -->
 <div id="bmc-floating"></div>
 
 <!-- Popup Modal -->
@@ -729,6 +734,9 @@ document.addEventListener('DOMContentLoaded', function() {
             popup.style.display = 'flex';
             sessionStorage.setItem('bmcPopupShown', 'true');
         }
+    } else {
+        // If popup was already shown, initialize floating button immediately
+        initializeFloatingButton();
     }
 
     // Close button functionality
@@ -758,40 +766,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to initialize floating button
     function initializeFloatingButton() {
-        // Only initialize if not already present
-        if (!document.querySelector('#bmc-floating script[data-name="bmc-button"]')) {
-            const floatingScript = document.createElement('script');
-            floatingScript.type = 'text/javascript';
-            floatingScript.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
-            floatingScript.dataset.name = 'bmc-button';
-            floatingScript.dataset.slug = 'simwik91';
-            floatingScript.dataset.color = '#5F7FFF';
-            floatingScript.dataset.emoji = '';
-            floatingScript.dataset.font = 'Cookie';
-            floatingScript.dataset.text = 'Buy me a coffee';
-            floatingScript.dataset.outlineColor = '#000000';
-            floatingScript.dataset.fontColor = '#ffffff';
-            floatingScript.dataset.coffeeColor = '#FFDD00';
-            
-            document.getElementById('bmc-floating').appendChild(floatingScript);
-            
-            // Add a small confirmation that the floating button is now active
-            console.log('Floating Buy Me a Coffee button initialized');
-        }
-    }
-
-    // If popup was already shown in this session, initialize floating button immediately
-    if (sessionStorage.getItem('bmcPopupShown')) {
-        // Small delay to ensure DOM is ready
+        const floatingContainer = document.getElementById('bmc-floating');
+        
+        // Clear any existing content
+        floatingContainer.innerHTML = '';
+        
+        // Create and append the BMC script
+        const floatingScript = document.createElement('script');
+        floatingScript.type = 'text/javascript';
+        floatingScript.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
+        floatingScript.dataset.name = 'bmc-button';
+        floatingScript.dataset.slug = 'simwik91';
+        floatingScript.dataset.color = '#5F7FFF';
+        floatingScript.dataset.emoji = '';
+        floatingScript.dataset.font = 'Cookie';
+        floatingScript.dataset.text = 'Buy me a coffee';
+        floatingScript.dataset.outlineColor = '#000000';
+        floatingScript.dataset.fontColor = '#ffffff';
+        floatingScript.dataset.coffeeColor = '#FFDD00';
+        
+        floatingContainer.appendChild(floatingScript);
+        
+        // Force the button to be visible
         setTimeout(() => {
-            initializeFloatingButton();
-        }, 500);
+            const bmcButtons = document.querySelectorAll('#bmc-floating .bmc-btn');
+            bmcButtons.forEach(btn => {
+                btn.style.display = 'block';
+                btn.style.visibility = 'visible';
+                btn.style.opacity = '1';
+            });
+        }, 1000);
+        
+        console.log('Floating Buy Me a Coffee button initialized');
     }
 });
 </script>
   <script src="/js/main.js"></script>
 </body>
 </html>
+
 
 
 
