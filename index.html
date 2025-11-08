@@ -596,24 +596,30 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
         <a href="#" id="open-settings-footer">Cookie Settings</a>
       </div>
     </footer>
-  </div> <!-- This closes the .container div -->
-  
-<!-- Buy Me a Coffee Integration -->
+  </div>
+  <!-- Buy Me a Coffee Integration -->
 <style>
+  /* Import Cookie font for BMC widget */
+  @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+  
   /* Floating Button Container */
   #bmc-floating {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 9999;
+    z-index: 10001; /* Higher than cookie consent and scanner */
   }
 
-  /* Make BMC widget bigger and centered */
+  /* Make BMC widget bigger and ensure visibility */
   #bmc-floating .bmc-btn {
-    transform: scale(1.2) !important;
+    transform: scale(1.3) !important;
     transform-origin: center !important;
     margin: 0 auto !important;
     display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10002 !important;
   }
 
   /* Popup Styles */
@@ -624,10 +630,10 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     left: 0;
     width: 100%; 
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0,0,0,0.8);
     justify-content: center;
     align-items: center;
-    z-index: 10000;
+    z-index: 10003; /* Highest z-index */
   }
 
   #bmc-popup-content {
@@ -637,7 +643,7 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     text-align: center;
     max-width: 400px;
     width: 90%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   }
 
   #bmc-popup-content h3 {
@@ -667,12 +673,15 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     justify-content: center !important;
     align-items: center !important;
     width: 100% !important;
+    min-height: 60px !important;
   }
 
   #bmc-popup-button .bmc-btn {
-    transform: scale(1.3) !important;
+    transform: scale(1.4) !important;
     transform-origin: center !important;
     margin: 0 auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .later-btn {
@@ -721,18 +730,25 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
 </div>
 
 <script>
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for full page load including all scripts
+window.addEventListener('load', function() {
+    initializeBMC();
+});
+
+function initializeBMC() {
     // Show popup immediately - no delay
     if (!sessionStorage.getItem('bmcPopupShown')) {
         const popup = document.getElementById('bmc-popup');
         if (popup) {
-            popup.style.display = 'flex';
-            sessionStorage.setItem('bmcPopupShown', 'true');
+            // Small delay to ensure everything is loaded
+            setTimeout(() => {
+                popup.style.display = 'flex';
+                sessionStorage.setItem('bmcPopupShown', 'true');
+            }, 500);
         }
     } else {
         // If popup was already shown, initialize floating button immediately
-        initializeFloatingButton();
+        setTimeout(initializeFloatingButton, 1000);
     }
 
     // Close button functionality
@@ -759,46 +775,106 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+}
 
-    // Function to initialize floating button
-    function initializeFloatingButton() {
-        const floatingContainer = document.getElementById('bmc-floating');
+// Function to initialize floating button
+function initializeFloatingButton() {
+    const floatingContainer = document.getElementById('bmc-floating');
+    
+    // Clear any existing content
+    floatingContainer.innerHTML = '';
+    
+    // Create and append the BMC script for floating button
+    const floatingScript = document.createElement('script');
+    floatingScript.type = 'text/javascript';
+    floatingScript.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
+    floatingScript.dataset.name = 'bmc-button';
+    floatingScript.dataset.slug = 'simwik91';
+    floatingScript.dataset.color = '#5F7FFF';
+    floatingScript.dataset.emoji = '';
+    floatingScript.dataset.font = 'Cookie';
+    floatingScript.dataset.text = 'Buy me a coffee';
+    floatingScript.dataset.outlineColor = '#000000';
+    floatingScript.dataset.fontColor = '#ffffff';
+    floatingScript.dataset.coffeeColor = '#FFDD00';
+    
+    floatingContainer.appendChild(floatingScript);
+    
+    // Apply scaling and ensure visibility after the script loads
+    setTimeout(() => {
+        const bmcButtons = document.querySelectorAll('#bmc-floating .bmc-btn');
+        console.log('Found BMC buttons:', bmcButtons.length);
         
-        // Clear any existing content
-        floatingContainer.innerHTML = '';
+        bmcButtons.forEach(btn => {
+            btn.style.transform = 'scale(1.3)';
+            btn.style.transformOrigin = 'center';
+            btn.style.margin = '0 auto';
+            btn.style.display = 'block';
+            btn.style.visibility = 'visible';
+            btn.style.opacity = '1';
+            btn.style.position = 'relative';
+            btn.style.zIndex = '10002';
+        });
         
-        // Create and append the BMC script for floating button
-        const floatingScript = document.createElement('script');
-        floatingScript.type = 'text/javascript';
-        floatingScript.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
-        floatingScript.dataset.name = 'bmc-button';
-        floatingScript.dataset.slug = 'simwik91';
-        floatingScript.dataset.color = '#5F7FFF';
-        floatingScript.dataset.emoji = '';
-        floatingScript.dataset.font = 'Cookie';
-        floatingScript.dataset.text = 'Buy me a coffee';
-        floatingScript.dataset.outlineColor = '#000000';
-        floatingScript.dataset.fontColor = '#ffffff';
-        floatingScript.dataset.coffeeColor = '#FFDD00';
-        
-        floatingContainer.appendChild(floatingScript);
-        
-        // Apply scaling and centering after the script loads
-        setTimeout(() => {
-            const bmcButtons = document.querySelectorAll('#bmc-floating .bmc-btn');
-            bmcButtons.forEach(btn => {
-                btn.style.transform = 'scale(1.2)';
-                btn.style.transformOrigin = 'center';
-                btn.style.margin = '0 auto';
-                btn.style.display = 'block';
-            });
-        }, 1000);
-        
-        console.log('Floating Buy Me a Coffee widget initialized');
-    }
-});
+        if (bmcButtons.length === 0) {
+            console.warn('No BMC buttons found, creating fallback');
+            createFallbackButton();
+        }
+    }, 1500);
+    
+    console.log('Floating Buy Me a Coffee widget initialized');
+}
+
+// Fallback function in case widget fails
+function createFallbackButton() {
+    const floatingContainer = document.getElementById('bmc-floating');
+    floatingContainer.innerHTML = '';
+    
+    const fallbackBtn = document.createElement('a');
+    fallbackBtn.href = 'https://buymeacoffee.com/simwik91';
+    fallbackBtn.target = '_blank';
+    fallbackBtn.className = 'fallback-bmc-btn';
+    fallbackBtn.innerHTML = `
+        <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee" style="height: 20px; margin-right: 8px;">
+        <span style="font-family: Cookie, cursive; font-size: 20px;">Buy me a coffee</span>
+    `;
+    fallbackBtn.style.cssText = `
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 12px 24px !important;
+        background-color: #5F7FFF !important;
+        color: #ffffff !important;
+        border: 1px solid #000000 !important;
+        border-radius: 6px !important;
+        font-family: Cookie, cursive !important;
+        font-size: 20px !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+        min-width: 200px !important;
+        height: 50px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+        transition: all 0.3s ease !important;
+        transform: scale(1.3);
+        transform-origin: center;
+    `;
+    
+    fallbackBtn.onmouseover = function() {
+        this.style.backgroundColor = '#4a6fe3';
+        this.style.transform = 'scale(1.35)';
+    };
+    
+    fallbackBtn.onmouseout = function() {
+        this.style.backgroundColor = '#5F7FFF';
+        this.style.transform = 'scale(1.3)';
+    };
+    
+    floatingContainer.appendChild(fallbackBtn);
+    console.log('Fallback BMC button created');
+}
 </script>
   <script src="/js/main.js"></script>
 </body>
 </html>
+
 
