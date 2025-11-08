@@ -1,0 +1,96 @@
+<!-- Buy Me a Coffee All-in-One -->
+<style>
+  /* Floating Button */
+  #bmc-floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  /* Popup Styles */
+  #bmc-popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+  }
+
+  #bmc-popup-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 300px;
+    width: 90%;
+  }
+
+  #bmc-popup-content button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #5F7FFF;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+</style>
+
+<!-- Floating Button Container -->
+<div id="bmc-floating"></div>
+
+<!-- Popup Modal -->
+<div id="bmc-popup">
+  <div id="bmc-popup-content">
+    <h3>Enjoy this site?</h3>
+    <p>If you like my free tools, consider buying me a coffee ☕</p>
+    <div id="bmc-popup-button"></div>
+    <button id="bmc-popup-close">Close</button>
+  </div>
+</div>
+
+<!-- Buy Me a Coffee Script Loader -->
+<script>
+function injectBMC(targetId) {
+    const container = document.getElementById(targetId);
+    if (!container) return;
+
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
+    script.dataset.name = 'bmc-button';
+    script.dataset.slug = 'simwik91';
+    script.dataset.color = '#5F7FFF';
+    script.dataset.emoji = '';
+    script.dataset.font = 'Cookie';
+    script.dataset.text = 'Buy me a coffee';
+    script.dataset.outlineColor = '#000000';
+    script.dataset.fontColor = '#ffffff';
+    script.dataset.coffeeColor = '#FFDD00';
+
+    container.appendChild(script);
+}
+
+// Inject floating button
+injectBMC('bmc-floating');
+
+// Inject popup button
+injectBMC('bmc-popup-button');
+
+// Show popup once per session
+document.addEventListener('DOMContentLoaded', function() {
+    if (!sessionStorage.getItem('bmcPopupShown')) {
+        document.getElementById('bmc-popup').style.display = 'flex';
+        sessionStorage.setItem('bmcPopupShown', 'true');
+    }
+
+    // Close button
+    document.getElementById('bmc-popup-close').addEventListener('click', function() {
+        document.getElementById('bmc-popup').style.display = 'none';
+    });
+});
+</script>
