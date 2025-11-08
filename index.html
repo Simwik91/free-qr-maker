@@ -608,11 +608,30 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     z-index: 9999;
   }
 
-  /* Ensure BMC button is visible */
-  #bmc-floating .bmc-btn {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+  /* Custom BMC button styling */
+  .custom-bmc-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 24px !important;
+    background-color: #5F7FFF !important;
+    color: #ffffff !important;
+    border: 1px solid #000000 !important;
+    border-radius: 6px !important;
+    font-family: 'Cookie', cursive !important;
+    font-size: 20px !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    min-width: 200px !important;
+    height: 50px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .custom-bmc-btn:hover {
+    background-color: #4a6fe3 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
   }
 
   /* Popup Styles */
@@ -660,20 +679,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     width: 100%;
   }
 
-  .bmc-button-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .bmc-button-container .bmc-btn {
-    min-width: 200px !important;
-    height: 50px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
   .later-btn {
     padding: 12px 24px;
     background: #f8f9fa;
@@ -695,11 +700,6 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     background: #e9ecef;
     transform: translateY(-1px);
   }
-
-  #bmc-popup-button {
-    display: inline-block;
-    width: 100%;
-  }
 </style>
 
 <!-- Floating Button Container -->
@@ -712,10 +712,10 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     <p>If you find this QR code generator helpful, consider supporting my work</p>
     
     <div class="popup-buttons">
-      <!-- Official BMC Button -->
-      <div id="bmc-popup-button" class="bmc-button-container">
-        <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="simwik91" data-color="#5F7FFF" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
-      </div>
+      <!-- Custom BMC Button for Popup -->
+      <a href="https://buymeacoffee.com/simwik91" target="_blank" class="custom-bmc-btn">
+        Buy me a coffee
+      </a>
       
       <button id="bmc-popup-close" class="later-btn">
         Maybe Later
@@ -771,39 +771,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // Clear any existing content
         floatingContainer.innerHTML = '';
         
-        // Create and append the BMC script
-        const floatingScript = document.createElement('script');
-        floatingScript.type = 'text/javascript';
-        floatingScript.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
-        floatingScript.dataset.name = 'bmc-button';
-        floatingScript.dataset.slug = 'simwik91';
-        floatingScript.dataset.color = '#5F7FFF';
-        floatingScript.dataset.emoji = '';
-        floatingScript.dataset.font = 'Cookie';
-        floatingScript.dataset.text = 'Buy me a coffee';
-        floatingScript.dataset.outlineColor = '#000000';
-        floatingScript.dataset.fontColor = '#ffffff';
-        floatingScript.dataset.coffeeColor = '#FFDD00';
+        // Create custom floating button
+        const floatingBtn = document.createElement('a');
+        floatingBtn.href = 'https://buymeacoffee.com/simwik91';
+        floatingBtn.target = '_blank';
+        floatingBtn.className = 'custom-bmc-btn';
+        floatingBtn.innerHTML = 'Buy me a coffee';
+        floatingBtn.title = 'Support me on Buy Me a Coffee';
         
-        floatingContainer.appendChild(floatingScript);
+        floatingContainer.appendChild(floatingBtn);
         
-        // Force the button to be visible
-        setTimeout(() => {
-            const bmcButtons = document.querySelectorAll('#bmc-floating .bmc-btn');
-            bmcButtons.forEach(btn => {
-                btn.style.display = 'block';
-                btn.style.visibility = 'visible';
-                btn.style.opacity = '1';
-            });
-        }, 1000);
-        
-        console.log('Floating Buy Me a Coffee button initialized');
+        console.log('Floating Buy Me a Coffee button initialized and visible');
+        console.log('Button element:', floatingBtn);
     }
 });
 </script>
   <script src="/js/main.js"></script>
 </body>
 </html>
+
 
 
 
