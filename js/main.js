@@ -22,9 +22,28 @@ let generatedQR = null;
 let bulkQRs = [];
 let previewTimeout = null;
 
+// Load footer from includes/footer.html
+function loadFooter() {
+    fetch('includes/footer.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Footer not found');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('footer-container').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error loading footer:', error);
+            document.getElementById('footer-container').innerHTML = '<p>Footer loading failed</p>';
+        });
+}
+
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     initializeDOMElements();
+    loadFooter();
     updateSizeValue();
     updateBorderSizeValue();
     updateLogoSizeValue();
