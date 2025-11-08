@@ -599,179 +599,172 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
   </div>
   
   <!-- Buy Me a Coffee Integration -->
-  <style>
-    /* Floating Button - Will be styled by BMC widget */
-    #bmc-floating {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-    }
-  
-    /* Popup Styles */
-    #bmc-popup {
-      display: none;
-      position: fixed;
-      top: 0; 
-      left: 0;
-      width: 100%; 
-      height: 100%;
-      background-color: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
-  
-    #bmc-popup-content {
-      background: #fff;
-      padding: 40px 30px;
-      border-radius: 16px;
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-  
-    #bmc-popup-content h3 {
-      margin: 0 0 15px 0;
-      font-size: 24px;
-      color: #333;
-    }
-  
-    #bmc-popup-content p {
-      margin: 0 0 30px 0;
-      font-size: 16px;
-      color: #666;
-      line-height: 1.5;
-    }
-  
-    .popup-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-  
-    .popup-btn {
-      padding: 14px 28px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 140px;
-    }
-  
-    .support-btn {
-      background: linear-gradient(135deg, #5F7FFF, #4a6fe3);
-      color: white;
-      box-shadow: 0 4px 15px rgba(95, 127, 255, 0.3);
-    }
-  
-    .support-btn:hover {
-      background: linear-gradient(135deg, #4a6fe3, #3a5fd8);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(95, 127, 255, 0.4);
-    }
-  
-    .later-btn {
-      background: #f8f9fa;
-      color: #666;
-      border: 2px solid #e9ecef;
-    }
-  
-    .later-btn:hover {
-      background: #e9ecef;
-      transform: translateY(-1px);
-    }
-  </style>
-  
-  <!-- Floating Button Container (will be populated by BMC widget) -->
-  <div id="bmc-floating"></div>
-  
-  <!-- Popup Modal -->
-  <div id="bmc-popup">
-    <div id="bmc-popup-content">
-      <h3>Enjoy this site?</h3>
-      <p>If you like my free tools, consider buying me a coffee ☕</p>
-      
-      <div class="popup-buttons">
-        <a href="https://buymeacoffee.com/simwik91" target="_blank" class="popup-btn support-btn">
-          If you find this site helpful, please consider buying me a coffee <3
-        </a>
-        <button id="bmc-popup-close" class="popup-btn later-btn">
-          Maybe Later
-        </button>
+<style>
+  /* Floating Button - Will be styled by BMC widget */
+  #bmc-floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  /* Popup Styles */
+  #bmc-popup {
+    display: none;
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+  }
+
+  #bmc-popup-content {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  #bmc-popup-content h3 {
+    margin: 0 0 15px 0;
+    font-size: 24px;
+    color: #333;
+  }
+
+  #bmc-popup-content p {
+    margin: 0 0 30px 0;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .popup-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .later-btn {
+    padding: 12px 24px;
+    background: #f8f9fa;
+    color: #666;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+  }
+
+  .later-btn:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+  }
+
+  /* Style the BMC button container */
+  #bmc-popup-button {
+    display: inline-block;
+  }
+</style>
+
+<!-- Floating Button Container (will be populated by BMC widget) -->
+<div id="bmc-floating"></div>
+
+<!-- Popup Modal -->
+<div id="bmc-popup">
+  <div id="bmc-popup-content">
+    <h3>Enjoy this site?</h3>
+    <p>If you like my free tools, consider buying me a coffee ☕</p>
+    
+    <div class="popup-buttons">
+      <!-- Official BMC Button -->
+      <div id="bmc-popup-button">
+        <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="simwik91" data-color="#5F7FFF" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
       </div>
+      
+      <button id="bmc-popup-close" class="later-btn">
+        Maybe Later
+      </button>
     </div>
   </div>
-  
-  <script>
-  // Initialize when DOM is loaded
-  document.addEventListener('DOMContentLoaded', function() {
-      // Show popup immediately - no delay
-      if (!sessionStorage.getItem('bmcPopupShown')) {
-          const popup = document.getElementById('bmc-popup');
-          if (popup) {
-              popup.style.display = 'flex';
-              sessionStorage.setItem('bmcPopupShown', 'true');
-          }
-      }
-  
-      // Close button functionality
-      const closeButton = document.getElementById('bmc-popup-close');
-      if (closeButton) {
-          closeButton.addEventListener('click', function() {
-              const popup = document.getElementById('bmc-popup');
-              if (popup) {
-                  popup.style.display = 'none';
-                  // Initialize floating button after popup is closed
-                  initializeFloatingButton();
-              }
-          });
-      }
-  
-      // Close popup when clicking outside
-      const popup = document.getElementById('bmc-popup');
-      if (popup) {
-          popup.addEventListener('click', function(e) {
-              if (e.target === popup) {
-                  popup.style.display = 'none';
-                  // Initialize floating button after popup is closed
-                  initializeFloatingButton();
-              }
-          });
-      }
-  
-      // Function to initialize floating button
-      function initializeFloatingButton() {
-          // Only initialize if not already present
-          if (!document.querySelector('#bmc-floating script[data-name="BMC-Widget"]')) {
-              const floatingScript = document.createElement('script');
-              floatingScript.dataset.name = "BMC-Widget";
-              floatingScript.dataset.cfasync = "false";
-              floatingScript.src = "https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js";
-              floatingScript.dataset.id = "simwik91";
-              floatingScript.dataset.description = "Support me on Buy me a coffee!";
-              floatingScript.dataset.message = "";
-              floatingScript.dataset.color = "#5F7FFF";
-              floatingScript.dataset.position = "Right";
-              floatingScript.dataset.x_margin = "18";
-              floatingScript.dataset.y_margin = "18";
-              
-              document.getElementById('bmc-floating').appendChild(floatingScript);
-          }
-      }
-  
-      // If popup was already shown in this session, initialize floating button immediately
-      if (sessionStorage.getItem('bmcPopupShown')) {
-          initializeFloatingButton();
-      }
-  });
-  </script>
+</div>
+
+<script>
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Show popup immediately - no delay
+    if (!sessionStorage.getItem('bmcPopupShown')) {
+        const popup = document.getElementById('bmc-popup');
+        if (popup) {
+            popup.style.display = 'flex';
+            sessionStorage.setItem('bmcPopupShown', 'true');
+        }
+    }
+
+    // Close button functionality
+    const closeButton = document.getElementById('bmc-popup-close');
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            const popup = document.getElementById('bmc-popup');
+            if (popup) {
+                popup.style.display = 'none';
+                // Initialize floating button after popup is closed
+                initializeFloatingButton();
+            }
+        });
+    }
+
+    // Close popup when clicking outside
+    const popup = document.getElementById('bmc-popup');
+    if (popup) {
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                popup.style.display = 'none';
+                // Initialize floating button after popup is closed
+                initializeFloatingButton();
+            }
+        });
+    }
+
+    // Function to initialize floating button
+    function initializeFloatingButton() {
+        // Only initialize if not already present
+        if (!document.querySelector('#bmc-floating script[data-name="bmc-button"]')) {
+            const floatingScript = document.createElement('script');
+            floatingScript.type = 'text/javascript';
+            floatingScript.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
+            floatingScript.dataset.name = 'bmc-button';
+            floatingScript.dataset.slug = 'simwik91';
+            floatingScript.dataset.color = '#5F7FFF';
+            floatingScript.dataset.emoji = '';
+            floatingScript.dataset.font = 'Cookie';
+            floatingScript.dataset.text = 'Buy me a coffee';
+            floatingScript.dataset.outlineColor = '#000000';
+            floatingScript.dataset.fontColor = '#ffffff';
+            floatingScript.dataset.coffeeColor = '#FFDD00';
+            
+            document.getElementById('bmc-floating').appendChild(floatingScript);
+        }
+    }
+
+    // If popup was already shown in this session, initialize floating button immediately
+    if (sessionStorage.getItem('bmcPopupShown')) {
+        initializeFloatingButton();
+    }
+});
+</script>
   <script src="/js/main.js"></script>
 </body>
 </html>
+
 
 
