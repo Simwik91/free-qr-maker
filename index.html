@@ -598,7 +598,7 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     </footer>
   </div>
   
-  <!-- Buy Me a Coffee Integration -->
+<!-- Buy Me a Coffee Integration -->
 <style>
   /* Floating Button - Will be styled by BMC widget */
   #bmc-floating {
@@ -650,6 +650,22 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     flex-direction: column;
     gap: 15px;
     align-items: center;
+    width: 100%;
+  }
+
+  /* Make both buttons the same size */
+  .bmc-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .bmc-button-container .bmc-btn {
+    min-width: 200px !important;
+    height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .later-btn {
@@ -662,7 +678,11 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 140px;
+    min-width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .later-btn:hover {
@@ -673,6 +693,7 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
   /* Style the BMC button container */
   #bmc-popup-button {
     display: inline-block;
+    width: 100%;
   }
 </style>
 
@@ -682,12 +703,12 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
 <!-- Popup Modal -->
 <div id="bmc-popup">
   <div id="bmc-popup-content">
-    <h3>Enjoy this site?</h3>
-    <p>If you like my free tools, consider buying me a coffee ☕</p>
+    <h3>Enjoying this tool?</h3>
+    <p>If you find this QR code generator helpful, consider supporting my work</p>
     
     <div class="popup-buttons">
       <!-- Official BMC Button -->
-      <div id="bmc-popup-button">
+      <div id="bmc-popup-button" class="bmc-button-container">
         <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="simwik91" data-color="#5F7FFF" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
       </div>
       
@@ -753,18 +774,25 @@ document.addEventListener('DOMContentLoaded', function() {
             floatingScript.dataset.coffeeColor = '#FFDD00';
             
             document.getElementById('bmc-floating').appendChild(floatingScript);
+            
+            // Add a small confirmation that the floating button is now active
+            console.log('Floating Buy Me a Coffee button initialized');
         }
     }
 
     // If popup was already shown in this session, initialize floating button immediately
     if (sessionStorage.getItem('bmcPopupShown')) {
-        initializeFloatingButton();
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+            initializeFloatingButton();
+        }, 500);
     }
 });
 </script>
   <script src="/js/main.js"></script>
 </body>
 </html>
+
 
 
 
