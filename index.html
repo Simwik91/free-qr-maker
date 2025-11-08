@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <iframe src="includes/buy-me-a-coffee.html" style="border:none; width:100%; height:150px;"></iframe>
   <div id="cookie-consent" role="dialog" aria-labelledby="cookie-consent-banner" aria-describedby="cookie-consent-desc">
     <div class="sr-only" id="cookie-consent-banner">Cookie Consent</div>
     <div class="cookie-content" id="cookie-consent-desc">
@@ -598,10 +597,139 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       </div>
     </footer>
   </div>
+  
+      <!-- Buy Me a Coffee Integration -->
+    <style>
+      /* Floating Button */
+      #bmc-floating {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+      }
+    
+      /* Popup Styles */
+      #bmc-popup {
+        display: none;
+        position: fixed;
+        top: 0; 
+        left: 0;
+        width: 100%; 
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+      }
+    
+      #bmc-popup-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 300px;
+        width: 90%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+    
+      #bmc-popup-content button {
+        padding: 8px 16px;
+        border: none;
+        background-color: #5F7FFF;
+        color: #fff;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 15px;
+      }
+    
+      #bmc-popup-content button:hover {
+        background-color: #4a6fe3;
+      }
+    </style>
+    
+    <!-- Floating Button Container -->
+    <div id="bmc-floating"></div>
+    
+    <!-- Popup Modal -->
+    <div id="bmc-popup">
+      <div id="bmc-popup-content">
+        <h3>Enjoy this site?</h3>
+        <p>If you like my free tools, consider buying me a coffee ☕</p>
+        <div id="bmc-popup-button"></div>
+        <button id="bmc-popup-close">Close</button>
+      </div>
+    </div>
+    
+    <script>
+    function injectBMC(targetId) {
+        const container = document.getElementById(targetId);
+        if (!container) return;
+    
+        // Remove any existing script
+        const existingScript = container.querySelector('script[data-name="bmc-button"]');
+        if (existingScript) {
+            existingScript.remove();
+        }
+    
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
+        script.dataset.name = 'bmc-button';
+        script.dataset.slug = 'simwik91';
+        script.dataset.color = '#5F7FFF';
+        script.dataset.emoji = '';
+        script.dataset.font = 'Cookie';
+        script.dataset.text = 'Buy me a coffee';
+        script.dataset.outlineColor = '#000000';
+        script.dataset.fontColor = '#ffffff';
+        script.dataset.coffeeColor = '#FFDD00';
+    
+        container.appendChild(script);
+    }
+    
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inject floating button
+        injectBMC('bmc-floating');
+        
+        // Inject popup button with a slight delay to ensure DOM is ready
+        setTimeout(() => {
+            injectBMC('bmc-popup-button');
+        }, 1000);
+    
+        // Show popup once per session after a delay
+        setTimeout(() => {
+            if (!sessionStorage.getItem('bmcPopupShown')) {
+                const popup = document.getElementById('bmc-popup');
+                if (popup) {
+                    popup.style.display = 'flex';
+                    sessionStorage.setItem('bmcPopupShown', 'true');
+                }
+            }
+        }, 2000);
+    
+        // Close button
+        const closeButton = document.getElementById('bmc-popup-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', function() {
+                const popup = document.getElementById('bmc-popup');
+                if (popup) {
+                    popup.style.display = 'none';
+                }
+            });
+        }
+    
+        // Close popup when clicking outside
+        const popup = document.getElementById('bmc-popup');
+        if (popup) {
+            popup.addEventListener('click', function(e) {
+                if (e.target === popup) {
+                    popup.style.display = 'none';
+                }
+            });
+        }
+    });
+    </script>
   <script src="/js/main.js"></script>
 </body>
 </html>
-
-
-
-
