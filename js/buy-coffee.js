@@ -16,20 +16,21 @@
       this.floating = document.getElementById('bmc-floating');
       this.closeBtn = document.getElementById('bmc-popup-close');
 
-      if (!this.popup || !this.floating) return;
+      if (!this.popup || !this.floating) {
+        console.warn('BMC: Required elements not found. Is the include loaded?');
+        return;
+      }
 
       this.bindEvents();
       this.maybeShowPopup();
     },
 
     bindEvents() {
-      // Close button
       this.closeBtn?.addEventListener('click', () => {
         this.hidePopup();
         this.showFloatingButton();
       });
 
-      // Click outside popup
       this.popup.addEventListener('click', (e) => {
         if (e.target === this.popup) {
           this.hidePopup();
@@ -71,13 +72,11 @@
     }
   };
 
-  // Auto-init when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => BMC.init());
-  } else {
+  // Expose globally
+  window.BMC = BMC;
+
+  // Optional: Auto-init if elements already exist (for static includes)
+  if (document.getElementById('bmc-popup')) {
     BMC.init();
   }
-
-  // Expose for debugging or external control
-  window.BMC = BMC;
 })();
