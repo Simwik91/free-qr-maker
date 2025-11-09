@@ -521,17 +521,19 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       </div>
     </div>
   </div>
-  <!-- Buy Me a Coffee Integration -->
+<!-- Buy Me a Coffee Integration -->
 <style>
   /* Import Cookie font */
   @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
   
-  /* Floating Button Container */
+  /* Floating Button Container - Centered */
   #bmc-floating {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10001;
+    display: none; /* Hidden by default */
   }
 
   /* Main Popup Styles */
@@ -652,37 +654,70 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
-  /* Floating button (smaller version) */
-  .floating-bmc-btn {
+  /* Centered floating button (bigger with enhanced animation) */
+  .centered-floating-bmc-btn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 12px 24px !important;
+    padding: 16px 32px !important;
     background: linear-gradient(135deg, #5F7FFF, #4a6fe3) !important;
     color: #ffffff !important;
-    border: 2px solid #000000 !important;
-    border-radius: 8px !important;
+    border: 3px solid #000000 !important;
+    border-radius: 10px !important;
     font-family: 'Cookie', cursive !important;
-    font-size: 22px !important;
+    font-size: 26px !important;
     text-decoration: none !important;
     cursor: pointer !important;
-    min-width: 180px !important;
-    height: 55px !important;
-    box-shadow: 0 4px 15px rgba(95, 127, 255, 0.3) !important;
+    min-width: 220px !important;
+    height: 65px !important;
+    box-shadow: 0 6px 20px rgba(95, 127, 255, 0.4) !important;
     transition: all 0.3s ease !important;
-    transform: scale(1);
+    animation: enhancedWiggle 2.5s ease-in-out infinite, pulseGlow 3s ease-in-out infinite;
   }
 
-  .floating-bmc-btn:hover {
+  .centered-floating-bmc-btn:hover {
     background: linear-gradient(135deg, #4a6fe3, #3a5fd8) !important;
-    transform: scale(1.05) !important;
-    box-shadow: 0 6px 20px rgba(95, 127, 255, 0.5) !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 10px 30px rgba(95, 127, 255, 0.7) !important;
+    animation: none !important;
   }
 
-  .floating-bmc-btn img {
-    height: 25px !important;
-    margin-right: 8px !important;
+  .centered-floating-bmc-btn img {
+    height: 30px !important;
+    margin-right: 10px !important;
     filter: brightness(0) invert(1);
+  }
+
+  /* Enhanced wiggle animation */
+  @keyframes enhancedWiggle {
+    0%, 100% {
+      transform: scale(1) rotate(0deg);
+    }
+    15% {
+      transform: scale(1.05) rotate(2deg);
+    }
+    30% {
+      transform: scale(1.03) rotate(-2deg);
+    }
+    45% {
+      transform: scale(1.05) rotate(1.5deg);
+    }
+    60% {
+      transform: scale(1.03) rotate(-1.5deg);
+    }
+    75% {
+      transform: scale(1.04) rotate(1deg);
+    }
+  }
+
+  /* Pulsing glow effect */
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 6px 20px rgba(95, 127, 255, 0.4);
+    }
+    50% {
+      box-shadow: 0 6px 30px rgba(95, 127, 255, 0.7), 0 0 20px rgba(95, 127, 255, 0.4);
+    }
   }
 </style>
 
@@ -760,11 +795,11 @@ function initializeFloatingButton() {
     // Clear any existing content
     floatingContainer.innerHTML = '';
     
-    // Create floating button
+    // Create centered floating button
     const floatingBtn = document.createElement('a');
     floatingBtn.href = 'https://buymeacoffee.com/simwik91';
     floatingBtn.target = '_blank';
-    floatingBtn.className = 'floating-bmc-btn';
+    floatingBtn.className = 'centered-floating-bmc-btn';
     floatingBtn.innerHTML = `
         <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Coffee cup">
         Buy me a coffee
@@ -773,15 +808,14 @@ function initializeFloatingButton() {
     
     floatingContainer.appendChild(floatingBtn);
     
-    console.log('Buy Me a Coffee buttons initialized successfully');
-  }
-  </script>
+    // Show the floating container
+    floatingContainer.style.display = 'block';
+    
+    console.log('Centered Buy Me a Coffee button initialized successfully');
+}
+</script>
   <!-- Footer Include -->
   <div id="footer-container"></div>
   <script src="/js/main.js"></script>
 </body>
 </html>
-
-
-
-
