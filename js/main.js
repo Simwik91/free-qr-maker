@@ -212,7 +212,6 @@ function setupEventListeners() {
    
     if (logoUploadArea) logoUploadArea.addEventListener('drop', handleDrop, false);
     if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener('drop', handleBulkDrop, false);
-    if (qrInput) qrInput.addEventListener('blur', autoFormatURL);
     if (qrInput) qrInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') generateQRCode();
     });
@@ -412,14 +411,6 @@ function handleBulkLogoUpload(e) {
         bulkLogoImage.src = event.target.result;
     };
     reader.readAsDataURL(file);
-}
-
-function autoFormatURL() {
-    const input = qrInput.value.trim();
-    if (!input) return;
-    if (input.includes('.') && !input.startsWith('http://') && !input.startsWith('https://')) {
-        qrInput.value = `https://${input}`;
-    }
 }
 
 function toggleQRTypeFields() {
