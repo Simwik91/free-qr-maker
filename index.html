@@ -85,7 +85,7 @@
         
         <label for="qr-type">QR Code Type:</label>
         <select id="qr-type" aria-label="Select QR code type">
-          <option value="url">URL/Text</option>
+          <option value="url">Text</option>
           <option value="vcard">vCard (Contact)</option>
           <option value="wifi">Wi-Fi</option>
           <option value="sms">SMS</option>
@@ -94,7 +94,7 @@
 
         <div class="qr-type-fields active" id="url-fields">
           <label for="qr-input">Enter QR Code Content:</label>
-          <input type="text" id="qr-input" placeholder="Enter URL or text..." autofocus aria-label="Enter URL or text content">
+          <input type="text" id="qr-input" placeholder="Enter text..." autofocus aria-label="Enter text content">
         </div>
 
         <div class="qr-type-fields" id="vcard-fields">
@@ -829,6 +829,7 @@ function initializeFloatingButton() {
   <script src="/js/main.js"></script>
 </body>
 </html>
+
 
 
 
