@@ -426,13 +426,13 @@ function sanitizeFilename(str) {
     return str.replace(/[^a-zA-Z0-9-]+$/g, '_').slice(0, 50);
 }
 
-// New modular functions
+// Fixed getQRContent function - now returns exact text without URL formatting
 function getQRContent(type) {
     switch(type) {
         case 'url':
             const text = qrInput.value.trim();
             if (!text) throw new Error('Text content is required');
-            // Return plain text without any URL formatting
+            // Return plain text exactly as entered - no URL formatting
             return text;
            
         case 'vcard':
