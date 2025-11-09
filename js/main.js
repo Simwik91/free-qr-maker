@@ -1034,3 +1034,73 @@ function openCookieSettings() {
 function closeCookieSettings() {
     document.getElementById('cookie-settings').style.display = 'none';
 }
+
+// Buy Me a Coffee functionality
+function initializeBMC() {
+    // Show popup immediately
+    if (!sessionStorage.getItem('bmcPopupShown')) {
+        const popup = document.getElementById('bmc-popup');
+        if (popup) {
+            setTimeout(() => {
+                popup.style.display = 'flex';
+                sessionStorage.setItem('bmcPopupShown', 'true');
+            }, 1500);
+        }
+    } else {
+        // If popup was already shown, initialize floating button immediately
+        setTimeout(initializeFloatingButton, 1000);
+    }
+
+    // Close button functionality
+    const closeButton = document.getElementById('bmc-popup-close');
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            const popup = document.getElementById('bmc-popup');
+            if (popup) {
+                popup.style.display = 'none';
+                initializeFloatingButton();
+            }
+        });
+    }
+
+    // Close popup when clicking outside
+    const popup = document.getElementById('bmc-popup');
+    if (popup) {
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                popup.style.display = 'none';
+                initializeFloatingButton();
+            }
+        });
+    }
+}
+
+function initializeFloatingButton() {
+    const floatingContainer = document.getElementById('bmc-floating');
+    
+    // Clear any existing content
+    floatingContainer.innerHTML = '';
+    
+    // Create centered floating button
+    const floatingBtn = document.createElement('a');
+    floatingBtn.href = 'https://buymeacoffee.com/simwik91';
+    floatingBtn.target = '_blank';
+    floatingBtn.className = 'centered-floating-bmc-btn';
+    floatingBtn.innerHTML = `
+        <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Coffee cup">
+        Buy me a coffee
+    `;
+    floatingBtn.title = 'Support my work';
+    
+    floatingContainer.appendChild(floatingBtn);
+    
+    // Show the floating container
+    floatingContainer.style.display = 'block';
+    
+    console.log('Centered Buy Me a Coffee button initialized successfully');
+}
+
+// Initialize Buy Me a Coffee when page loads
+window.addEventListener('load', function() {
+    initializeBMC();
+});
