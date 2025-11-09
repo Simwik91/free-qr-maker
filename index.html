@@ -14,70 +14,8 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <div id="cookie-consent" role="dialog" aria-labelledby="cookie-consent-banner" aria-describedby="cookie-consent-desc">
-    <div class="sr-only" id="cookie-consent-banner">Cookie Consent</div>
-    <div class="cookie-content" id="cookie-consent-desc">
-      <div class="cookie-text">
-        <p>We use cookies to enhance your experience and analyze site traffic. By clicking "Accept All", you consent to our use of cookies. 
-          <a href="/privacy-policy.html" aria-label="Learn more about our Privacy Policy">Learn more</a> in our Privacy Policy.
-        </p>
-        <button class="cookie-settings-btn" id="open-settings" aria-label="Open cookie settings">Cookie Settings</button>
-      </div>
-      <div class="cookie-buttons">
-        <button class="cookie-btn reject-btn" id="reject-cookies" aria-label="Reject non-essential cookies">Reject Non-Essential</button>
-        <button class="cookie-btn accept-btn" id="accept-cookies" aria-label="Accept all cookies">Accept All</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="cookie-settings" role="dialog" aria-labelledby="cookie-settings-title" aria-describedby="cookie-settings-desc">
-    <div class="settings-modal">
-      <div class="settings-header">
-        <h2 id="cookie-settings-title"><i class="fas fa-cookie-bite"></i> Cookie Settings</h2>
-        <button class="close-settings" aria-label="Close cookie settings">×</button>
-      </div>
-      <div class="settings-content">
-        <p id="cookie-settings-desc">You can set your preferences for how we and our partners use cookies and similar technologies.</p>
-        
-        <div class="cookie-type">
-          <div class="cookie-type-header">
-            <h3>Essential Cookies</h3>
-            <label class="toggle-switch" for="essential-toggle">
-              <input type="checkbox" id="essential-toggle" checked disabled aria-label="Essential cookies (always enabled, cannot be disabled)" aria-describedby="essential-desc">
-              <span class="slider"></span>
-            </label>
-          </div>
-          <p id="essential-desc">These cookies are necessary for the website to function and cannot be switched off.</p>
-        </div>
-        
-        <div class="cookie-type">
-          <div class="cookie-type-header">
-            <h3>Analytics Cookies</h3>
-            <label class="toggle-switch" for="analytics-toggle">
-              <input type="checkbox" id="analytics-toggle" aria-label="Analytics cookies toggle" aria-describedby="analytics-desc">
-              <span class="slider"></span>
-            </label>
-          </div>
-          <p id="analytics-desc">These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site.</p>
-        </div>
-        
-        <div class="cookie-type">
-          <div class="cookie-type-header">
-            <h3>Advertising Cookies</h3>
-            <label class="toggle-switch" for="advertising-toggle">
-              <input type="checkbox" id="advertising-toggle" aria-label="Advertising cookies toggle" aria-describedby="advertising-desc">
-              <span class="slider"></span>
-            </label>
-          </div>
-          <p id="advertising-desc">These cookies may be set through our site by our advertising partners to build a profile of your interests.</p>
-        </div>
-      </div>
-      <div class="settings-buttons">
-        <button class="save-settings" id="save-settings" aria-label="Save cookie settings">Save Settings</button>
-      </div>
-    </div>
-  </div>
-
+  <!-- Cookies Include -->
+  <div id="cookies-container"></div>
   <div class="container">
     <header>
       <div class="logo">
@@ -591,3 +529,4 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
   <script src="/js/main.js"></script>
 </body>
 </html>
+
