@@ -998,20 +998,3 @@ function loadQRPreferences() {
         }
     }
 }
-
-function openCookieSettings() {
-    const preferences = {
-        essential: true,
-        analytics: document.getElementById('analytics-toggle').checked,
-        advertising: document.getElementById('advertising-toggle').checked
-    };
-    
-    document.getElementById('analytics-toggle').checked = preferences.analytics;
-    document.getElementById('advertising-toggle').checked = preferences.advertising;
-    
-    document.getElementById('cookie-settings').style.display = 'flex';
-}
-
-function closeCookieSettings() {
-    document.getElementById('cookie-settings').style.display = 'none';
-}
