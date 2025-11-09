@@ -22,54 +22,9 @@ let generatedQR = null;
 let bulkQRs = [];
 let previewTimeout = null;
 
-// Load footer from includes/footer.html
-function loadFooter() {
-    const footerContainer = document.getElementById('footer-container');
-    if (!footerContainer) {
-        console.warn('Footer container not found');
-        return;
-    }
-    
-    fetch('includes/footer.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Footer not found');
-            }
-            return response.text();
-        })
-        .then(data => {
-            footerContainer.innerHTML = data;
-        })
-        .catch(error => {
-            console.error('Error loading footer:', error);
-            footerContainer.innerHTML = '<p>Footer loading failed</p>';
-        });
-}
-
-// Load Buy Me a Coffee from include - Option 4: Append to body
-function loadBuyMeACoffee() {
-    fetch('includes/buy-coffee.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Buy Me a Coffee not found');
-            }
-            return response.text();
-        })
-        .then(data => {
-            // Append the entire Buy Me a Coffee HTML to the body
-            document.body.insertAdjacentHTML('beforeend', data);
-            console.log('Buy Me a Coffee loaded successfully');
-        })
-        .catch(error => {
-            console.error('Error loading Buy Me a Coffee:', error);
-        });
-}
-
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     initializeDOMElements();
-    loadFooter();
-    loadBuyMeACoffee();
     updateSizeValue();
     updateBorderSizeValue();
     updateLogoSizeValue();
@@ -285,50 +240,6 @@ function setupEventListeners() {
 
     if (fileUpload) fileUpload.addEventListener('change', handleFileUpload);
     if (bulkFileUpload) bulkFileUpload.addEventListener('change', handleBulkFileUpload);
-    
-    // Cookie consent - with null checks
-    const acceptCookies = document.getElementById('accept-cookies');
-    const rejectCookies = document.getElementById('reject-cookies');
-    const openSettings = document.getElementById('open-settings');
-    const closeSettings = document.querySelector('.close-settings');
-    const saveSettings = document.getElementById('save-settings');
-    const openSettingsFooter = document.getElementById('open-settings-footer');
-    const cookieConsent = document.getElementById('cookie-consent');
-    const cookieSettings = document.getElementById('cookie-settings');
-    
-    if (acceptCookies && cookieConsent) {
-        acceptCookies.addEventListener('click', function() {
-            cookieConsent.style.display = 'none';
-        });
-    }
-    
-    if (rejectCookies && cookieConsent) {
-        rejectCookies.addEventListener('click', function() {
-            cookieConsent.style.display = 'none';
-        });
-    }
-    
-    if (openSettings) {
-        openSettings.addEventListener('click', openCookieSettings);
-    }
-    
-    if (closeSettings) {
-        closeSettings.addEventListener('click', closeCookieSettings);
-    }
-    
-    if (saveSettings) {
-        saveSettings.addEventListener('click', function() {
-            closeCookieSettings();
-            if (cookieConsent) cookieConsent.style.display = 'none';
-        });
-    }
-    
-    if (openSettingsFooter) {
-        openSettingsFooter.addEventListener('click', function(e) {
-            e.preventDefault();
-            openCookieSettings();
-        });
-    }
 }
 
 function updateBorderPreview() {
@@ -1077,21 +988,4 @@ function loadQRPreferences() {
             console.error('Failed to parse QR preferences:', e);
         }
     }
-}
-
-function openCookieSettings() {
-    const preferences = {
-        essential: true,
-        analytics: document.getElementById('analytics-toggle').checked,
-        advertising: document.getElementById('advertising-toggle').checked
-    };
-    
-    document.getElementById('analytics-toggle').checked = preferences.analytics;
-    document.getElementById('advertising-toggle').checked = preferences.advertising;
-    
-    document.getElementById('cookie-settings').style.display = 'flex';
-}
-
-function closeCookieSettings() {
-    document.getElementById('cookie-settings').style.display = 'none';
 }
