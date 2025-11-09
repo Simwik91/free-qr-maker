@@ -113,25 +113,25 @@ function initializeDOMElements() {
 function initBulkInputType() {
     const bulkTypeRadios = document.querySelectorAll('input[name="bulk-type"]');
     const bulkInputLabels = document.querySelectorAll('#bulk-input-type label');
-    
+   
     function updateActiveState() {
         bulkInputLabels.forEach(label => label.classList.remove('active'));
-        
+       
         const checkedRadio = document.querySelector('input[name="bulk-type"]:checked');
         if (checkedRadio) {
             checkedRadio.closest('label').classList.add('active');
         }
     }
-    
+   
     updateActiveState();
-    
+   
     bulkTypeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
             updateActiveState();
-            
+           
             bulkListFields.style.display = 'none';
             bulkRangeFields.style.display = 'none';
-            
+           
             if (radio.value === 'list') {
                 bulkListFields.style.display = 'block';
             } else if (radio.value === 'range') {
@@ -153,7 +153,7 @@ function setupEventListeners() {
             tab.classList.add('active');
             tab.setAttribute('aria-selected', 'true');
             document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
-            
+           
             if (currentStream) stopScanner();
         });
         tab.addEventListener('keydown', (e) => {
@@ -165,87 +165,87 @@ function setupEventListeners() {
     });
 
     if (sizeSlider) sizeSlider.addEventListener('input', updateSizeValue);
-    
+   
     if (borderSize) borderSize.addEventListener('input', () => {
         updateBorderSizeValue();
         updateBorderPreview();
     });
-    
+   
     if (borderColor) borderColor.addEventListener('input', updateBorderPreview);
-    
+   
     if (logoSize) logoSize.addEventListener('input', updateLogoSizeValue);
-    
+   
     if (bulkLogoSize) bulkLogoSize.addEventListener('input', updateBulkLogoSizeValue);
-    
+   
     if (bulkSizeSlider) bulkSizeSlider.addEventListener('input', () => {
         bulkSizeValue.textContent = `${bulkSizeSlider.value}px`;
     });
-    
+   
     if (bulkBorderSize) bulkBorderSize.addEventListener('input', () => {
         bulkBorderSizeValue.textContent = `${bulkBorderSize.value}px`;
         updateBulkBorderPreview();
     });
-    
+   
     if (bulkBorderColor) bulkBorderColor.addEventListener('input', updateBulkBorderPreview);
-
     if (fgColor) fgColor.addEventListener('change', saveQRPreferences);
     if (bgColor) bgColor.addEventListener('change', saveQRPreferences);
-
     if (logoUploadArea) logoUploadArea.addEventListener('click', () => logoUpload.click());
     if (logoUpload) logoUpload.addEventListener('change', handleLogoUpload);
-    
+   
     if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener('click', () => bulkLogoUpload.click());
     if (bulkLogoUpload) bulkLogoUpload.addEventListener('change', handleBulkLogoUpload);
-
+   
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         if (logoUploadArea) logoUploadArea.addEventListener(eventName, preventDefaults, false);
         if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener(eventName, preventDefaults, false);
     });
-
+   
     ['dragenter', 'dragover'].forEach(eventName => {
         if (logoUploadArea) logoUploadArea.addEventListener(eventName, highlight, false);
         if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener(eventName, highlight, false);
     });
-
+   
     ['dragleave', 'drop'].forEach(eventName => {
         if (logoUploadArea) logoUploadArea.addEventListener(eventName, unhighlight, false);
         if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener(eventName, unhighlight, false);
     });
-
+   
     if (logoUploadArea) logoUploadArea.addEventListener('drop', handleDrop, false);
     if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener('drop', handleBulkDrop, false);
-
     if (qrInput) qrInput.addEventListener('blur', autoFormatURL);
     if (qrInput) qrInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') generateQR();
+        if (e.key === 'Enter') generateQRCode();
     });
-
     if (qrType) qrType.addEventListener('change', toggleQRTypeFields);
-
     if (startScanBtn) startScanBtn.addEventListener('click', startScanner);
     if (stopScanBtn) stopScanBtn.addEventListener('click', stopScanner);
-
     if (fileUpload) fileUpload.addEventListener('change', handleFileUpload);
     if (bulkFileUpload) bulkFileUpload.addEventListener('change', handleBulkFileUpload);
-    
+   
     // Cookie consent
-    document.getElementById('accept-cookies').addEventListener('click', function() {
+    const acceptCookies = document.getElementById('accept-cookies');
+    const rejectCookies = document.getElementById('reject-cookies');
+    const openSettings = document.getElementById('open-settings');
+    const closeSettings = document.querySelector('.close-settings');
+    const saveSettings = document.getElementById('save-settings');
+    const openSettingsFooter = document.getElementById('open-settings-footer');
+   
+    if (acceptCookies) acceptCookies.addEventListener('click', function() {
         document.getElementById('cookie-consent').style.display = 'none';
     });
-    
-    document.getElementById('reject-cookies').addEventListener('click', function() {
+   
+    if (rejectCookies) rejectCookies.addEventListener('click', function() {
         document.getElementById('cookie-consent').style.display = 'none';
     });
-    
-    document.getElementById('open-settings').addEventListener('click', openCookieSettings);
-    document.querySelector('.close-settings').addEventListener('click', closeCookieSettings);
-    
-    document.getElementById('save-settings').addEventListener('click', function() {
+   
+    if (openSettings) openSettings.addEventListener('click', openCookieSettings);
+    if (closeSettings) closeSettings.addEventListener('click', closeCookieSettings);
+    if (saveSettings) saveSettings.addEventListener('click', function() {
         closeCookieSettings();
         document.getElementById('cookie-consent').style.display = 'none';
     });
-    
-    document.getElementById('open-settings-footer').addEventListener('click', function(e) {
+   
+    if (openSettingsFooter) openSettingsFooter.addEventListener('click', function(e) {
         e.preventDefault();
         openCookieSettings();
     });
@@ -253,10 +253,10 @@ function setupEventListeners() {
 
 function updateBorderPreview() {
     if (!borderPreview) return;
-    
+   
     const borderSizeVal = parseInt(borderSize.value);
     const borderColorVal = borderColor.value;
-    
+   
     if (borderSizeVal > 0) {
         borderPreview.style.border = `${borderSizeVal}px solid ${borderColorVal}`;
         if (logoUploadArea) logoUploadArea.classList.add('border-active');
@@ -268,10 +268,10 @@ function updateBorderPreview() {
 
 function updateBulkBorderPreview() {
     if (!bulkBorderPreview) return;
-    
+   
     const borderSizeVal = parseInt(bulkBorderSize.value);
     const borderColorVal = bulkBorderColor.value;
-    
+   
     if (borderSizeVal > 0) {
         bulkBorderPreview.style.border = `${borderSizeVal}px solid ${borderColorVal}`;
         if (bulkLogoUploadArea) bulkLogoUploadArea.classList.add('border-active');
@@ -297,7 +297,6 @@ function unhighlight() {
 function handleDrop(e) {
     const dt = e.dataTransfer;
     const files = dt.files;
-
     if (files.length) {
         logoUpload.files = files;
         handleLogoUpload({ target: { files } });
@@ -307,7 +306,6 @@ function handleDrop(e) {
 function handleBulkDrop(e) {
     const dt = e.dataTransfer;
     const files = dt.files;
-
     if (files.length) {
         bulkLogoUpload.files = files;
         handleBulkLogoUpload({ target: { files } });
@@ -345,7 +343,6 @@ function handleLogoUpload(e) {
         showError(qrError, 'Please upload a valid image file');
         return;
     }
-
     const reader = new FileReader();
     reader.onload = function(event) {
         logoImage = new Image();
@@ -354,23 +351,23 @@ function handleLogoUpload(e) {
                 logoPreview.innerHTML = '';
                 const previewContainer = document.createElement('div');
                 previewContainer.className = 'border-preview';
-                
+               
                 const img = document.createElement('img');
                 img.src = event.target.result;
                 img.alt = 'Uploaded logo';
                 img.style.maxWidth = '100%';
                 img.style.maxHeight = '100%';
                 img.style.objectFit = 'contain';
-                
+               
                 const borderIndicator = document.createElement('div');
                 borderIndicator.className = 'border-indicator';
                 borderIndicator.id = 'border-preview';
-                
+               
                 previewContainer.appendChild(img);
                 previewContainer.appendChild(borderIndicator);
                 logoPreview.appendChild(previewContainer);
             }
-            
+           
             updateBorderPreview();
         };
         logoImage.src = event.target.result;
@@ -385,7 +382,6 @@ function handleBulkLogoUpload(e) {
         showError(bulkError, 'Please upload a valid image file');
         return;
     }
-
     const reader = new FileReader();
     reader.onload = function(event) {
         bulkLogoImage = new Image();
@@ -394,23 +390,23 @@ function handleBulkLogoUpload(e) {
                 bulkLogoPreview.innerHTML = '';
                 const previewContainer = document.createElement('div');
                 previewContainer.className = 'border-preview';
-                
+               
                 const img = document.createElement('img');
                 img.src = event.target.result;
                 img.alt = 'Uploaded logo for bulk';
                 img.style.maxWidth = '100%';
                 img.style.maxHeight = '100%';
                 img.style.objectFit = 'contain';
-                
+               
                 const borderIndicator = document.createElement('div');
                 borderIndicator.className = 'border-indicator';
                 borderIndicator.id = 'bulk-border-preview';
-                
+               
                 previewContainer.appendChild(img);
                 previewContainer.appendChild(borderIndicator);
                 bulkLogoPreview.appendChild(previewContainer);
             }
-            
+           
             updateBulkBorderPreview();
         };
         bulkLogoImage.src = event.target.result;
@@ -421,7 +417,6 @@ function handleBulkLogoUpload(e) {
 function autoFormatURL() {
     const input = qrInput.value.trim();
     if (!input) return;
-
     if (input.includes('.') && !input.startsWith('http://') && !input.startsWith('https://')) {
         qrInput.value = `https://${input}`;
     }
@@ -430,7 +425,10 @@ function autoFormatURL() {
 function toggleQRTypeFields() {
     const type = qrType.value;
     document.querySelectorAll('.qr-type-fields').forEach(field => field.classList.remove('active'));
-    document.getElementById(`${type}-fields`).classList.add('active');
+    const targetFields = document.getElementById(`${type}-fields`);
+    if (targetFields) {
+        targetFields.classList.add('active');
+    }
 }
 
 function sanitizeFilename(str) {
@@ -447,37 +445,37 @@ function getQRContent(type) {
                 return 'http://' + url;
             }
             return url;
-            
+           
         case 'vcard':
             const name = vcardName.value.trim();
             const phone = vcardPhone.value.trim();
             const email = vcardEmail.value.trim();
-            
+           
             if (!name || !phone || !email) throw new Error('All vCard fields are required');
             if (!isValidEmail(email)) throw new Error('Invalid email format');
-            
+           
             return `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
-            
+           
         case 'wifi':
             const ssid = wifiSsid.value.trim();
             const password = wifiPassword.value.trim();
             const encryption = wifiType.value;
-            
+           
             if (!ssid) throw new Error('Network name is required');
             if (encryption !== 'nopass' && !password) throw new Error('Password is required');
-            
+           
             return `WIFI:S:${ssid};T:${encryption};P:${password};;`;
-            
+           
         case 'email':
             const emailAddr = emailAddress.value.trim();
             const subject = emailSubject.value.trim();
             const body = emailBody.value.trim();
-            
+           
             if (!emailAddr) throw new Error('Email address is required');
             if (!isValidEmail(emailAddr)) throw new Error('Invalid email format');
-            
+           
             return `mailto:${emailAddr}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
+           
         default:
             const input = qrInput.value.trim();
             if (!input) throw new Error('Content is required');
@@ -515,28 +513,28 @@ function addLogoToQR(qrCanvas, logo, borderSize, borderColor, logoSizePercent) {
             resolve(qrCanvas);
             return;
         }
-        
+       
         try {
             // Ensure logo doesn't break QR code scannability
             const maxSafeSize = qrCanvas.width * 0.25; // Max 25% of QR size
             const actualLogoSize = Math.min(
-                qrCanvas.width * (logoSizePercent / 100), 
+                qrCanvas.width * (logoSizePercent / 100),
                 maxSafeSize
             );
-            
+           
             const ctx = qrCanvas.getContext('2d');
-            
+           
             // Draw border if border size is greater than 0
             if (borderSize > 0) {
                 ctx.fillStyle = borderColor;
                 const centerX = qrCanvas.width / 2;
                 const centerY = qrCanvas.height / 2;
                 const borderWidth = actualLogoSize + borderSize * 2;
-                
+               
                 // Ensure border doesn't cover critical QR patterns
                 const maxBorderWidth = qrCanvas.width * 0.35;
                 const safeBorderWidth = Math.min(borderWidth, maxBorderWidth);
-                
+               
                 ctx.fillRect(
                     centerX - safeBorderWidth/2,
                     centerY - safeBorderWidth/2,
@@ -544,7 +542,7 @@ function addLogoToQR(qrCanvas, logo, borderSize, borderColor, logoSizePercent) {
                     safeBorderWidth
                 );
             }
-            
+           
             // Draw logo
             ctx.drawImage(
                 logo,
@@ -553,7 +551,7 @@ function addLogoToQR(qrCanvas, logo, borderSize, borderColor, logoSizePercent) {
                 actualLogoSize,
                 actualLogoSize
             );
-            
+           
             resolve(qrCanvas);
         } catch (error) {
             console.error('Error adding logo to QR:', error);
@@ -562,48 +560,48 @@ function addLogoToQR(qrCanvas, logo, borderSize, borderColor, logoSizePercent) {
     });
 }
 
-// Updated generateQR function
-async function generateQR() {
+// Fixed generateQR function - renamed to avoid recursion
+async function generateQRCode() {
     try {
         const type = qrType.value;
         const content = getQRContent(type);
-        
+       
         const qrOptions = {
             size: parseInt(sizeSlider.value),
             fgColor: fgColor.value,
             bgColor: transparentBg.checked ? '#00000000' : bgColor.value
         };
-        
+       
         qrLoading.style.display = 'block';
         qrError.style.display = 'none';
         qrSuccess.style.display = 'none';
-        
+       
         // Create QR canvas
         const generatedCanvas = await createQRCanvas(content, qrOptions);
-        
+       
         // Add logo and border
         const finalCanvas = await addLogoToQR(
-            generatedCanvas, 
-            logoImage, 
-            parseInt(borderSize.value), 
+            generatedCanvas,
+            logoImage,
+            parseInt(borderSize.value),
             borderColor.value,
             parseInt(logoSize.value)
         );
-        
+       
         // Display results
         qrCanvas.width = finalCanvas.width;
         qrCanvas.height = finalCanvas.height;
         const ctx = qrCanvas.getContext('2d');
         ctx.drawImage(finalCanvas, 0, 0);
-        
+       
         generatedQR = { data: qrCanvas.toDataURL('image/png'), content };
-        
+       
         qrLoading.style.display = 'none';
         qrSuccess.style.display = 'block';
         qrSuccess.textContent = 'QR Code generated successfully!';
         downloadBtn.style.display = 'block';
         qrCanvas.style.display = 'block';
-        
+       
         // Test QR scannability
         testQRScannability(finalCanvas, content);
     } catch (error) {
@@ -618,7 +616,7 @@ function testQRScannability(canvas, originalContent) {
         const ctx = canvas.getContext('2d');
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const code = jsQR(imageData.data, imageData.width, imageData.height);
-        
+       
         if (!code) {
             qrSuccess.innerHTML += '<br><span class="scanner-error"><i class="fas fa-exclamation-circle"></i> Warning: QR code may be difficult to scan</span>';
         } else if (code.data !== originalContent) {
@@ -636,7 +634,7 @@ async function generateBulkQR() {
     try {
         let inputs = [];
         const bulkType = document.querySelector('input[name="bulk-type"]:checked').value;
-        
+       
         if (bulkType === 'list') {
             // Check if a CSV file is uploaded
             if (bulkFileUpload.files.length) {
@@ -647,10 +645,10 @@ async function generateBulkQR() {
                     reader.onerror = () => reject(reader.error);
                     reader.readAsText(file);
                 });
-                
+               
                 const results = Papa.parse(text, { header: true });
                 if (results.errors.length) throw new Error('Error parsing CSV file');
-                
+               
                 inputs = results.data.map(row => {
                     // Get the first non-empty value in the row
                     return Object.values(row).find(val => val && val.trim() !== '') || '';
@@ -663,35 +661,31 @@ async function generateBulkQR() {
             const end = parseInt(rangeEnd.value);
             const prefix = rangePrefix.value.trim();
             const suffix = rangeSuffix.value.trim();
-            
+           
             if (isNaN(start) || isNaN(end) || start > end) {
                 throw new Error('Please enter valid start and end numbers');
             }
-            
+           
             if (end - start > 1000) {
                 throw new Error('Range is too large (max 1000 items)');
             }
-            
+           
             for (let i = start; i <= end; i++) {
                 inputs.push(`${prefix}${i}${suffix}`);
             }
         }
-
         if (inputs.length === 0) throw new Error('Please enter at least one item');
         if (inputs.length > 1000) throw new Error('For performance, limit to 1000 items at a time');
-
         bulkQRs = [];
         bulkSuccess.style.display = 'none';
         bulkError.style.display = 'none';
         bulkLoading.style.display = 'block';
-
         // Process in batches
         const batchSize = 5;
         for (let i = 0; i < inputs.length; i += batchSize) {
             const batch = inputs.slice(i, i + batchSize);
             await processBatch(batch, i, inputs.length);
         }
-
         createBulkZip();
     } catch (error) {
         bulkLoading.style.display = 'none';
@@ -705,26 +699,26 @@ async function processBatch(batch, startIndex, total) {
         const index = startIndex + j;
         const input = batch[j];
         bulkProgress.textContent = `Generating QR codes: ${index + 1}/${total}`;
-        
+       
         try {
             const qrOptions = {
                 size: parseInt(bulkSizeSlider.value),
                 fgColor: bulkFgColor.value,
                 bgColor: bulkTransparentBg.checked ? '#00000000' : bulkBgColor.value
             };
-            
+           
             // Create QR canvas
             const generatedCanvas = await createQRCanvas(input, qrOptions);
-            
+           
             // Add logo and border
             const finalCanvas = await addLogoToQR(
-                generatedCanvas, 
-                bulkLogoImage, 
-                parseInt(bulkBorderSize.value), 
+                generatedCanvas,
+                bulkLogoImage,
+                parseInt(bulkBorderSize.value),
                 bulkBorderColor.value,
                 parseInt(bulkLogoSize.value)
             );
-            
+           
             bulkQRs.push({
                 content: input,
                 dataURL: finalCanvas.toDataURL('image/png')
@@ -746,7 +740,6 @@ function createBulkZip() {
         const zip = new JSZip();
         const prefix = bulkFilename.value.trim() || 'qr-codes';
         let successCount = 0;
-
         for (const item of bulkQRs) {
             if (!item.error) {
                 const filename = `${sanitizeFilename(item.content)}.png`;
@@ -755,17 +748,15 @@ function createBulkZip() {
                 successCount++;
             }
         }
-
         if (successCount === 0) {
             throw new Error('No QR codes were generated successfully');
         }
-
         zip.generateAsync({ type: 'blob' }).then(content => {
             saveAs(content, `${prefix}.zip`);
             bulkLoading.style.display = 'none';
             bulkSuccess.style.display = 'block';
             bulkSuccess.textContent = `Successfully generated and downloaded ${successCount} QR codes!`;
-            
+           
             if (successCount < bulkQRs.length) {
                 bulkSuccess.textContent += ` (${bulkQRs.length - successCount} failed)`;
             }
@@ -788,7 +779,6 @@ function downloadQR() {
         showError(qrError, 'Please generate a QR code first');
         return;
     }
-
     const filename = sanitizeFilename(generatedQR.content) + '.png';
     const a = document.createElement('a');
     a.href = generatedQR.data;
@@ -802,7 +792,7 @@ function startScanner() {
     scannerOverlay.style.display = 'flex';
     scanResult.innerHTML = '<p>Scanning... Point camera at QR code</p>';
     updateScannerStatus('Scanning...', 'scanner-loading');
-    
+   
     // Add scanning guides
     scannerGuides.innerHTML = `
         <div class="guide-line horizontal" style="top: 33%"></div>
@@ -811,13 +801,11 @@ function startScanner() {
         <div class="guide-line vertical" style="left: 66%"></div>
     `;
     scannerGuides.style.display = 'block';
-
     navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
         .then(stream => {
             currentStream = stream;
             video.srcObject = stream;
             video.play();
-
             requestAnimationFrame(scanQR);
         })
         .catch(err => {
@@ -839,27 +827,24 @@ function stopScanner() {
         currentStream = null;
     }
     scannerOverlay.style.display = 'none';
-    
+   
     // Remove scanning guides
     scannerGuides.style.display = 'none';
-    
+   
     // Hide status
     scannerStatus.style.display = 'none';
 }
 
 function scanQR() {
     if (!currentStream) return;
-
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const code = jsQR(imageData.data, imageData.width, imageData.height);
-
         if (code) {
             scanResult.innerHTML = `
                 <p><strong>QR Code detected!</strong></p>
@@ -871,7 +856,6 @@ function scanQR() {
             updateScannerStatus('QR Code Detected!', 'scanner-success');
         }
     }
-
     requestAnimationFrame(scanQR);
 }
 
@@ -880,22 +864,20 @@ function useScannedContent(content) {
     qrType.value = 'url';
     toggleQRTypeFields();
     qrInput.value = content;
-    tabs[0].click();
-    generateQR();
+    if (tabs.length > 0) tabs[0].click();
+    generateQRCode();
 }
 
 function scanQRFromImage(img) {
     updateScannerStatus('Processing image...', 'scanner-loading');
-    
+   
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = img.width;
     canvas.height = img.height;
-
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const code = jsQR(imageData.data, imageData.width, canvas.height);
-
     if (code) {
         scanResult.innerHTML = `
             <p><strong>QR Code detected in image!</strong></p>
@@ -914,15 +896,14 @@ function scanQRFromImage(img) {
 function handleFileUpload(e) {
     const file = e.target.files[0];
     if (!file) return;
-    
+   
     if (!file.type.match('image.*')) {
         scanResult.innerHTML = '<p class="error"><i class="fas fa-exclamation-circle"></i> Please upload a valid image file</p>';
         updateScannerStatus('Invalid File', 'scanner-error');
         return;
     }
-
     updateScannerStatus('Processing image...', 'scanner-loading');
-    
+   
     const reader = new FileReader();
     reader.onload = function(event) {
         const img = new Image();
@@ -944,7 +925,6 @@ function handleBulkFileUpload(e) {
         showError(bulkError, 'Please upload a valid CSV file');
         return;
     }
-
     const reader = new FileReader();
     reader.onload = function(event) {
         const text = event.target.result;
@@ -976,20 +956,20 @@ function loadQRPreferences() {
     if (preferencesStr) {
         try {
             const preferences = JSON.parse(preferencesStr);
-            
+           
             if (fgColor) fgColor.value = preferences.fgColor || '#000000';
             if (bgColor) bgColor.value = preferences.bgColor || '#FFFFFF';
-            
+           
             if (sizeSlider) {
                 sizeSlider.value = preferences.size || '256';
             }
-            
+           
             if (borderSize) {
                 borderSize.value = preferences.borderSize || '5';
             }
-            
+           
             if (borderColor) borderColor.value = preferences.borderColor || '#FFFFFF';
-            
+           
             if (logoSize) {
                 logoSize.value = preferences.logoSize || '15';
             }
@@ -998,3 +978,24 @@ function loadQRPreferences() {
         }
     }
 }
+
+// Missing function implementations
+function openCookieSettings() {
+    const settingsModal = document.getElementById('cookie-settings');
+    if (settingsModal) {
+        settingsModal.style.display = 'block';
+    }
+}
+
+function closeCookieSettings() {
+    const settingsModal = document.getElementById('cookie-settings');
+    if (settingsModal) {
+        settingsModal.style.display = 'none';
+    }
+}
+
+// Make functions globally available for HTML onclick attributes
+window.generateQR = generateQRCode;
+window.generateBulkQR = generateBulkQR;
+window.downloadQR = downloadQR;
+window.useScannedContent = useScannedContent;
