@@ -1,21 +1,26 @@
-<!-- includes/buy-me-a-coffee.html -->
+<!-- Buy Me a Coffee Integration -->
 <style>
+  /* Import Cookie font */
   @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
-
+  
+  /* Floating Button Container - Centered */
   #bmc-floating {
     position: fixed;
     bottom: 90px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10001;
-    display: none;
+    display: none; /* Hidden by default */
   }
 
+  /* Main Popup Styles */
   #bmc-popup {
     display: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
     background-color: rgba(0,0,0,0.85);
     justify-content: center;
     align-items: center;
@@ -51,59 +56,70 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    width: 100%;
   }
 
+  /* Super-sized animated BMC button (50% larger) */
   .super-bmc-btn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 20px 40px !important;
+    padding: 30px 60px !important; /* Increased by 50% */
     background: linear-gradient(135deg, #5F7FFF, #4a6fe3) !important;
     color: #ffffff !important;
-    border: 3px solid #000000 !important;
-    border-radius: 12px !important;
+    border: 4px solid #000000 !important; /* Increased border */
+    border-radius: 18px !important; /* Increased border radius */
     font-family: 'Cookie', cursive !important;
-    font-size: 32px !important;
+    font-size: 48px !important; /* Increased by 50% (from 32px) */
     text-decoration: none !important;
     cursor: pointer !important;
-    min-width: 280px !important;
-    height: 80px !important;
-    box-shadow: 0 8px 25px rgba(95, 127, 255, 0.4) !important;
+    min-width: 420px !important; /* Increased by 50% (from 280px) */
+    height: 120px !important; /* Increased by 50% (from 80px) */
+    box-shadow: 0 12px 38px rgba(95, 127, 255, 0.4) !important; /* Enhanced shadow */
     transition: all 0.4s ease !important;
+    transform: scale(1);
     animation: gentleWiggle 3s ease-in-out infinite;
   }
 
   .super-bmc-btn:hover {
     background: linear-gradient(135deg, #4a6fe3, #3a5fd8) !important;
     transform: scale(1.08) !important;
-    box-shadow: 0 12px 35px rgba(95, 127, 255, 0.6) !important;
+    box-shadow: 0 18px 53px rgba(95, 127, 255, 0.6) !important; /* Enhanced hover shadow */
     animation: none !important;
   }
 
   .super-bmc-btn img {
-    height: 40px !important;
-    margin-right: 15px !important;
+    height: 60px !important; /* Increased by 50% (from 40px) */
+    margin-right: 23px !important; /* Increased by 50% (from 15px) */
     filter: brightness(0) invert(1);
   }
 
+  /* Gentle wiggle animation */
   @keyframes gentleWiggle {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    25% { transform: scale(1.02) rotate(1deg); }
-    75% { transform: scale(1.02) rotate(-1deg); }
+    0%, 100% {
+      transform: scale(1) rotate(0deg);
+    }
+    25% {
+      transform: scale(1.02) rotate(1deg);
+    }
+    75% {
+      transform: scale(1.02) rotate(-1deg);
+    }
   }
 
+  /* Later button */
   .later-btn {
-    padding: 16px 32px;
+    padding: 24px 48px; /* Increased by 50% */
     background: #f8f9fa;
     color: #666;
-    border: 2px solid #e9ecef;
-    border-radius: 10px;
-    font-size: 16px;
+    border: 3px solid #e9ecef; /* Increased border */
+    border-radius: 15px; /* Increased border radius */
+    font-size: 24px; /* Increased by 50% (from 16px) */
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 200px;
-    height: 55px;
+    min-width: 300px; /* Increased by 50% (from 200px) */
+    height: 83px; /* Increased by 50% (from 55px) */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,25 +128,26 @@
   .later-btn:hover {
     background: #e9ecef;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1); /* Enhanced shadow */
   }
 
+  /* Centered floating button (50% larger with enhanced animation) */
   .centered-floating-bmc-btn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 16px 32px !important;
+    padding: 24px 48px !important; /* Increased by 50% */
     background: linear-gradient(135deg, #5F7FFF, #4a6fe3) !important;
     color: #ffffff !important;
-    border: 3px solid #000000 !important;
-    border-radius: 10px !important;
+    border: 4px solid #000000 !important; /* Increased border */
+    border-radius: 15px !important; /* Increased border radius */
     font-family: 'Cookie', cursive !important;
-    font-size: 26px !important;
+    font-size: 39px !important; /* Increased by 50% (from 26px) */
     text-decoration: none !important;
     cursor: pointer !important;
-    min-width: 220px !important;
-    height: 65px !important;
-    box-shadow: 0 6px 20px rgba(95, 127, 255, 0.4) !important;
+    min-width: 330px !important; /* Increased by 50% (from 220px) */
+    height: 98px !important; /* Increased by 50% (from 65px) */
+    box-shadow: 0 9px 30px rgba(95, 127, 255, 0.4) !important; /* Enhanced shadow */
     transition: all 0.3s ease !important;
     animation: enhancedWiggle 2.5s ease-in-out infinite, pulseGlow 3s ease-in-out infinite;
   }
@@ -138,28 +155,46 @@
   .centered-floating-bmc-btn:hover {
     background: linear-gradient(135deg, #4a6fe3, #3a5fd8) !important;
     transform: scale(1.08) !important;
-    box-shadow: 0 10px 30px rgba(95, 127, 255, 0.7) !important;
+    box-shadow: 0 15px 45px rgba(95, 127, 255, 0.7) !important; /* Enhanced hover shadow */
     animation: none !important;
   }
 
   .centered-floating-bmc-btn img {
-    height: 30px !important;
-    margin-right: 10px !important;
+    height: 45px !important; /* Increased by 50% (from 30px) */
+    margin-right: 15px !important; /* Increased by 50% (from 10px) */
     filter: brightness(0) invert(1);
   }
 
+  /* Enhanced wiggle animation */
   @keyframes enhancedWiggle {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    15% { transform: scale(1.05) rotate(2deg); }
-    30% { transform: scale(1.03) rotate(-2deg); }
-    45% { transform: scale(1.05) rotate(1.5deg); }
-    60% { transform: scale(1.03) rotate(-1.5deg); }
-    75% { transform: scale(1.04) rotate(1deg); }
+    0%, 100% {
+      transform: scale(1) rotate(0deg);
+    }
+    15% {
+      transform: scale(1.05) rotate(2deg);
+    }
+    30% {
+      transform: scale(1.03) rotate(-2deg);
+    }
+    45% {
+      transform: scale(1.05) rotate(1.5deg);
+    }
+    60% {
+      transform: scale(1.03) rotate(-1.5deg);
+    }
+    75% {
+      transform: scale(1.04) rotate(1deg);
+    }
   }
 
+  /* Pulsing glow effect */
   @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 6px 20px rgba(95, 127, 255, 0.4); }
-    50% { box-shadow: 0 6px 30px rgba(95, 127, 255, 0.7), 0 0 20px rgba(95, 127, 255, 0.4); }
+    0%, 100% {
+      box-shadow: 0 9px 30px rgba(95, 127, 255, 0.4);
+    }
+    50% {
+      box-shadow: 0 9px 45px rgba(95, 127, 255, 0.7), 0 0 30px rgba(95, 127, 255, 0.4);
+    }
   }
 </style>
 
@@ -171,12 +206,88 @@
   <div id="bmc-popup-content">
     <h3>Enjoying this free tool?</h3>
     <p>Consider buying me a coffee to support my work!</p>
+    
     <div class="popup-buttons">
+      <!-- Super-sized animated BMC button (50% larger) -->
       <a href="https://buymeacoffee.com/simwik91" target="_blank" class="super-bmc-btn">
         <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Coffee cup">
         Buy me a coffee
       </a>
-      <button id="bmc-popup-close" class="later-btn">Maybe Later</button>
+      
+      <button id="bmc-popup-close" class="later-btn">
+        Maybe Later
+      </button>
     </div>
   </div>
 </div>
+
+<script>
+// Wait for full page load
+window.addEventListener('load', function() {
+    initializeBMC();
+});
+
+function initializeBMC() {
+    // Show popup immediately
+    if (!sessionStorage.getItem('bmcPopupShown')) {
+        const popup = document.getElementById('bmc-popup');
+        if (popup) {
+            setTimeout(() => {
+                popup.style.display = 'flex';
+                sessionStorage.setItem('bmcPopupShown', 'true');
+            }, 1500);
+        }
+    } else {
+        // If popup was already shown, initialize floating button immediately
+        setTimeout(initializeFloatingButton, 1000);
+    }
+
+    // Close button functionality
+    const closeButton = document.getElementById('bmc-popup-close');
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            const popup = document.getElementById('bmc-popup');
+            if (popup) {
+                popup.style.display = 'none';
+                initializeFloatingButton();
+            }
+        });
+    }
+
+    // Close popup when clicking outside
+    const popup = document.getElementById('bmc-popup');
+    if (popup) {
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                popup.style.display = 'none';
+                initializeFloatingButton();
+            }
+        });
+    }
+}
+
+function initializeFloatingButton() {
+    const floatingContainer = document.getElementById('bmc-floating');
+    
+    // Clear any existing content
+    floatingContainer.innerHTML = '';
+    
+    // Create centered floating button
+    const floatingBtn = document.createElement('a');
+    floatingBtn.href = 'https://buymeacoffee.com/simwik91';
+    floatingBtn.target = '_blank';
+    floatingBtn.className = 'centered-floating-bmc-btn';
+    floatingBtn.innerHTML = `
+        <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Coffee cup">
+        Buy me a coffee
+    `;
+    floatingBtn.title = 'Support my work';
+    
+    floatingContainer.appendChild(floatingBtn);
+    
+    // Show the floating container
+    floatingContainer.style.display = 'block';
+    
+    console.log('Centered Buy Me a Coffee button initialized successfully');
+}
+</script>
