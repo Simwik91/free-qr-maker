@@ -1,7 +1,7 @@
 // Constants
 const PREFERENCES_KEY = 'qrPreferences';
 
-// DOM Elements
+// DOM Elements - initialize as null
 let qrType, qrInput, vcardName, vcardPhone, vcardEmail, wifiSsid, wifiPassword, wifiType;
 let smsPhone, smsMessage, emailAddress, emailSubject, emailBody, qrCanvas, fgColor, bgColor;
 let transparentBg, bulkTransparentBg, sizeSlider, sizeValue, borderSize, borderSizeValue;
@@ -24,6 +24,12 @@ let previewTimeout = null;
 
 // Load footer from includes/footer.html
 function loadFooter() {
+    const footerContainer = document.getElementById('footer-container');
+    if (!footerContainer) {
+        console.warn('Footer container not found');
+        return;
+    }
+    
     fetch('includes/footer.html')
         .then(response => {
             if (!response.ok) {
@@ -32,15 +38,15 @@ function loadFooter() {
             return response.text();
         })
         .then(data => {
-            document.getElementById('footer-container').innerHTML = data;
+            footerContainer.innerHTML = data;
         })
         .catch(error => {
             console.error('Error loading footer:', error);
-            document.getElementById('footer-container').innerHTML = '<p>Footer loading failed</p>';
+            footerContainer.innerHTML = '<p>Footer loading failed</p>';
         });
 }
 
-// Load Buy Me a Coffee from include
+// Load Buy Me a Coffee from include - Option 4: Append to body
 function loadBuyMeACoffee() {
     fetch('includes/buy-coffee.html')
         .then(response => {
@@ -50,7 +56,9 @@ function loadBuyMeACoffee() {
             return response.text();
         })
         .then(data => {
-            document.getElementById('buy-coffee-container').innerHTML = data;
+            // Append the entire Buy Me a Coffee HTML to the body
+            document.body.insertAdjacentHTML('beforeend', data);
+            console.log('Buy Me a Coffee loaded successfully');
         })
         .catch(error => {
             console.error('Error loading Buy Me a Coffee:', error);
@@ -61,7 +69,7 @@ function loadBuyMeACoffee() {
 document.addEventListener('DOMContentLoaded', () => {
     initializeDOMElements();
     loadFooter();
-    loadBuyMeACoffee(); // Add this line
+    loadBuyMeACoffee();
     updateSizeValue();
     updateBorderSizeValue();
     updateLogoSizeValue();
@@ -75,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initializeDOMElements() {
+    // Safely initialize DOM elements with null checks
     qrType = document.getElementById('qr-type');
     qrInput = document.getElementById('qr-input');
     vcardName = document.getElementById('vcard-name');
@@ -151,6 +160,11 @@ function initBulkInputType() {
     const bulkTypeRadios = document.querySelectorAll('input[name="bulk-type"]');
     const bulkInputLabels = document.querySelectorAll('#bulk-input-type label');
     
+    if (!bulkTypeRadios.length || !bulkInputLabels.length) {
+        console.warn('Bulk input type elements not found');
+        return;
+    }
+    
     function updateActiveState() {
         bulkInputLabels.forEach(label => label.classList.remove('active'));
         
@@ -166,41 +180,45 @@ function initBulkInputType() {
         radio.addEventListener('change', () => {
             updateActiveState();
             
-            bulkListFields.style.display = 'none';
-            bulkRangeFields.style.display = 'none';
+            if (bulkListFields) bulkListFields.style.display = 'none';
+            if (bulkRangeFields) bulkRangeFields.style.display = 'none';
             
-            if (radio.value === 'list') {
+            if (radio.value === 'list' && bulkListFields) {
                 bulkListFields.style.display = 'block';
-            } else if (radio.value === 'range') {
+            } else if (radio.value === 'range' && bulkRangeFields) {
                 bulkRangeFields.style.display = 'block';
             }
         });
     });
 }
 
-// Set up all event listeners
+// Set up all event listeners with null checks
 function setupEventListeners() {
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
+    // Tab event listeners
+    if (tabs.length) {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                tabContents.forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+                
+                if (currentStream) stopScanner();
             });
-            tabContents.forEach(c => c.classList.remove('active'));
-            tab.classList.add('active');
-            tab.setAttribute('aria-selected', 'true');
-            document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
-            
-            if (currentStream) stopScanner();
+            tab.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    tab.click();
+                }
+            });
         });
-        tab.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                tab.click();
-            }
-        });
-    });
+    }
 
+    // Input event listeners with null checks
     if (sizeSlider) sizeSlider.addEventListener('input', updateSizeValue);
     
     if (borderSize) borderSize.addEventListener('input', () => {
@@ -215,11 +233,11 @@ function setupEventListeners() {
     if (bulkLogoSize) bulkLogoSize.addEventListener('input', updateBulkLogoSizeValue);
     
     if (bulkSizeSlider) bulkSizeSlider.addEventListener('input', () => {
-        bulkSizeValue.textContent = `${bulkSizeSlider.value}px`;
+        if (bulkSizeValue) bulkSizeValue.textContent = `${bulkSizeSlider.value}px`;
     });
     
     if (bulkBorderSize) bulkBorderSize.addEventListener('input', () => {
-        bulkBorderSizeValue.textContent = `${bulkBorderSize.value}px`;
+        if (bulkBorderSizeValue) bulkBorderSizeValue.textContent = `${bulkBorderSize.value}px`;
         updateBulkBorderPreview();
     });
     
@@ -228,12 +246,13 @@ function setupEventListeners() {
     if (fgColor) fgColor.addEventListener('change', saveQRPreferences);
     if (bgColor) bgColor.addEventListener('change', saveQRPreferences);
 
-    if (logoUploadArea) logoUploadArea.addEventListener('click', () => logoUpload.click());
+    if (logoUploadArea) logoUploadArea.addEventListener('click', () => logoUpload && logoUpload.click());
     if (logoUpload) logoUpload.addEventListener('change', handleLogoUpload);
     
-    if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener('click', () => bulkLogoUpload.click());
+    if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener('click', () => bulkLogoUpload && bulkLogoUpload.click());
     if (bulkLogoUpload) bulkLogoUpload.addEventListener('change', handleBulkLogoUpload);
 
+    // Drag and drop event listeners
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         if (logoUploadArea) logoUploadArea.addEventListener(eventName, preventDefaults, false);
         if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener(eventName, preventDefaults, false);
@@ -252,10 +271,12 @@ function setupEventListeners() {
     if (logoUploadArea) logoUploadArea.addEventListener('drop', handleDrop, false);
     if (bulkLogoUploadArea) bulkLogoUploadArea.addEventListener('drop', handleBulkDrop, false);
 
-    if (qrInput) qrInput.addEventListener('blur', autoFormatURL);
-    if (qrInput) qrInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') generateQR();
-    });
+    if (qrInput) {
+        qrInput.addEventListener('blur', autoFormatURL);
+        qrInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') generateQR();
+        });
+    }
 
     if (qrType) qrType.addEventListener('change', toggleQRTypeFields);
 
@@ -265,27 +286,49 @@ function setupEventListeners() {
     if (fileUpload) fileUpload.addEventListener('change', handleFileUpload);
     if (bulkFileUpload) bulkFileUpload.addEventListener('change', handleBulkFileUpload);
     
-    // Cookie consent
-    document.getElementById('accept-cookies').addEventListener('click', function() {
-        document.getElementById('cookie-consent').style.display = 'none';
-    });
+    // Cookie consent - with null checks
+    const acceptCookies = document.getElementById('accept-cookies');
+    const rejectCookies = document.getElementById('reject-cookies');
+    const openSettings = document.getElementById('open-settings');
+    const closeSettings = document.querySelector('.close-settings');
+    const saveSettings = document.getElementById('save-settings');
+    const openSettingsFooter = document.getElementById('open-settings-footer');
+    const cookieConsent = document.getElementById('cookie-consent');
+    const cookieSettings = document.getElementById('cookie-settings');
     
-    document.getElementById('reject-cookies').addEventListener('click', function() {
-        document.getElementById('cookie-consent').style.display = 'none';
-    });
+    if (acceptCookies && cookieConsent) {
+        acceptCookies.addEventListener('click', function() {
+            cookieConsent.style.display = 'none';
+        });
+    }
     
-    document.getElementById('open-settings').addEventListener('click', openCookieSettings);
-    document.querySelector('.close-settings').addEventListener('click', closeCookieSettings);
+    if (rejectCookies && cookieConsent) {
+        rejectCookies.addEventListener('click', function() {
+            cookieConsent.style.display = 'none';
+        });
+    }
     
-    document.getElementById('save-settings').addEventListener('click', function() {
-        closeCookieSettings();
-        document.getElementById('cookie-consent').style.display = 'none';
-    });
+    if (openSettings) {
+        openSettings.addEventListener('click', openCookieSettings);
+    }
     
-    document.getElementById('open-settings-footer').addEventListener('click', function(e) {
-        e.preventDefault();
-        openCookieSettings();
-    });
+    if (closeSettings) {
+        closeSettings.addEventListener('click', closeCookieSettings);
+    }
+    
+    if (saveSettings) {
+        saveSettings.addEventListener('click', function() {
+            closeCookieSettings();
+            if (cookieConsent) cookieConsent.style.display = 'none';
+        });
+    }
+    
+    if (openSettingsFooter) {
+        openSettingsFooter.addEventListener('click', function(e) {
+            e.preventDefault();
+            openCookieSettings();
+        });
+    }
 }
 
 function updateBorderPreview() {
