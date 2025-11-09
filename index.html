@@ -521,7 +521,7 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
       </div>
     </div>
   </div>
-  <!-- Buy Me a Coffee Integration -->
+<!-- Buy Me a Coffee Integration -->
 <style>
   /* Import Cookie font */
   @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
@@ -724,21 +724,16 @@ Any text or data" aria-label="Enter URLs or text for bulk QR codes"></textarea>
 <!-- Floating Button Container -->
 <div id="bmc-floating"></div>
 
-<!-- Popup Modal -->
+<!-- Popup Modal (without the duplicate button) -->
 <div id="bmc-popup">
   <div id="bmc-popup-content">
     <h3>Enjoying this free tool?</h3>
-    <h2>It’s 100% free — and we don’t use cookies, so your privacy is guaranteed.</h2>
+    <h2>It's 100% free — and we don't use cookies, so your privacy is guaranteed.</h2>
     <p>Love what I do? Buy me a coffee to keep the tools coming!</p>
-  </div>
-</div>
     
     <div class="popup-buttons">
-      <!-- Super-sized animated BMC button -->
-      <a href="https://buymeacoffee.com/simwik91" target="_blank" class="super-bmc-btn">
-        <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Coffee cup">
-        Buy me a coffee
-      </a>
+      <!-- This will be populated by JavaScript -->
+      <div id="bmc-popup-button-container"></div>
       
       <button id="bmc-popup-close" class="later-btn">
         Maybe Later
@@ -754,10 +749,23 @@ window.addEventListener('load', function() {
 });
 
 function initializeBMC() {
+    // Create the BMC button HTML
+    const bmcButtonHTML = `
+        <a href="https://buymeacoffee.com/simwik91" target="_blank" class="super-bmc-btn">
+            <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Coffee cup">
+            Buy me a coffee
+        </a>
+    `;
+
     // Show popup immediately
     if (!sessionStorage.getItem('bmcPopupShown')) {
         const popup = document.getElementById('bmc-popup');
-        if (popup) {
+        const popupButtonContainer = document.getElementById('bmc-popup-button-container');
+        
+        if (popup && popupButtonContainer) {
+            // Add button to popup
+            popupButtonContainer.innerHTML = bmcButtonHTML;
+            
             setTimeout(() => {
                 popup.style.display = 'flex';
                 sessionStorage.setItem('bmcPopupShown', 'true');
@@ -765,7 +773,7 @@ function initializeBMC() {
         }
     } else {
         // If popup was already shown, initialize floating button immediately
-        setTimeout(initializeFloatingButton, 1000);
+        initializeFloatingButton();
     }
 
     // Close button functionality
@@ -820,3 +828,4 @@ function initializeFloatingButton() {
   <script src="/js/main.js"></script>
 </body>
 </html>
+
