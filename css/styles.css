@@ -708,48 +708,6 @@ canvas {
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
-/* UPDATED: Footer with larger/bolder text and removed dash */
-footer {
-  margin-top: auto;
-  padding-top: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--gray);
-  border-top: 1px solid var(--light-gray);
-  text-align: center;
-  background: white;
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  max-width: 100%;
-}
-
-.footer-content span {
-  display: inline-block;
-}
-
-footer a {
-  color: var(--primary);
-  text-decoration: none;
-  transition: var(--transition);
-  white-space: nowrap;
-  font-weight: 600;
-}
-
-footer a:hover {
-  color: var(--secondary);
-  text-decoration: underline;
-}
-
 .creator-credit {
   font-weight: 500;
   color: var(--dark);
