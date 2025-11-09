@@ -430,12 +430,10 @@ function sanitizeFilename(str) {
 function getQRContent(type) {
     switch(type) {
         case 'url':
-            const url = qrInput.value.trim();
-            if (!url) throw new Error('URL is required');
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                return 'http://' + url;
-            }
-            return url;
+            const text = qrInput.value.trim();
+            if (!text) throw new Error('Text content is required');
+            // Return plain text without any URL formatting
+            return text;
            
         case 'vcard':
             const name = vcardName.value.trim();
@@ -456,6 +454,14 @@ function getQRContent(type) {
             if (encryption !== 'nopass' && !password) throw new Error('Password is required');
            
             return `WIFI:S:${ssid};T:${encryption};P:${password};;`;
+           
+        case 'sms':
+            const smsPhone = document.getElementById('sms-phone').value.trim();
+            const smsMessage = document.getElementById('sms-message').value.trim();
+           
+            if (!smsPhone) throw new Error('Phone number is required');
+           
+            return `SMSTO:${smsPhone}:${smsMessage}`;
            
         case 'email':
             const emailAddr = emailAddress.value.trim();
