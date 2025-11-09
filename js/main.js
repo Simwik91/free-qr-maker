@@ -94,6 +94,9 @@ const AppState = {
     isGenerating: false
 };
 
+// Global elements reference
+let globalElements = null;
+
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     try {
@@ -104,10 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function initializeApp() {
-    const elements = initializeDOMElements();
-    setupEventListeners(elements);
-    initializeUI(elements);
-    loadQRPreferences(elements);
+    globalElements = initializeDOMElements();
+    setupEventListeners(globalElements);
+    initializeUI(globalElements);
+    loadQRPreferences(globalElements);
     
     // Add cleanup on page unload
     window.addEventListener('beforeunload', cleanup);
@@ -205,7 +208,7 @@ function setupEventListeners(elements) {
     // Keyboard shortcuts
     document.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && e.target.id === 'qr-input') {
-            generateQR(elements);
+            generateQR(globalElements || initializeDOMElements());
         }
     });
 
@@ -1005,7 +1008,7 @@ function scanQRFromImage(img, elements) {
 // Utility Functions
 function useScannedContent(content) {
     stopScanner();
-    const elements = initializeDOMElements();
+    const elements = globalElements || initializeDOMElements();
     
     if (elements.qrType && elements.qrInput) {
         elements.qrType.value = 'url';
@@ -1164,7 +1167,7 @@ class QRErrorHandler {
 }
 
 // Make functions globally available for HTML onclick attributes
-window.generateQR = () => generateQR(initializeDOMElements());
-window.downloadQR = () => downloadQR(initializeDOMElements());
-window.generateBulkQR = () => generateBulkQR(initializeDOMElements());
+window.generateQR = () => generateQR(globalElements);
+window.downloadQR = () => downloadQR(globalElements);
+window.generateBulkQR = () => generateBulkQR(globalElements);
 window.useScannedContent = useScannedContent;
