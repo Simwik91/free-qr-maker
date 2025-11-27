@@ -17,13 +17,13 @@ To maintain project clarity and ease of navigation, the following structure guid
     -   `GEMINI.md`: Project-specific context and instructions for the AI assistant.
     -   `favicon.ico` / `favicon.png`: The site's favicon.
     -   `CNAME`: Defines the custom domain for GitHub Pages.
-    -   `index.html`: The main entry point of the website.
+    -   `index.html`: The main entry point of the website. Should contain minimal inline HTML/CSS/JS.
     -   `robots.txt`: Instructions for web crawlers.
     -   `sitemap.xml`: A map of the site for search engines.
     -   `server.py`: A simple Python script to run a local HTTP server for development.
--   **`/css` Folder:** All stylesheets go here, split into modules for maintainability.
--   **`/js` Folder:** All JavaScript files go here, split into modules for maintainability.
+-   **`/css` Folder:** All stylesheets go here, split into modules for maintainability (e.g., `style.css`, `bmc.css`). Inline CSS in `index.html` is strictly forbidden.
+-   **`/js` Folder:** All JavaScript files go here, split into modules for maintainability (e.g., `main.js`, `bmc.js`). Inline JavaScript in `index.html` is strictly forbidden.
 -   **`/images` Folder:** Contains all image assets.
--   **`/includes` Folder:** Contains shared HTML components like headers and footers to ensure reusability.
+-   **No `/includes` Folder:** Shared HTML components should be embedded directly into `index.html` if small and static, or loaded dynamically if complex and necessary, though static embedding is preferred for simplicity where possible.
 
 Adhering to this structure makes projects easier to navigate and maintain.

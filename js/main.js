@@ -248,10 +248,19 @@ function setupEventListeners() {
         e.preventDefault();
         openCookieSettings();
     });
+
+    const generateBtn = document.getElementById('generate-qr-btn');
+    if (generateBtn) generateBtn.addEventListener('click', generateQRCode);
+
+    const downloadBtn = document.getElementById('download-btn');
+    if (downloadBtn) downloadBtn.addEventListener('click', downloadQR);
+
+    const generateBulkBtn = document.getElementById('generate-bulk-btn');
+    if (generateBulkBtn) generateBulkBtn.addEventListener('click', generateBulkQR);
 }
 
 function updateBorderPreview() {
-    if (!borderPreview) return;
+    if (!borderPreview) return; 
    
     const borderSizeVal = parseInt(borderSize.value);
     const borderColorVal = borderColor.value;
@@ -266,7 +275,7 @@ function updateBorderPreview() {
 }
 
 function updateBulkBorderPreview() {
-    if (!bulkBorderPreview) return;
+    if (!bulkBorderPreview) return; 
    
     const borderSizeVal = parseInt(bulkBorderSize.value);
     const borderColorVal = bulkBorderColor.value;
@@ -426,13 +435,17 @@ function sanitizeFilename(str) {
     return str.replace(/[^a-zA-Z0-9-]+$/g, '_').slice(0, 50);
 }
 
-// Fixed getQRContent function - now returns exact text without URL formatting
 function getQRContent(type) {
     switch(type) {
         case 'url':
             const text = qrInput.value.trim();
-            if (!text) throw new Error('Text content is required');
-            // Return plain text exactly as entered - no URL formatting
+            if (!text) throw new Error('Please enter URL or text content');
+            
+            // If it looks like a URL, ensure it has proper protocol
+            if (text.includes('.') && !text.startsWith('http://') && !text.startsWith('https://') && !text.startsWith('mailto:') && !text.startsWith('tel:')) {
+                return `https://${text}`;
+            }
+            
             return text;
            
         case 'vcard':
@@ -557,10 +570,16 @@ function addLogoToQR(qrCanvas, logo, borderSize, borderColor, logoSizePercent) {
     });
 }
 
-// Fixed generateQR function - renamed to avoid recursion
 async function generateQRCode() {
     try {
         const type = qrType.value;
+        
+        // Early validation for empty URL/text input
+        if (type === 'url' && (!qrInput || !qrInput.value.trim())) {
+            showError(qrError, 'Please enter some text or URL content');
+            return;
+        }
+        
         const content = getQRContent(type);
        
         const qrOptions = {
@@ -846,7 +865,7 @@ function scanQR() {
             scanResult.innerHTML = `
                 <p><strong>QR Code detected!</strong></p>
                 <p><strong>Content:</strong> ${code.data}</p>
-                <button onclick="useScannedContent('${code.data.replace(/'/g, "\\'")}')">
+                <button onclick="useScannedContent('${code.data.replace(/'/g, "\'")}')">
                     Generate this QR
                 </button>
             `;
@@ -879,7 +898,7 @@ function scanQRFromImage(img) {
         scanResult.innerHTML = `
             <p><strong>QR Code detected in image!</strong></p>
             <p><strong>Content:</strong> ${code.data}</p>
-            <button onclick="useScannedContent('${code.data.replace(/'/g, "\\'")}')">
+            <button onclick="useScannedContent('${code.data.replace(/'/g, "\'")}')">
                 Generate this QR
             </button>
         `;
@@ -992,7 +1011,4 @@ function closeCookieSettings() {
 }
 
 // Make functions globally available for HTML onclick attributes
-window.generateQR = generateQRCode;
-window.generateBulkQR = generateBulkQR;
-window.downloadQR = downloadQR;
-window.useScannedContent = useScannedContent;
+
